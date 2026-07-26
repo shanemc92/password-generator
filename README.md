@@ -63,7 +63,7 @@ A push notification is sent via [ntfy.sh](https://ntfy.sh) when a secret link is
 
 ### Setup
 
-Open `passgen.html` and edit the three constants near the top of the `<script>` block:
+Open `index.html` and edit the three constants near the top of the `<script>` block:
 
 ```js
 const ENABLE_SCRT_INTEGRATION = true;
@@ -82,12 +82,12 @@ No install required.
 ```bash
 git clone https://github.com/your-username/your-repo-name.git
 cd your-repo-name
-open passgen.html   # or just double-click it
+open index.html   # or just double-click it
 ```
 
 Or host it anywhere that serves static files — GitHub Pages, Netlify, Cloudflare Pages, etc.
 
-`wordlists.js` must sit alongside `passgen.html` — the memorable and short-memorable modes fall back to a small built-in word list if it's missing.
+`wordlists.js` must sit alongside `index.html` — the memorable and short-memorable modes fall back to a small built-in word list if it's missing.
 
 ---
 
@@ -95,13 +95,13 @@ Or host it anywhere that serves static files — GitHub Pages, Netlify, Cloudfla
 
 ```
 ├── images                # Folder with screenshots for index and readme
-├── passgen.html           # Main app — all four themes, switchable from the UI
+├── index.html           # Main app — all four themes, switchable from the UI
 ├── wordlists.js           # Word lists for Memorable / Short Memorable modes
 ├── passgen-old.html       # Legacy standalone "Original" theme
 └── scrt-client-module.js  # Local copy of the scrt.link module for fallback
 ```
 
-`passgen.html` is self-contained beyond `wordlists.js` — no build step, no external dependencies aside from a CDN-loaded QR code library and the scrt.link API module.
+`index.html` is self-contained beyond `wordlists.js` — no build step, no external dependencies aside from a CDN-loaded QR code library and the scrt.link API module.
 
 ---
 
