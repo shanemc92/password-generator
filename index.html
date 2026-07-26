@@ -1,0 +1,3404 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="term">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgd2lkdGg9IjUxMnB4IiBoZWlnaHQ9IjUxMnB4IiBzdHlsZT0ic2hhcGUtcmVuZGVyaW5nOmdlb21ldHJpY1ByZWNpc2lvbjsgdGV4dC1yZW5kZXJpbmc6Z2VvbWV0cmljUHJlY2lzaW9uOyBpbWFnZS1yZW5kZXJpbmc6b3B0aW1pemVRdWFsaXR5OyBmaWxsLXJ1bGU6ZXZlbm9kZDsgY2xpcC1ydWxlOmV2ZW5vZGQiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj4KPGc+PHBhdGggc3R5bGU9Im9wYWNpdHk6MSIgZmlsbD0iIzYzNWM2MyIgZD0iTSAxNzkuNSwxNS41IEMgMTkzLjUzNSwxNS43Mjc2IDIwNy41MzUsMTYuNTYwOSAyMjEuNSwxOEMgMjUxLjM4LDIzLjg4MzggMjczLjIxNCw0MC4zODM4IDI4Nyw2Ny41QyAyODkuNjAyLDczLjYzODcgMjkxLjYwMiw3OS45NzIgMjkzLDg2LjVDIDI5NC41MTQsMTAxLjc5MiAyOTUuMzQ3LDExNy4xMjUgMjk1LjUsMTMyLjVDIDI4NS44MzMsMTMyLjUgMjc2LjE2NywxMzIuNSAyNjYuNSwxMzIuNUMgMjY2Ljc3NiwxMjAuNDY0IDI2Ni4yNzYsMTA4LjQ2NCAyNjUsOTYuNUMgMjYxLjc1LDg0LjkxNyAyNTQuMjUsNzcuNzUwMyAyNDIuNSw3NUMgMjI0LjY5Myw3My4yNTkzIDIwNy4wMjYsNzIuNzU5MyAxODkuNSw3My41QyAxNjcuODE0LDczLjIzNjUgMTQ2LjE0OCw3My43MzY1IDEyNC41LDc1QyAxMDUuMzgzLDc4LjQ2MDIgOTYuMjE2MSw4OS45NjAyIDk3LDEwOS41QyA5Ni4xMTkyLDEzNi40OTQgOTUuNjE5MiwxNjMuNDk0IDk1LjUsMTkwLjVDIDg3LjI1MTcsMTkxLjQ2OSA3OC45MTgzLDE5MS44MDIgNzAuNSwxOTEuNUMgNjkuMTY2NywxOTEuNSA2Ny44MzMzLDE5MS41IDY2LjUsMTkxLjVDIDY2Ljg4MDYsMTU4LjE1NyA2Ny43MTM5LDEyNC44MjMgNjksOTEuNUMgNzYuNTkyNSw1My41NzA1IDk5LjA5MjUsMjkuNDAzOCAxMzYuNSwxOUMgMTUwLjk4OCwxNy44ODIxIDE2NS4zMjIsMTYuNzE1NSAxNzkuNSwxNS41IFoiLz48L2c+CjxnPjxwYXRoIHN0eWxlPSJvcGFjaXR5OjEiIGZpbGw9IiM1MTRiNTEiIGQ9Ik0gMTc5LjUsMTUuNSBDIDE2NS4zMjIsMTYuNzE1NSAxNTAuOTg4LDE3Ljg4MjEgMTM2LjUsMTlDIDk5LjA5MjUsMjkuNDAzOCA3Ni41OTI1LDUzLjU3MDUgNjksOTEuNUMgNjcuNzEzOSwxMjQuODIzIDY2Ljg4MDYsMTU4LjE1NyA2Ni41LDE5MS41QyA1Ni42Mzc2LDE5MS42MzggNDYuOTcwOSwxOTIuOTcxIDM3LjUsMTk1LjVDIDM3LjM2ODIsMTYwLjgwNyAzOC4yMDE1LDEyNi4xNDEgNDAsOTEuNUMgNDYuNTcxNiw1NS4xODQ3IDY3LjQwNDksMzEuMzUxMyAxMDIuNSwyMEMgMTE0LjM1NywxNy40ODA5IDEyNi4zNTcsMTYuMTQ3NSAxMzguNSwxNkMgMTUyLjE2MywxNS41MDAxIDE2NS44MjksMTUuMzMzNCAxNzkuNSwxNS41IFoiLz48L2c+CjxnPjxwYXRoIHN0eWxlPSJvcGFjaXR5OjEiIGZpbGw9IiM1MTRiNTEiIGQ9Ik0gMTg5LjUsNzMuNSBDIDIwNy4wMjYsNzIuNzU5MyAyMjQuNjkzLDczLjI1OTMgMjQyLjUsNzVDIDI1NC4yNSw3Ny43NTAzIDI2MS43NSw4NC45MTcgMjY1LDk2LjVDIDI2Ni4yNzYsMTA4LjQ2NCAyNjYuNzc2LDEyMC40NjQgMjY2LjUsMTMyLjVDIDI1Ni44MzMsMTMyLjUgMjQ3LjE2NywxMzIuNSAyMzcuNSwxMzIuNUMgMjM3LjE5MywxMjEuMTYxIDIzNi42OTMsMTA5LjgyOCAyMzYsOTguNUMgMjMzLjI1LDg2Ljc1MDMgMjI2LjA4Myw3OS4yNTAzIDIxNC41LDc2QyAyMDYuMTg0LDc0LjkxMzEgMTk3Ljg1MSw3NC4wNzk4IDE4OS41LDczLjUgWiIvPjwvZz4KPGc+PHBhdGggc3R5bGU9Im9wYWNpdHk6MSIgZmlsbD0iI2RhNWQ2OSIgZD0iTSAzMzMuNSwxMDEuNSBDIDM0Mi4yMDcsMTAxLjAzNyAzNDUuNzA3LDEwNS4wMzcgMzQ0LDExMy41QyAzMzksMTI0LjE2NyAzMzQsMTM0LjgzMyAzMjksMTQ1LjVDIDMyNC45MjQsMTQ5LjAzNCAzMjAuNTkxLDE0OS4zNjcgMzE2LDE0Ni41QyAzMTUuMDY5LDE0NC41NDEgMzE0LjIzNiwxNDIuNTQxIDMxMy41LDE0MC41QyAzMTguNzI2LDEyOC4zODEgMzI0LjIyNiwxMTYuMzgxIDMzMCwxMDQuNUMgMzMxLjE0NSwxMDMuMzY0IDMzMi4zMTIsMTAyLjM2NCAzMzMuNSwxMDEuNSBaIi8+PC9nPgo8Zz48cGF0aCBzdHlsZT0ib3BhY2l0eToxIiBmaWxsPSIjZGE1ZDY5IiBkPSJNIDM2Ny41LDEzOC41IEMgMzc1LjY1OCwxMzcuODIzIDM3OS4xNTgsMTQxLjQ5IDM3OCwxNDkuNUMgMzc3LjIxNSwxNTEuMjg2IDM3Ni4wNDksMTUyLjc4NiAzNzQuNSwxNTRDIDM2Mi4zOTUsMTU4LjM2OCAzNTAuMjI4LDE2Mi41MzUgMzM4LDE2Ni41QyAzMzMuMTc4LDE2NS42NzggMzMwLjM0NCwxNjIuODQ0IDMyOS41LDE1OEMgMzI5LjkzNCwxNTUuNjg0IDMzMC45MzQsMTUzLjY4NCAzMzIuNSwxNTJDIDM0NC4yMjcsMTQ3LjM3NCAzNTUuODkzLDE0Mi44NzQgMzY3LjUsMTM4LjUgWiIvPjwvZz4KPGc+PHBhdGggc3R5bGU9Im9wYWNpdHk6MSIgZmlsbD0iI2RhNWQ2OSIgZD0iTSAzMzUuNSwxNzMuNSBDIDM0OS41MDMsMTc4LjA4NSAzNjIuNjcsMTg0LjQxOCAzNzUsMTkyLjVDIDM3Ny4yOSwyMDEuNzg5IDM3My43OSwyMDUuNjIyIDM2NC41LDIwNEMgMzUzLjgzMywxOTkgMzQzLjE2NywxOTQgMzMyLjUsMTg5QyAzMjYuNjQxLDE4Mi40NjIgMzI3LjY0MSwxNzcuMjk1IDMzNS41LDE3My41IFoiLz48L2c+CjxnPjxwYXRoIHN0eWxlPSJvcGFjaXR5OjEiIGZpbGw9IiNmMmQ5NDQiIGQ9Ik0gMzM0LjUsMzI5LjUgQyAyNzUuNDYzLDMyOS4wNDIgMjE2LjQ2MywzMzAuMjA5IDE1Ny41LDMzM0MgMTM2LjQ4MiwzMzkuMzU5IDEyNC45ODIsMzUzLjUyNSAxMjMsMzc1LjVDIDExOS40MjcsNDAzLjIzNyAxMTkuOTI3LDQzMC45MDQgMTI0LjUsNDU4LjVDIDEwNC44MjcsNDU3Ljk4MSA4NS4xNjA4LDQ1Ny4zMTUgNjUuNSw0NTYuNUMgNTEuNzk1OCw0NDcuMjg1IDQyLjk2MjUsNDM0LjYxOSAzOSw0MTguNUMgMzMuODk5NCwzNjEuMjMgMzMuMjMyNywzMDMuODk3IDM3LDI0Ni41QyAzNi41ODc1LDIyNi4wNDcgNDQuMDg3NSwyMDkuMjEzIDU5LjUsMTk2QyA2Mi44NjA1LDE5My40NjMgNjYuNTI3MSwxOTEuOTYzIDcwLjUsMTkxLjVDIDc4LjkxODMsMTkxLjgwMiA4Ny4yNTE3LDE5MS40NjkgOTUuNSwxOTAuNUMgMTU5LjUyNywxODguMDg4IDIyMy41MjcsMTg4LjkyMSAyODcuNSwxOTNDIDMxMC40NzUsMTk3Ljk3NiAzMjQuOTc1LDIxMS44MDkgMzMxLDIzNC41QyAzMzMuODczLDI2Ni4wOTUgMzM1LjAzOSwyOTcuNzYyIDMzNC41LDMyOS41IFoiLz48L2c+CjxnPjxwYXRoIHN0eWxlPSJvcGFjaXR5OjEiIGZpbGw9IiNlN2MxMmIiIGQ9Ik0gNjYuNSwxOTEuNSBDIDY3LjgzMzMsMTkxLjUgNjkuMTY2NywxOTEuNSA3MC41LDE5MS41QyA2Ni41MjcxLDE5MS45NjMgNjIuODYwNSwxOTMuNDYzIDU5LjUsMTk2QyA0NC4wODc1LDIwOS4yMTMgMzYuNTg3NSwyMjYuMDQ3IDM3LDI0Ni41QyAzMy4yMzI3LDMwMy44OTcgMzMuODk5NCwzNjEuMjMgMzksNDE4LjVDIDQyLjk2MjUsNDM0LjYxOSA1MS43OTU4LDQ0Ny4yODUgNjUuNSw0NTYuNUMgNDEuNDQxMiw0NTguMDUxIDIyLjYwNzgsNDQ5LjA1MSA5LDQyOS41QyA2LjQxMjc4LDQyNC43MzkgNC40MTI3OCw0MTkuNzM5IDMsNDE0LjVDIDEuNDY4Miw0MDAuNzE0IDAuMzAxNTMsMzg3LjA0NyAtMC41LDM3My41QyAtMC41LDM0MC4xNjcgLTAuNSwzMDYuODMzIC0wLjUsMjczLjVDIDAuNDQwMzQxLDI2MS45OTcgMS4yNzM2NywyNTAuMzMxIDIsMjM4LjVDIDUuNjUxODgsMjE3LjM1MyAxNy40ODUyLDIwMy4wMiAzNy41LDE5NS41QyA0Ni45NzA5LDE5Mi45NzEgNTYuNjM3NiwxOTEuNjM4IDY2LjUsMTkxLjUgWiIvPjwvZz4KPGc+PHBhdGggc3R5bGU9Im9wYWNpdHk6MSIgZmlsbD0iI2UxZGFlMCIgZD0iTSAzMzQuNSwzMjkuNSBDIDM3MS41MDksMzI5LjMzMyA0MDguNTA5LDMyOS44MzMgNDQ1LjUsMzMxQyA0ODguMDIzLDMyNy4wNCA1MTAuMDIzLDM0Ni4yMDcgNTExLjUsMzg4LjVDIDUxMS41LDQwNC4xNjcgNTExLjUsNDE5LjgzMyA1MTEuNSw0MzUuNUMgNTEwLjM0Miw0NDQuNDEzIDUwOC44NDIsNDUzLjQxMyA1MDcsNDYyLjVDIDQ5OS40MTIsNDgyLjQwNyA0ODQuOTEyLDQ5Mi41NzQgNDYzLjUsNDkzQyAzNjEuNDgsNDk2LjYxNSAyNTkuNDgsNDk2LjI4MiAxNTcuNSw0OTJDIDEzOS41ODIsNDg3LjU4MyAxMjguNTgyLDQ3Ni40MTYgMTI0LjUsNDU4LjVDIDExOS45MjcsNDMwLjkwNCAxMTkuNDI3LDQwMy4yMzcgMTIzLDM3NS41QyAxMjQuOTgyLDM1My41MjUgMTM2LjQ4MiwzMzkuMzU5IDE1Ny41LDMzM0MgMjE2LjQ2MywzMzAuMjA5IDI3NS40NjMsMzI5LjA0MiAzMzQuNSwzMjkuNSBaIi8+PC9nPgo8Zz48cGF0aCBzdHlsZT0ib3BhY2l0eToxIiBmaWxsPSIjZjJmMmYyIiBkPSJNIDI3Mi41LDM0NC41IEMgMzM4LjUzNywzNDMuOTEyIDQwNC41MzcsMzQ1LjA3OSA0NzAuNSwzNDhDIDQ4MC42MzksMzUwLjEzNiA0ODcuODA2LDM1NS45NjkgNDkyLDM2NS41QyA0OTcuNTYsMzk0Ljc4NCA0OTcuODk0LDQyNC4xMTggNDkzLDQ1My41QyA0OTAsNDY1LjE2NiA0ODIuODMzLDQ3Mi45OTkgNDcxLjUsNDc3QyAzNjguMTY4LDQ4MC4yOSAyNjQuODM1LDQ4MC4yOSAxNjEuNSw0NzdDIDE1MC42MTUsNDc0LjEyOCAxNDMuNDQ4LDQ2Ny4yOTUgMTQwLDQ1Ni41QyAxMzQuMDAxLDQyNy4xNzUgMTM0LjAwMSwzOTcuODQyIDE0MCwzNjguNUMgMTQyLjkwNSwzNTcuMjYzIDE1MC4wNzEsMzUwLjQzIDE2MS41LDM0OEMgMTk4LjY1MSwzNDYuNDg4IDIzNS42NTEsMzQ1LjMyMSAyNzIuNSwzNDQuNSBaIi8+PC9nPgo8Zz48cGF0aCBzdHlsZT0ib3BhY2l0eToxIiBmaWxsPSIjNjY1ZjY2IiBkPSJNIDE5Ny41LDQyNi41IEMgMTk3LjQ0LDQyNS45NTcgMTk3LjEwNyw0MjUuNjI0IDE5Ni41LDQyNS41QyAxOTUuNTAzLDQzMy4xMzggMTk1LjE2OSw0NDAuODA0IDE5NS41LDQ0OC41QyAxOTMuMzg3LDQ1NC40ODcgMTg5LjM4Nyw0NTUuOTg3IDE4My41LDQ1M0MgMTgyLjQxOCw0NTEuNjcgMTgxLjc1MSw0NTAuMTcgMTgxLjUsNDQ4LjVDIDE4MS44MzEsNDQwLjgwNCAxODEuNDk3LDQzMy4xMzggMTgwLjUsNDI1LjVDIDE3OS44OTMsNDI1LjYyNCAxNzkuNTYsNDI1Ljk1NyAxNzkuNSw0MjYuNUMgMTczLjE5NCw0MjkuOTg4IDE2Ni44Niw0MzMuNDg4IDE2MC41LDQzN0MgMTU1LjEyMiw0MzcuNDc5IDE1MS43ODksNDM0Ljk3OSAxNTAuNSw0MjkuNUMgMTUwLjcxOSw0MjguMDYyIDE1MS4yMTksNDI2LjcyOSAxNTIsNDI1LjVDIDE1OC43NDgsNDIwLjg3NiAxNjUuNTgxLDQxNi4zNzYgMTcyLjUsNDEyQyAxNjYuMDgyLDQwOC4wNDEgMTU5LjU4Miw0MDQuMjA3IDE1Myw0MDAuNUMgMTQ4Ljg1MiwzOTEuMzM2IDE1MS42ODYsMzg3LjE2OSAxNjEuNSwzODhDIDE2Ny42MywzOTEuMyAxNzMuNjMsMzk0LjggMTc5LjUsMzk4LjVDIDE4MC4zMzEsMzkwLjg1NSAxODAuODMxLDM4My4xODggMTgxLDM3NS41QyAxODMuNDM1LDM3MC43NzYgMTg3LjI2OSwzNjkuMjc2IDE5Mi41LDM3MUMgMTk0LjA0OSwzNzIuMjE0IDE5NS4yMTUsMzczLjcxNCAxOTYsMzc1LjVDIDE5Ni4zMzMsMzgzLjE2NyAxOTYuNjY3LDM5MC44MzMgMTk3LDM5OC41QyAyMDMuMDg1LDM5NC44NzMgMjA5LjI1MiwzOTEuMzczIDIxNS41LDM4OEMgMjI1LjMxNCwzODcuMTY5IDIyOC4xNDgsMzkxLjMzNiAyMjQsNDAwLjVDIDIxNy40MTgsNDA0LjIwNyAyMTAuOTE4LDQwOC4wNDEgMjA0LjUsNDEyQyAyMTEuNDE5LDQxNi4zNzYgMjE4LjI1Miw0MjAuODc2IDIyNSw0MjUuNUMgMjI3LjIsNDMyLjk3NCAyMjQuMzY3LDQzNi44MDcgMjE2LjUsNDM3QyAyMTAuMTQsNDMzLjQ4OCAyMDMuODA2LDQyOS45ODggMTk3LjUsNDI2LjUgWiIvPjwvZz4KPGc+PHBhdGggc3R5bGU9Im9wYWNpdHk6MSIgZmlsbD0iIzY1NWU2NSIgZD0iTSAyNjguNSwzNzAuNSBDIDI3MC44NTcsMzcwLjMzNyAyNzMuMTksMzcwLjUwMyAyNzUuNSwzNzFDIDI3Ny4zMzMsMzcxLjUgMjc4LjUsMzcyLjY2NyAyNzksMzc0LjVDIDI3OS4xNjgsMzgyLjUyMSAyNzkuNjY4LDM5MC41MjEgMjgwLjUsMzk4LjVDIDI4Ny42MDcsMzk0LjI4IDI5NC45NCwzOTAuNjEzIDMwMi41LDM4Ny41QyAzMDguNzMyLDM4OC42MTcgMzEwLjg5OCwzOTIuMjgzIDMwOSwzOTguNUMgMzA3LjgzMywzOTkuNjY3IDMwNi42NjcsNDAwLjgzMyAzMDUuNSw0MDJDIDI5OS40NjIsNDA1LjAxMyAyOTMuNzk2LDQwOC41MTMgMjg4LjUsNDEyLjVDIDI5NS4wODQsNDE2LjM3NSAzMDEuNTg0LDQyMC4zNzUgMzA4LDQyNC41QyAzMTEuNDUxLDQzMy4wMzkgMzA4LjYxOCw0MzcuMjA2IDI5OS41LDQzN0MgMjkzLjE2Nyw0MzMuMTY3IDI4Ni44MzMsNDI5LjMzMyAyODAuNSw0MjUuNUMgMjc5LjY2OCw0MzMuODEzIDI3OS4xNjgsNDQyLjE0NyAyNzksNDUwLjVDIDI3My44MzcsNDU2LjA2MiAyNjkuMTcxLDQ1NS43MjkgMjY1LDQ0OS41QyAyNjQuNjY3LDQ0MS41IDI2NC4zMzMsNDMzLjUgMjY0LDQyNS41QyAyNTcuMDg2LDQzMC4yOSAyNDkuNzUzLDQzNC4yOSAyNDIsNDM3LjVDIDIzMy42MTgsNDM0LjM2NyAyMzIuNDUxLDQyOS41MzQgMjM4LjUsNDIzQyAyNDQuNzY0LDQxOS43MyAyNTAuNzY0LDQxNi4wNjQgMjU2LjUsNDEyQyAyNDkuNTgzLDQwNy45NTkgMjQyLjc1LDQwMy43OTIgMjM2LDM5OS41QyAyMzMuMzIzLDM5MC44NDQgMjM2LjQ4OSwzODcuMDExIDI0NS41LDM4OEMgMjUxLjMzNiwzOTEuNzUyIDI1Ny4zMzYsMzk1LjI1MiAyNjMuNSwzOTguNUMgMjY0LjMzMiwzOTAuNTIxIDI2NC44MzIsMzgyLjUyMSAyNjUsMzc0LjVDIDI2Ni4zNzYsMzczLjI5NSAyNjcuNTQyLDM3MS45NjIgMjY4LjUsMzcwLjUgWiIvPjwvZz4KPGc+PHBhdGggc3R5bGU9Im9wYWNpdHk6MSIgZmlsbD0iIzY1NWU2NSIgZD0iTSAzNTIuNSwzNzAuNSBDIDM1NC44NTcsMzcwLjMzNyAzNTcuMTksMzcwLjUwMyAzNTkuNSwzNzFDIDM2MS4zMzMsMzcxLjUgMzYyLjUsMzcyLjY2NyAzNjMsMzc0LjVDIDM2My4xNjgsMzgyLjUyMSAzNjMuNjY4LDM5MC41MjEgMzY0LjUsMzk4LjVDIDM3MS40MjcsMzk0LjUzOCAzNzguNDI3LDM5MC44NzIgMzg1LjUsMzg3LjVDIDM5My4wOTQsMzg4LjU4OSAzOTUuMjYxLDM5Mi41ODkgMzkyLDM5OS41QyAzODUuNTgzLDQwNC4yOTQgMzc4Ljc1LDQwOC40NjEgMzcxLjUsNDEyQyAzNzguMzMzLDQxNi4xNjcgMzg1LjE2Nyw0MjAuMzMzIDM5Miw0MjQuNUMgMzk1LjIwMiw0MzIuOTUyIDM5Mi4zNjgsNDM3LjExOSAzODMuNSw0MzdDIDM3Nyw0MzMuMTY3IDM3MC41LDQyOS4zMzMgMzY0LDQyNS41QyAzNjMuNjY3LDQzMy41IDM2My4zMzMsNDQxLjUgMzYzLDQ0OS41QyAzNjAuNzc0LDQ1My44NjEgMzU3LjI3NCw0NTUuMzYxIDM1Mi41LDQ1NEMgMzUwLjk1MSw0NTIuNzg2IDM0OS43ODUsNDUxLjI4NiAzNDksNDQ5LjVDIDM0OC42NjcsNDQxLjUgMzQ4LjMzMyw0MzMuNSAzNDgsNDI1LjVDIDM0MS4wODYsNDMwLjI5IDMzMy43NTMsNDM0LjI5IDMyNiw0MzcuNUMgMzE4LjUyMSw0MzUuMzcgMzE2LjY4OCw0MzAuODcgMzIwLjUsNDI0QyAzMjcuMTY3LDQyMCAzMzMuODMzLDQxNiAzNDAuNSw0MTJDIDMzNC4xNjcsNDA4LjMzMyAzMjcuODMzLDQwNC42NjcgMzIxLjUsNDAxQyAzMTcuMjMxLDM5Ni4yOTEgMzE3LjU2NCwzOTEuOTU4IDMyMi41LDM4OEMgMzI0LjUsMzg3LjMzMyAzMjYuNSwzODcuMzMzIDMyOC41LDM4OEMgMzM0LjgzMywzOTEuNSAzNDEuMTY3LDM5NSAzNDcuNSwzOTguNUMgMzQ4LjMzMiwzOTAuNTIxIDM0OC44MzIsMzgyLjUyMSAzNDksMzc0LjVDIDM0OS42OSwzNzIuNjUgMzUwLjg1NiwzNzEuMzE2IDM1Mi41LDM3MC41IFoiLz48L2c+CjxnPjxwYXRoIHN0eWxlPSJvcGFjaXR5OjEiIGZpbGw9IiM2NTVlNjUiIGQ9Ik0gNDM1LjUsMzcwLjUgQyA0NDAuMjIzLDM2OS41NTMgNDQ0LjA1NiwzNzAuODg2IDQ0NywzNzQuNUMgNDQ3LjE2OCwzODIuNTIxIDQ0Ny42NjgsMzkwLjUyMSA0NDguNSwzOTguNUMgNDU1LjExMSwzOTQuMDI4IDQ2Mi4xMTEsMzkwLjM2MiA0NjkuNSwzODcuNUMgNDc3Ljc3OSwzODkuNTU3IDQ3OS40NDYsMzk0LjA1NyA0NzQuNSw0MDFDIDQ2OC4xNjcsNDA0LjY2NyA0NjEuODMzLDQwOC4zMzMgNDU1LjUsNDEyQyA0NjEuMjM2LDQxNi4wNjQgNDY3LjIzNiw0MTkuNzMgNDczLjUsNDIzQyA0NzguOTk3LDQyOC4wMzMgNDc4LjY2NCw0MzIuNyA0NzIuNSw0MzdDIDQ3MC44MzMsNDM3LjY2NyA0NjkuMTY3LDQzNy42NjcgNDY3LjUsNDM3QyA0NjAuNzUzLDQzMy41NDUgNDU0LjI1Myw0MjkuNzExIDQ0OCw0MjUuNUMgNDQ3LjY2Nyw0MzMuNSA0NDcuMzMzLDQ0MS41IDQ0Nyw0NDkuNUMgNDQyLjc0OCw0NTUuNjUzIDQzOC4wODEsNDU1Ljk4NiA0MzMsNDUwLjVDIDQzMi44MzIsNDQyLjE0NyA0MzIuMzMyLDQzMy44MTMgNDMxLjUsNDI1LjVDIDQyNC41MTUsNDI5LjkwNyA0MTcuMzQ4LDQzMy45MDcgNDEwLDQzNy41QyA0MDIuMzE5LDQzNS40OTcgNDAwLjQ4NSw0MzAuOTk3IDQwNC41LDQyNEMgNDEwLjgzMyw0MjAuMTY3IDQxNy4xNjcsNDE2LjMzMyA0MjMuNSw0MTIuNUMgNDE2LjU1Myw0MDguMDYyIDQwOS43MTksNDAzLjM5NSA0MDMsMzk4LjVDIDQwMS4zMzUsMzkwLjUwMSA0MDQuNTAyLDM4Ny4wMDEgNDEyLjUsMzg4QyA0MTguODMzLDM5MS41IDQyNS4xNjcsMzk1IDQzMS41LDM5OC41QyA0MzIuMzMyLDM5MC41MjEgNDMyLjgzMiwzODIuNTIxIDQzMywzNzQuNUMgNDMzLjY2MiwzNzMuMDE2IDQzNC40OTYsMzcxLjY4MyA0MzUuNSwzNzAuNSBaIi8+PC9nPgo8Zz48cGF0aCBzdHlsZT0ib3BhY2l0eToxIiBmaWxsPSIjOWM5NjljIiBkPSJNIDE3OS41LDQyNi41IEMgMTc5LjU2LDQyNS45NTcgMTc5Ljg5Myw0MjUuNjI0IDE4MC41LDQyNS41QyAxODEuNDk3LDQzMy4xMzggMTgxLjgzMSw0NDAuODA0IDE4MS41LDQ0OC41QyAxODAuODMzLDQ0MS4xNjcgMTgwLjE2Nyw0MzMuODMzIDE3OS41LDQyNi41IFoiLz48L2c+CjxnPjxwYXRoIHN0eWxlPSJvcGFjaXR5OjEiIGZpbGw9IiM5ZDk3OWQiIGQ9Ik0gMTk3LjUsNDI2LjUgQyAxOTYuODMzLDQzMy44MzMgMTk2LjE2Nyw0NDEuMTY3IDE5NS41LDQ0OC41QyAxOTUuMTY5LDQ0MC44MDQgMTk1LjUwMyw0MzMuMTM4IDE5Ni41LDQyNS41QyAxOTcuMTA3LDQyNS42MjQgMTk3LjQ0LDQyNS45NTcgMTk3LjUsNDI2LjUgWiIvPjwvZz4KPC9zdmc+Cg==">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600&family=VT323&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <title>Password Generator</title>
+    <style>
+
+/* ================= SHARED / EXTRAS ================= */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* strength colours per theme (used by JS via var()) */
+html[data-theme="term"], html[data-theme="proton"] {
+    --strength-weak: #f87171; --strength-medium: #fbbf24; --strength-strong: #4ade80;
+    --ui-fg: #c9d1d9; --ui-bg: rgba(22,27,34,.9); --ui-border: #30363d;
+}
+html[data-theme="proton"] { --ui-fg: #e0e0e0; --ui-bg: rgba(37,37,56,.9); --ui-border: #3a3a52; }
+html[data-theme="crt"] {
+    --strength-weak: #006600; --strength-medium: #00aa00; --strength-strong: #00ff00;
+    --ui-fg: #00cc00; --ui-bg: rgba(0,10,0,.9); --ui-border: #004400;
+}
+html[data-theme="modern"] {
+    --strength-weak: #dc2626; --strength-medium: #d97706; --strength-strong: #15803d;
+    --ui-fg: #1d2534; --ui-bg: rgba(255,255,255,.9); --ui-border: #d7dee8;
+}
+
+/* modern: hide terminal chrome, soften the card */
+html[data-theme="modern"] .terminal-header { display: none; }
+html[data-theme="modern"] .terminal-body { padding: 26px 28px; }
+html[data-theme="modern"] .container {
+    border-radius: 18px;
+    box-shadow: 0 12px 40px rgba(16,24,40,.10), 0 2px 8px rgba(16,24,40,.06);
+}
+html[data-theme="modern"] body {
+    background: radial-gradient(1100px 600px at 15% -10%, #e2f3f0 0%, rgba(226,243,240,0) 60%), #edf0f5;
+}
+
+/* proton: markup carries the terminal wrapper; neutralise it */
+html[data-theme="proton"] .terminal-header { display: none; }
+html[data-theme="proton"] .terminal-body { padding: 28px; }
+
+/* crt: original theme used uppercase text-only buttons */
+html[data-theme="crt"] .button-group .btn span { display: none; }
+html[data-theme="crt"] .button-group .btn { text-transform: uppercase; }
+
+/* theme switcher */
+.theme-switcher {
+    position: fixed; top: 14px; right: 16px; z-index: 100;
+    display: flex; align-items: center; gap: 8px;
+    font-family: inherit; font-size: 12px; color: var(--ui-fg);
+}
+.theme-switcher select {
+    font: inherit; color: var(--ui-fg);
+    background: var(--ui-bg); border: 1px solid var(--ui-border);
+    border-radius: 8px; padding: 5px 8px; cursor: pointer; outline: none;
+}
+@media (max-width: 640px) { .theme-switcher { top: 8px; right: 10px; } }
+
+
+
+/* ================= THEME BLOCKS ================= */
+/* ---- term ---- */
+html[data-theme="term"] body {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            background: #0d1117;
+            color: #c9d1d9;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+html[data-theme="term"] .container {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 0;
+            max-width: 700px;
+            width: 100%;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+            overflow: hidden;
+        }
+html[data-theme="term"] .terminal-header {
+            background: #21262d;
+            border-bottom: 1px solid #30363d;
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+html[data-theme="term"] .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ff5f56;
+        }
+html[data-theme="term"] .terminal-dot:nth-child(2) {
+            background: #ffbd2e;
+        }
+html[data-theme="term"] .terminal-dot:nth-child(3) {
+            background: #27c93f;
+        }
+html[data-theme="term"] .terminal-title {
+            margin-left: 12px;
+            font-size: 13px;
+            color: #8b949e;
+            font-weight: 500;
+        }
+html[data-theme="term"] .terminal-body {
+            padding: 20px;
+        }
+html[data-theme="term"] .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+html[data-theme="term"] .header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+html[data-theme="term"] .header-logo {
+            margin-top: 3px;
+            width: 40px;
+            height: auto;
+        }
+html[data-theme="term"] .password-display {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 16px;
+            margin-bottom: 16px;
+            position: relative;
+        }
+html[data-theme="term"] .password-label {
+            font-size: 11px;
+            color: #58a6ff;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+html[data-theme="term"] .password-label::before {
+            content: '> ';
+            color: #7ee787;
+        }
+html[data-theme="term"] .strength-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+html[data-theme="term"] .refresh-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 4px;
+            background: #21262d;
+            border: 1px solid #30363d;
+            color: #8b949e;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            padding: 0;
+        }
+html[data-theme="term"] .refresh-btn:hover {
+            background: #30363d;
+            border-color: #58a6ff;
+        }
+html[data-theme="term"] .refresh-btn:active {
+            transform: scale(0.95);
+        }
+html[data-theme="term"] .refresh-btn img {
+            width: 14px;
+            height: 14px;
+            opacity: 0.7;
+            transition: transform 0.3s;
+        }
+html[data-theme="term"] .refresh-btn:hover img {
+            opacity: 1;
+            transform: rotate(180deg);
+        }
+html[data-theme="term"] .char-number { color: #79c0ff; }
+html[data-theme="term"] .char-symbol { color: #56d364; }
+html[data-theme="term"] .password-text {
+            font-size: 16px;
+            font-weight: 500;
+            color: #c9d1d9;
+            word-break: break-all;
+            margin-bottom: 12px;
+            font-family: 'Fira Code', 'JetBrains Mono', 'Source Code Pro', 'Consolas', 'Monaco', 'Courier New', monospace;
+            letter-spacing: 0.5px;
+            cursor: text;
+            min-height: 80px;
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 4px;
+            padding: 12px;
+            outline: none;
+            width: 100%;
+            line-height: 1.6;
+            text-align: left;
+            box-sizing: border-box;
+            user-select: text;
+        }
+html[data-theme="term"] .password-text:focus {
+            border-color: #58a6ff;
+            box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1);
+        }
+html[data-theme="term"] .password-text:hover {
+            border-color: #484f58;
+        }
+html[data-theme="term"] .strength-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #7ee787;
+            font-size: 12px;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        }
+html[data-theme="term"] .strength-icon {
+            width: 6px;
+            height: 6px;
+            background: #7ee787;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+html[data-theme="term"] .strength-icon::before {
+            content: '';
+        }
+html[data-theme="term"] .section-header {
+            color: #8b949e;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        }
+html[data-theme="term"] .section-header span:first-child::before {
+            content: '// ';
+            color: #58a6ff;
+        }
+html[data-theme="term"] .dropdown {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 4px;
+            padding: 6px 10px;
+            color: #c9d1d9;
+            font-size: 12px;
+            cursor: pointer;
+            outline: none;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            transition: all 0.2s;
+        }
+html[data-theme="term"] .dropdown:hover {
+            border-color: #58a6ff;
+        }
+html[data-theme="term"] .dropdown:focus {
+            border-color: #58a6ff;
+            box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1);
+        }
+html[data-theme="term"] /* Chrome, html[data-theme="term"] Safari, html[data-theme="term"] Edge, html[data-theme="term"] Opera */
+        input::-webkit-outer-spin-button, html[data-theme="term"] input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+html[data-theme="term"] /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+            appearance: textfield;
+        }
+html[data-theme="term"] .options-container {
+            flex: 0 0 auto;
+            margin-bottom: 16px;
+        }
+html[data-theme="term"] .control-group {
+            margin-bottom: 18px;
+        }
+html[data-theme="term"] .slider-control {
+            margin-bottom: 16px;
+        }
+html[data-theme="term"] .slider-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 12px;
+            color: #8b949e;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        }
+html[data-theme="term"] .slider-label-value {
+            color: #79c0ff;
+            font-weight: 600;
+        }
+html[data-theme="term"] input[type="range"] {
+            width: 100%;
+            height: 4px;
+            background: #21262d;
+            border: 1px solid #30363d;
+            border-radius: 4px;
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+html[data-theme="term"] input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            background: #58a6ff;
+            cursor: pointer;
+            border-radius: 3px;
+            border: 1px solid #30363d;
+        }
+html[data-theme="term"] input[type="range"]::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            background: #58a6ff;
+            cursor: pointer;
+            border-radius: 3px;
+            border: 1px solid #30363d;
+        }
+html[data-theme="term"] .toggle-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+html[data-theme="term"] .toggle-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+html[data-theme="term"] .toggle-label {
+            font-size: 13px;
+            color: #8b949e;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        }
+html[data-theme="term"] .toggle-switch {
+            position: relative;
+            width: 40px;
+            height: 20px;
+            background: #21262d;
+            border: 1px solid #30363d;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+html[data-theme="term"] .toggle-switch.active {
+            background: #238636;
+            border-color: #238636;
+        }
+html[data-theme="term"] .toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            background: #8b949e;
+            border-radius: 3px;
+            top: 2px;
+            left: 2px;
+            transition: all 0.3s;
+        }
+html[data-theme="term"] .toggle-switch.active::after {
+            background: #ffffff;
+            transform: translateX(18px);
+        }
+html[data-theme="term"] .note-input {
+            width: 100%;
+            background: #0d1117;
+            border: 1px solid #3a3a52;
+            border-radius: 6px;
+            padding: 10px;
+            color: #ffffff;
+            font-size: 13px;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 50px;
+            margin-top: 6px;
+        }
+html[data-theme="term"] .note-input:focus {
+            outline: none;
+            border-color: #6366f1;
+        }
+html[data-theme="term"] .date-presets {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+            justify-content: center;
+        }
+html[data-theme="term"] .date-preset-btn {
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid #30363d;
+            background: #0d1117;
+            color: #8b949e;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        }
+html[data-theme="term"] .date-preset-btn:hover {
+            background: #21262d;
+            border-color: #58a6ff;
+            color: #c9d1d9;
+        }
+html[data-theme="term"] .button-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 16px;
+        }
+html[data-theme="term"] .btn {
+            padding: 10px 16px;
+            border-radius: 4px;
+            border: 1px solid #30363d;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: none;
+            letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        }
+html[data-theme="term"] .btn-secondary {
+            background: #21262d;
+            color: #c9d1d9;
+        }
+html[data-theme="term"] .btn-secondary:hover {
+            background: #30363d;
+            border-color: #58a6ff;
+        }
+html[data-theme="term"] .btn-secondary:active {
+            transform: scale(0.98);
+        }
+html[data-theme="term"] .qr-modal, html[data-theme="term"] .scrt-modal, html[data-theme="term"] .phonetic-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+html[data-theme="term"] .qr-modal.active, html[data-theme="term"] .scrt-modal.active, html[data-theme="term"] .phonetic-modal.active {
+            display: flex;
+        }
+html[data-theme="term"] .qr-content, html[data-theme="term"] .scrt-content {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 30px;
+            text-align: center;
+            max-width: 400px;
+        }
+html[data-theme="term"] .scrt-content h3, html[data-theme="term"] .qr-content h3 {
+            margin-bottom: 20px;
+            color: #c9d1d9;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-weight: 500;
+        }
+html[data-theme="term"] #qrcode {
+            display: inline-block;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+html[data-theme="term"] .scrt-link-display {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+            word-break: break-all;
+            color: #58a6ff;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        }
+html[data-theme="term"] .scrt-link-display:hover {
+            background: #21262d;
+            border-color: #58a6ff;
+        }
+html[data-theme="term"] .phonetic-content {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+html[data-theme="term"] .phonetic-content h3 {
+            margin-bottom: 20px;
+            color: #c9d1d9;
+            text-align: center;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-weight: 500;
+        }
+html[data-theme="term"] .phonetic-list {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 20px;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        }
+html[data-theme="term"] .phonetic-item {
+            display: flex;
+            gap: 15px;
+            padding: 8px 0;
+            border-bottom: 1px solid #30363d;
+            justify-content: center;
+            align-items: center;
+        }
+html[data-theme="term"] .phonetic-item:last-child {
+            border-bottom: none;
+        }
+html[data-theme="term"] .phonetic-char {
+            color: #c9d1d9;
+            font-weight: 600;
+            min-width: 30px;
+            text-align: left;
+            padding-left: 5%;
+            flex: 1;
+        }
+html[data-theme="term"] .phonetic-case {
+            color: #6e7681;
+            font-size: 11px;
+            min-width: 70px;
+            text-align: center;
+            flex: 1;
+        }
+html[data-theme="term"] .phonetic-case.uppercase {
+            color: #7ee787;
+        }
+html[data-theme="term"] .phonetic-word {
+            color: #8b949e;
+            flex: 1;
+            text-align: right;
+            padding-right: 5%;
+        }
+html[data-theme="term"] .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #238636;
+            color: #ffffff;
+            padding: 12px 18px;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 13px;
+            border: 1px solid #2ea043;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.3s;
+            z-index: 2000;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        }
+html[data-theme="term"] .notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+html[data-theme="term"] .notification.error {
+            background: #da3633;
+            border-color: #f85149;
+        }
+html[data-theme="term"] .expiry-label {
+            font-size: 13px;
+            color: #8b949e;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        }
+
+/* ---- proton ---- */
+html[data-theme="proton"] body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e1e2e 0%, #2a2a3e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+html[data-theme="proton"] .container {
+            background: #252538;
+            border: 1px solid #3a3a52;
+            border-radius: 16px;
+            padding: 0;
+            max-width: 700px;
+            width: 100%;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+        }
+html[data-theme="proton"] .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+html[data-theme="proton"] .header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+html[data-theme="proton"] .header-logo {
+            margin-top: 3px;
+            width: 40px;
+            height: auto;
+        }
+html[data-theme="proton"] .password-display {
+            background: #1e1e2e;
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 20px;
+            border: 1px solid #3a3a52;
+            position: relative;
+        }
+html[data-theme="proton"] .password-label {
+            font-size: 11px;
+            color: #a78bfa;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            text-align: left;
+        }
+html[data-theme="proton"] .strength-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+html[data-theme="proton"] .refresh-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            background: #2a2a3e;
+            border: 1px solid #3a3a52;
+            color: #ffffff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            padding: 0;
+        }
+html[data-theme="proton"] .refresh-btn:hover {
+            background: #353549;
+            border-color: #4a4a62;
+        }
+html[data-theme="proton"] .refresh-btn:active {
+            transform: scale(0.95);
+        }
+html[data-theme="proton"] .refresh-btn img {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.3s;
+        }
+html[data-theme="proton"] .refresh-btn:hover img {
+            transform: rotate(180deg);
+        }
+html[data-theme="proton"] .char-number { color: #a78bfa; }
+html[data-theme="proton"] .char-symbol { color: #34d399; }
+html[data-theme="proton"] .password-text {
+            font-size: 17px;
+            font-weight: 600;
+            color: #ffffff;
+            word-break: break-all;
+            margin-bottom: 8px;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 0.3px;
+            cursor: text;
+            min-height: 55px;
+            background: #252538;
+            border: 1px solid #3a3a52;
+            border-radius: 6px;
+            padding: 10px;
+            outline: none;
+            width: 100%;
+            line-height: 1.4;
+            text-align: center;
+            box-sizing: border-box;
+            user-select: text;
+        }
+html[data-theme="proton"] .password-text:focus {
+            border-color: #6366f1;
+        }
+html[data-theme="proton"] .password-text:hover {
+            border-color: #4a4a62;
+        }
+html[data-theme="proton"] .strength-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            color: #4ade80;
+            font-size: 12px;
+        }
+html[data-theme="proton"] .strength-icon {
+            width: 16px;
+            height: 16px;
+            background: #4ade80;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+html[data-theme="proton"] .strength-icon::before {
+            content: '✓';
+            color: #1e1e2e;
+            font-weight: bold;
+            font-size: 10px;
+        }
+html[data-theme="proton"] .section-header {
+            color: #999;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 10px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+html[data-theme="proton"] .dropdown {
+            background: #1e1e2e;
+            border: 1px solid #3a3a52;
+            border-radius: 6px;
+            padding: 6px 10px;
+            color: #ffffff;
+            font-size: 12px;
+            cursor: pointer;
+            outline: none;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+html[data-theme="proton"] .dropdown:hover {
+            border-color: #5558dd;
+        }
+html[data-theme="proton"] .dropdown:focus {
+            border-color: #6366f1;
+        }
+html[data-theme="proton"] /* Chrome, html[data-theme="proton"] Safari, html[data-theme="proton"] Edge, html[data-theme="proton"] Opera */
+        input::-webkit-outer-spin-button, html[data-theme="proton"] input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+html[data-theme="proton"] /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+            appearance: textfield;
+        }
+html[data-theme="proton"] .options-container {
+            flex: 0 0 auto;
+            margin-bottom: 16px;
+        }
+html[data-theme="proton"] .control-group {
+            margin-bottom: 18px;
+        }
+html[data-theme="proton"] .slider-control {
+            margin-bottom: 16px;
+        }
+html[data-theme="proton"] .slider-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 13px;
+            color: #b0b0b0;
+        }
+html[data-theme="proton"] .slider-label-value {
+            color: #ffffff;
+            font-weight: 600;
+        }
+html[data-theme="proton"] input[type="range"] {
+            width: 100%;
+            height: 5px;
+            background: #3a3a52;
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+html[data-theme="proton"] input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            background: #ffffff;
+            cursor: pointer;
+            border-radius: 50%;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+html[data-theme="proton"] input[type="range"]::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            background: #ffffff;
+            cursor: pointer;
+            border-radius: 50%;
+            border: none;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+html[data-theme="proton"] .toggle-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+html[data-theme="proton"] .toggle-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+html[data-theme="proton"] .toggle-label {
+            font-size: 13px;
+            color: #b0b0b0;
+        }
+html[data-theme="proton"] .toggle-switch {
+            position: relative;
+            width: 46px;
+            height: 24px;
+            background: #3a3a52;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+html[data-theme="proton"] .toggle-switch.active {
+            background: #f87171;
+        }
+html[data-theme="proton"] .toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            background: #ffffff;
+            border-radius: 50%;
+            top: 3px;
+            left: 3px;
+            transition: transform 0.3s;
+        }
+html[data-theme="proton"] .toggle-switch.active::after {
+            transform: translateX(22px);
+        }
+html[data-theme="proton"] .note-input {
+            width: 100%;
+            background: #1e1e2e;
+            border: 1px solid #3a3a52;
+            border-radius: 6px;
+            padding: 10px;
+            color: #ffffff;
+            font-size: 13px;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 50px;
+            margin-top: 6px;
+        }
+html[data-theme="proton"] .note-input:focus {
+            outline: none;
+            border-color: #6366f1;
+        }
+html[data-theme="proton"] .date-presets {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+            justify-content: center;
+        }
+html[data-theme="proton"] .date-preset-btn {
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid #3a3a52;
+            background: #1e1e2e;
+            color: #b0b0b0;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+html[data-theme="proton"] .date-preset-btn:hover {
+            background: #2a2a3e;
+            border-color: #5558dd;
+            color: #ffffff;
+        }
+html[data-theme="proton"] .button-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 16px;
+        }
+html[data-theme="proton"] .btn {
+            padding: 11px 18px;
+            border-radius: 8px;
+            border: none;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: none;
+            letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+html[data-theme="proton"] .btn-secondary {
+            background: linear-gradient(135deg, #3a3a52 0%, #2d2d3f 100%);
+            color: #e0e0e0;
+            border: 1px solid #4a4a5f;
+        }
+html[data-theme="proton"] .btn-secondary:hover {
+            background: linear-gradient(135deg, #4a4a62 0%, #3d3d4f 100%);
+            border-color: #5a5a6f;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+        }
+html[data-theme="proton"] .btn-secondary:active {
+            transform: translateY(0);
+        }
+html[data-theme="proton"] .qr-modal, html[data-theme="proton"] .scrt-modal, html[data-theme="proton"] .phonetic-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+html[data-theme="proton"] .qr-modal.active, html[data-theme="proton"] .scrt-modal.active, html[data-theme="proton"] .phonetic-modal.active {
+            display: flex;
+        }
+html[data-theme="proton"] .qr-content, html[data-theme="proton"] .scrt-content {
+            background: #252538;
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            max-width: 400px;
+        }
+html[data-theme="proton"] .scrt-content h3, html[data-theme="proton"] .qr-content h3 {
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+html[data-theme="proton"] #qrcode {
+            display: inline-block;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+html[data-theme="proton"] .scrt-link-display {
+            background: #1e1e2e;
+            border: 1px solid #3a3a52;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            word-break: break-all;
+            color: #6366f1;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+html[data-theme="proton"] .scrt-link-display:hover {
+            background: #2a2a3e;
+            border-color: #6366f1;
+        }
+html[data-theme="proton"] .phonetic-content {
+            background: #252538;
+            border-radius: 16px;
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+html[data-theme="proton"] .phonetic-content h3 {
+            margin-bottom: 20px;
+            color: #ffffff;
+            text-align: center;
+        }
+html[data-theme="proton"] .phonetic-list {
+            background: #1e1e2e;
+            border: 1px solid #3a3a52;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            font-family: 'Courier New', monospace;
+        }
+html[data-theme="proton"] .phonetic-item {
+            display: flex;
+            gap: 15px;
+            padding: 8px 0;
+            border-bottom: 1px solid #3a3a52;
+            justify-content: center;
+            align-items: center;
+        }
+html[data-theme="proton"] .phonetic-item:last-child {
+            border-bottom: none;
+        }
+html[data-theme="proton"] .phonetic-char {
+            color: #ffffff;
+            font-weight: 600;
+            min-width: 30px;
+            text-align: left;
+            padding-left: 5%;
+            flex: 1;
+        }
+html[data-theme="proton"] .phonetic-case {
+            color: #888;
+            font-size: 11px;
+            min-width: 70px;
+            text-align: center;
+            flex: 1;
+        }
+html[data-theme="proton"] .phonetic-case.uppercase {
+            color: #4ade80;
+        }
+html[data-theme="proton"] .phonetic-word {
+            color: #b0b0b0;
+            flex: 1;
+            text-align: right;
+            padding-right: 5%;
+        }
+html[data-theme="proton"] .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4ade80;
+            color: #1e1e2e;
+            padding: 14px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 13px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.3s;
+            z-index: 2000;
+        }
+html[data-theme="proton"] .notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+html[data-theme="proton"] .notification.error {
+            background: #f87171;
+            color: #ffffff;
+        }
+html[data-theme="proton"] .expiry-label {
+            font-size: 13px;
+            color: #b0b0b0;
+        }
+
+/* ---- crt ---- */
+html[data-theme="crt"] body {
+            font-family: 'VT323', 'Share Tech Mono', 'Courier New', monospace;
+            background: #000000;
+            color: #00ff00;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-shadow: 0 0 5px #00ff00;
+        }
+html[data-theme="crt"] .container {
+            background: #000000;
+            border: 2px solid #00ff00;
+            border-radius: 0;
+            padding: 0;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3), inset 0 0 100px rgba(0, 255, 0, 0.05);
+            overflow: hidden;
+            position: relative;
+        }
+html[data-theme="crt"] .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 255, 0, 0.03) 0px,
+                rgba(0, 255, 0, 0.03) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 1000;
+        }
+html[data-theme="crt"] .terminal-header {
+            background: #000000;
+            border-bottom: 2px solid #00ff00;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 20px;
+            letter-spacing: 2px;
+        }
+html[data-theme="crt"] .terminal-dot {
+            display: none;
+        }
+html[data-theme="crt"] .terminal-title {
+            margin-left: 0;
+            font-size: 20px;
+            color: #00ff00;
+            font-weight: 400;
+            text-transform: uppercase;
+        }
+html[data-theme="crt"] .terminal-title::before {
+            content: '> ';
+            animation: blink 1s infinite;
+        }
+@keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+html[data-theme="crt"] .terminal-body {
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+html[data-theme="crt"] .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+html[data-theme="crt"] .header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+html[data-theme="crt"] .header-logo {
+            margin-top: 3px;
+            width: 40px;
+            height: auto;
+        }
+html[data-theme="crt"] .password-display {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 16px;
+            margin-bottom: 16px;
+            position: relative;
+        }
+html[data-theme="crt"] .password-label {
+            font-size: 11px;
+            color: #58a6ff;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+html[data-theme="crt"] .password-label::before {
+            content: '> ';
+            color: #7ee787;
+        }
+html[data-theme="crt"] .strength-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+html[data-theme="crt"] .refresh-btn {
+            width: auto;
+            height: auto;
+            padding: 6px 12px;
+            border-radius: 0;
+            background: transparent;
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            font-family: 'VT323', 'Share Tech Mono', 'Courier New', monospace;
+            font-size: 18px;
+            letter-spacing: 1px;
+        }
+html[data-theme="crt"] .refresh-btn:hover {
+            background: #00ff00;
+            color: #000000;
+            box-shadow: 0 0 10px #00ff00;
+        }
+html[data-theme="crt"] .refresh-btn:active {
+            transform: scale(0.95);
+        }
+html[data-theme="crt"] .refresh-btn img {
+            display: none;
+        }
+html[data-theme="crt"] .refresh-btn::before {
+            content: '[GEN]';
+        }
+html[data-theme="crt"] .char-number { color: #00ff00; opacity: 0.9; }
+html[data-theme="crt"] .char-symbol { color: #00ff00; opacity: 1; }
+html[data-theme="crt"] .password-text {
+            font-size: 22px;
+            font-weight: 400;
+            color: #00ff00;
+            word-break: break-all;
+            margin-bottom: 12px;
+            font-family: 'VT323', 'Share Tech Mono', 'Courier New', monospace;
+            letter-spacing: 1px;
+            cursor: text;
+            min-height: 60px;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #003300;
+            border-radius: 0;
+            padding: 8px 0;
+            outline: none;
+            width: 100%;
+            line-height: 1.4;
+            text-align: left;
+            box-sizing: border-box;
+            user-select: text;
+            text-shadow: 0 0 5px #00ff00;
+        }
+html[data-theme="crt"] .password-text:focus {
+            border-bottom-color: #00ff00;
+        }
+html[data-theme="crt"] .password-text:hover {
+            border-bottom-color: #00ff00;
+        }
+html[data-theme="crt"] .strength-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #00ff00;
+            font-size: 18px;
+            font-family: 'VT323', 'Share Tech Mono', 'Courier New', monospace;
+            letter-spacing: 1px;
+        }
+html[data-theme="crt"] .strength-icon {
+            width: 8px;
+            height: 8px;
+            background: #00ff00;
+            border-radius: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 5px #00ff00;
+        }
+html[data-theme="crt"] .strength-icon::before {
+            content: '';
+        }
+html[data-theme="crt"] .section-header {
+            color: #00ff00;
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+            font-weight: 400;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'VT323', 'Share Tech Mono', 'Courier New', monospace;
+        }
+html[data-theme="crt"] .section-header span:first-child::before {
+            content: '[ ';
+            color: #00ff00;
+        }
+html[data-theme="crt"] .section-header span:first-child::after {
+            content: ' ]';
+            color: #00ff00;
+        }
+html[data-theme="crt"] .dropdown {
+            background: #000000;
+            border: 1px solid #00ff00;
+            border-radius: 0;
+            padding: 6px 10px;
+            color: #00ff00;
+            font-size: 16px;
+            cursor: pointer;
+            outline: none;
+            font-family: 'VT323', 'Share Tech Mono', 'Courier New', monospace;
+            transition: all 0.2s;
+            text-shadow: 0 0 5px #00ff00;
+        }
+html[data-theme="crt"] .dropdown:hover {
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+html[data-theme="crt"] .dropdown:focus {
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+html[data-theme="crt"] /* Chrome, html[data-theme="crt"] Safari, html[data-theme="crt"] Edge, html[data-theme="crt"] Opera */
+        input::-webkit-outer-spin-button, html[data-theme="crt"] input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+html[data-theme="crt"] /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+            appearance: textfield;
+        }
+html[data-theme="crt"] .options-container {
+            flex: 0 0 auto;
+            margin-bottom: 16px;
+        }
+html[data-theme="crt"] .control-group {
+            margin-bottom: 18px;
+        }
+html[data-theme="crt"] .slider-control {
+            margin-bottom: 16px;
+        }
+html[data-theme="crt"] .slider-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #00ff00;
+            font-family: 'VT323', 'Share Tech Mono', 'Courier New', monospace;
+            letter-spacing: 1px;
+        }
+html[data-theme="crt"] .slider-label-value {
+            color: #00ff00;
+            font-weight: 400;
+        }
+html[data-theme="crt"] input[type="range"] {
+            width: 100%;
+            height: 4px;
+            background: #003300;
+            border: 1px solid #00ff00;
+            border-radius: 0;
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+html[data-theme="crt"] input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            background: #00ff00;
+            cursor: pointer;
+            border-radius: 0;
+            border: 1px solid #00ff00;
+            box-shadow: 0 0 5px #00ff00;
+        }
+html[data-theme="crt"] input[type="range"]::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            background: #00ff00;
+            cursor: pointer;
+            border-radius: 0;
+            border: 1px solid #00ff00;
+            box-shadow: 0 0 5px #00ff00;
+        }
+html[data-theme="crt"] .toggle-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+html[data-theme="crt"] .toggle-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+html[data-theme="crt"] .toggle-label {
+            font-size: 18px;
+            color: #00ff00;
+            font-family: 'VT323', 'Share Tech Mono', 'Courier New', monospace;
+            letter-spacing: 1px;
+        }
+html[data-theme="crt"] .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 24px;
+            background: #000000;
+            border: 1px solid #00ff00;
+            border-radius: 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+html[data-theme="crt"] .toggle-switch.active {
+            background: #003300;
+            border-color: #00ff00;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+        }
+html[data-theme="crt"] .toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            background: #00ff00;
+            border-radius: 0;
+            top: 2px;
+            left: 2px;
+            transition: all 0.3s;
+            box-shadow: 0 0 5px #00ff00;
+        }
+html[data-theme="crt"] .toggle-switch.active::after {
+            background: #00ff00;
+            transform: translateX(24px);
+        }
+html[data-theme="crt"] .note-input {
+            width: 100%;
+            background: #0d1117;
+            border: 1px solid #3a3a52;
+            border-radius: 6px;
+            padding: 10px;
+            color: #ffffff;
+            font-size: 14px;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 50px;
+            margin-top: 6px;
+        }
+html[data-theme="crt"] .note-input:focus {
+            outline: none;
+            border-color: #00ff00;
+        }
+html[data-theme="crt"] .date-presets {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+            justify-content: center;
+        }
+html[data-theme="crt"] .date-preset-btn {
+            padding: 6px 12px;
+            border-radius: 0;
+            border: 1px solid #00ff00;
+            background: #000000;
+            color: #00ff00;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'VT323', 'Share Tech Mono', 'Courier New', monospace;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+html[data-theme="crt"] .date-preset-btn:hover {
+            background: #00ff00;
+            color: #000000;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+html[data-theme="crt"] .button-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 16px;
+        }
+html[data-theme="crt"] .btn {
+            padding: 12px 16px;
+            border-radius: 0;
+            border: 1px solid #00ff00;
+            font-size: 18px;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-family: 'VT323', 'Share Tech Mono', 'Courier New', monospace;
+        }
+html[data-theme="crt"] .btn-secondary {
+            background: #000000;
+            color: #00ff00;
+        }
+html[data-theme="crt"] .btn-secondary:hover {
+            background: #00ff00;
+            color: #000000;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+        }
+html[data-theme="crt"] .btn-secondary:active {
+            transform: scale(0.98);
+        }
+html[data-theme="crt"] .qr-modal, html[data-theme="crt"] .scrt-modal, html[data-theme="crt"] .phonetic-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+html[data-theme="crt"] .qr-modal.active, html[data-theme="crt"] .scrt-modal.active, html[data-theme="crt"] .phonetic-modal.active {
+            display: flex;
+        }
+html[data-theme="crt"] .qr-content, html[data-theme="crt"] .scrt-content {
+            background: #000000;
+            border: 2px solid #00ff00;
+            border-radius: 0;
+            padding: 30px;
+            text-align: center;
+            max-width: 400px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+html[data-theme="crt"] .scrt-content h3, html[data-theme="crt"] .qr-content h3 {
+            margin-bottom: 20px;
+            color: #00ff00;
+            font-family: 'VT323', 'Share Tech Mono', 'Courier New', monospace;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 24px;
+        }
+html[data-theme="crt"] #qrcode {
+            display: inline-block;
+            background: white;
+            padding: 20px;
+            border-radius: 0;
+            margin-bottom: 20px;
+        }
+html[data-theme="crt"] .scrt-link-display {
+            background: #000000;
+            border: 1px solid #00ff00;
+            border-radius: 0;
+            padding: 15px;
+            margin-bottom: 20px;
+            word-break: break-all;
+            color: #00ff00;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'VT323', 'Share Tech Mono', 'Courier New', monospace;
+            font-size: 18px;
+        }
+html[data-theme="crt"] .scrt-link-display:hover {
+            background: #001a00;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+        }
+html[data-theme="crt"] .phonetic-content {
+            background: #000000;
+            border: 2px solid #00ff00;
+            border-radius: 0;
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+html[data-theme="crt"] .phonetic-content h3 {
+            margin-bottom: 20px;
+            color: #00ff00;
+            text-align: center;
+            font-family: 'VT323', 'Share Tech Mono', 'Courier New', monospace;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 24px;
+        }
+html[data-theme="crt"] .phonetic-list {
+            background: #000000;
+            border: 1px solid #00ff00;
+            border-radius: 0;
+            padding: 20px;
+            margin-bottom: 20px;
+            font-family: 'VT323', 'Share Tech Mono', 'Courier New', monospace;
+        }
+html[data-theme="crt"] .phonetic-item {
+            display: flex;
+            gap: 15px;
+            padding: 8px 0;
+            border-bottom: 1px solid #003300;
+            justify-content: center;
+            align-items: center;
+        }
+html[data-theme="crt"] .phonetic-item:last-child {
+            border-bottom: none;
+        }
+html[data-theme="crt"] .phonetic-char {
+            color: #00ff00;
+            font-weight: 400;
+            min-width: 30px;
+            text-align: left;
+            padding-left: 5%;
+            flex: 1;
+            font-size: 20px;
+        }
+html[data-theme="crt"] .phonetic-case {
+            color: #00ff00;
+            font-size: 16px;
+            min-width: 70px;
+            text-align: center;
+            flex: 1;
+            opacity: 0.7;
+        }
+html[data-theme="crt"] .phonetic-case.uppercase {
+            color: #00ff00;
+            opacity: 1;
+        }
+html[data-theme="crt"] .phonetic-word {
+            color: #00ff00;
+            flex: 1;
+            text-align: right;
+            padding-right: 5%;
+            font-size: 18px;
+        }
+html[data-theme="crt"] .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #000000;
+            color: #00ff00;
+            padding: 12px 18px;
+            border-radius: 0;
+            font-weight: 400;
+            font-size: 18px;
+            border: 2px solid #00ff00;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.3s;
+            z-index: 2000;
+            font-family: 'VT323', 'Share Tech Mono', 'Courier New', monospace;
+            letter-spacing: 1px;
+        }
+html[data-theme="crt"] .notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+html[data-theme="crt"] .notification.error {
+            background: #000000;
+            border-color: #00ff00;
+            color: #00ff00;
+        }
+html[data-theme="crt"] .expiry-label {
+            font-size: 16px;
+            color: #00ff00;
+            font-family: 'VT323', 'Share Tech Mono', 'Courier New', monospace;
+            opacity: 0.7;
+        }
+
+/* ---- modern ---- */
+html[data-theme="modern"] body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            background: #edf0f5;
+            color: #1d2534;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+html[data-theme="modern"] .container {
+            background: #ffffff;
+            border: 1px solid #e2e7ee;
+            border-radius: 12px;
+            padding: 0;
+            max-width: 700px;
+            width: 100%;
+            box-shadow: 0 8px 24px rgba(16, 24, 40, 0.10);
+            overflow: hidden;
+        }
+html[data-theme="modern"] .terminal-header {
+            background: #f5f7fa;
+            border-bottom: 1px solid #e2e7ee;
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+html[data-theme="modern"] .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ff5f56;
+        }
+html[data-theme="modern"] .terminal-dot:nth-child(2) {
+            background: #ffbd2e;
+        }
+html[data-theme="modern"] .terminal-dot:nth-child(3) {
+            background: #27c93f;
+        }
+html[data-theme="modern"] .terminal-title {
+            margin-left: 12px;
+            font-size: 13px;
+            color: #66738a;
+            font-weight: 500;
+        }
+html[data-theme="modern"] .terminal-body {
+            padding: 20px;
+        }
+html[data-theme="modern"] .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+html[data-theme="modern"] .header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+html[data-theme="modern"] .header-logo {
+            margin-top: 3px;
+            width: 40px;
+            height: auto;
+        }
+html[data-theme="modern"] .password-display {
+            background: #edf0f5;
+            border: 1px solid #e2e7ee;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            position: relative;
+        }
+html[data-theme="modern"] .password-label {
+            font-size: 11px;
+            color: #0e8074;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+html[data-theme="modern"] .password-label::before {
+            content: '> ';
+            color: #178a4c;
+        }
+html[data-theme="modern"] .strength-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+html[data-theme="modern"] .refresh-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 4px;
+            background: #f5f7fa;
+            border: 1px solid #e2e7ee;
+            color: #66738a;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            padding: 0;
+        }
+html[data-theme="modern"] .refresh-btn:hover {
+            background: #e2e7ee;
+            border-color: #0e8074;
+        }
+html[data-theme="modern"] .refresh-btn:active {
+            transform: scale(0.95);
+        }
+html[data-theme="modern"] .refresh-btn img {
+            width: 14px;
+            height: 14px;
+            opacity: 0.7;
+            transition: transform 0.3s;
+        }
+html[data-theme="modern"] .refresh-btn:hover img {
+            opacity: 1;
+            transform: rotate(180deg);
+        }
+html[data-theme="modern"] .char-number { color: #0b6b61; }
+html[data-theme="modern"] .char-symbol { color: #1da35b; }
+html[data-theme="modern"] .password-text {
+            font-size: 16px;
+            font-weight: 500;
+            color: #1d2534;
+            word-break: break-all;
+            margin-bottom: 12px;
+            font-family: 'Fira Code', 'JetBrains Mono', 'Source Code Pro', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            letter-spacing: 0.5px;
+            cursor: text;
+            min-height: 80px;
+            background: #edf0f5;
+            border: 1px solid #e2e7ee;
+            border-radius: 4px;
+            padding: 12px;
+            outline: none;
+            width: 100%;
+            line-height: 1.6;
+            text-align: left;
+            box-sizing: border-box;
+            user-select: text;
+        }
+html[data-theme="modern"] .password-text:focus {
+            border-color: #0e8074;
+            box-shadow: 0 0 0 3px rgba(14, 128, 116, 0.10);
+        }
+html[data-theme="modern"] .password-text:hover {
+            border-color: #b9c2d0;
+        }
+html[data-theme="modern"] .strength-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #178a4c;
+            font-size: 12px;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+        }
+html[data-theme="modern"] .strength-icon {
+            width: 6px;
+            height: 6px;
+            background: #178a4c;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+html[data-theme="modern"] .strength-icon::before {
+            content: '';
+        }
+html[data-theme="modern"] .section-header {
+            color: #66738a;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+        }
+html[data-theme="modern"] .section-header span:first-child::before {
+            content: '// ';
+            color: #0e8074;
+        }
+html[data-theme="modern"] .dropdown {
+            background: #edf0f5;
+            border: 1px solid #e2e7ee;
+            border-radius: 4px;
+            padding: 6px 10px;
+            color: #1d2534;
+            font-size: 12px;
+            cursor: pointer;
+            outline: none;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            transition: all 0.2s;
+        }
+html[data-theme="modern"] .dropdown:hover {
+            border-color: #0e8074;
+        }
+html[data-theme="modern"] .dropdown:focus {
+            border-color: #0e8074;
+            box-shadow: 0 0 0 3px rgba(14, 128, 116, 0.10);
+        }
+html[data-theme="modern"] /* Chrome, html[data-theme="modern"] Safari, html[data-theme="modern"] Edge, html[data-theme="modern"] Opera */
+        input::-webkit-outer-spin-button, html[data-theme="modern"] input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+html[data-theme="modern"] /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+            appearance: textfield;
+        }
+html[data-theme="modern"] .options-container {
+            flex: 0 0 auto;
+            margin-bottom: 16px;
+        }
+html[data-theme="modern"] .control-group {
+            margin-bottom: 18px;
+        }
+html[data-theme="modern"] .slider-control {
+            margin-bottom: 16px;
+        }
+html[data-theme="modern"] .slider-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 12px;
+            color: #66738a;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+        }
+html[data-theme="modern"] .slider-label-value {
+            color: #0b6b61;
+            font-weight: 600;
+        }
+html[data-theme="modern"] input[type="range"] {
+            width: 100%;
+            height: 4px;
+            background: #f5f7fa;
+            border: 1px solid #e2e7ee;
+            border-radius: 4px;
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+html[data-theme="modern"] input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            background: #0e8074;
+            cursor: pointer;
+            border-radius: 3px;
+            border: 1px solid #e2e7ee;
+        }
+html[data-theme="modern"] input[type="range"]::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            background: #0e8074;
+            cursor: pointer;
+            border-radius: 3px;
+            border: 1px solid #e2e7ee;
+        }
+html[data-theme="modern"] .toggle-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+html[data-theme="modern"] .toggle-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+html[data-theme="modern"] .toggle-label {
+            font-size: 13px;
+            color: #66738a;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+        }
+html[data-theme="modern"] .toggle-switch {
+            position: relative;
+            width: 40px;
+            height: 20px;
+            background: #f5f7fa;
+            border: 1px solid #e2e7ee;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+html[data-theme="modern"] .toggle-switch.active {
+            background: #0e8074;
+            border-color: #0e8074;
+        }
+html[data-theme="modern"] .toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            background: #66738a;
+            border-radius: 3px;
+            top: 2px;
+            left: 2px;
+            transition: all 0.3s;
+        }
+html[data-theme="modern"] .toggle-switch.active::after {
+            background: #ffffff;
+            transform: translateX(18px);
+        }
+html[data-theme="modern"] .note-input {
+            width: 100%;
+            background: #edf0f5;
+            border: 1px solid #dbe2ec;
+            border-radius: 12px;
+            padding: 10px;
+            color: #1d2534;
+            font-size: 13px;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 50px;
+            margin-top: 6px;
+        }
+html[data-theme="modern"] .note-input:focus {
+            outline: none;
+            border-color: #0e8074;
+        }
+html[data-theme="modern"] .date-presets {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+            justify-content: center;
+        }
+html[data-theme="modern"] .date-preset-btn {
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid #e2e7ee;
+            background: #edf0f5;
+            color: #66738a;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+        }
+html[data-theme="modern"] .date-preset-btn:hover {
+            background: #f5f7fa;
+            border-color: #0e8074;
+            color: #1d2534;
+        }
+html[data-theme="modern"] .button-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 16px;
+        }
+html[data-theme="modern"] .btn {
+            padding: 10px 16px;
+            border-radius: 4px;
+            border: 1px solid #e2e7ee;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: none;
+            letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+        }
+html[data-theme="modern"] .btn-secondary {
+            background: #f5f7fa;
+            color: #1d2534;
+        }
+html[data-theme="modern"] .btn-secondary:hover {
+            background: #e2e7ee;
+            border-color: #0e8074;
+        }
+html[data-theme="modern"] .btn-secondary:active {
+            transform: scale(0.98);
+        }
+html[data-theme="modern"] .qr-modal, html[data-theme="modern"] .scrt-modal, html[data-theme="modern"] .phonetic-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.45);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+html[data-theme="modern"] .qr-modal.active, html[data-theme="modern"] .scrt-modal.active, html[data-theme="modern"] .phonetic-modal.active {
+            display: flex;
+        }
+html[data-theme="modern"] .qr-content, html[data-theme="modern"] .scrt-content {
+            background: #ffffff;
+            border: 1px solid #e2e7ee;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            max-width: 400px;
+        }
+html[data-theme="modern"] .scrt-content h3, html[data-theme="modern"] .qr-content h3 {
+            margin-bottom: 20px;
+            color: #1d2534;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            font-weight: 500;
+        }
+html[data-theme="modern"] #qrcode {
+            display: inline-block;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+html[data-theme="modern"] .scrt-link-display {
+            background: #edf0f5;
+            border: 1px solid #e2e7ee;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+            word-break: break-all;
+            color: #0e8074;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+        }
+html[data-theme="modern"] .scrt-link-display:hover {
+            background: #f5f7fa;
+            border-color: #0e8074;
+        }
+html[data-theme="modern"] .phonetic-content {
+            background: #ffffff;
+            border: 1px solid #e2e7ee;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+html[data-theme="modern"] .phonetic-content h3 {
+            margin-bottom: 20px;
+            color: #1d2534;
+            text-align: center;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            font-weight: 500;
+        }
+html[data-theme="modern"] .phonetic-list {
+            background: #edf0f5;
+            border: 1px solid #e2e7ee;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+        }
+html[data-theme="modern"] .phonetic-item {
+            display: flex;
+            gap: 15px;
+            padding: 8px 0;
+            border-bottom: 1px solid #e2e7ee;
+            justify-content: center;
+            align-items: center;
+        }
+html[data-theme="modern"] .phonetic-item:last-child {
+            border-bottom: none;
+        }
+html[data-theme="modern"] .phonetic-char {
+            color: #1d2534;
+            font-weight: 600;
+            min-width: 30px;
+            text-align: left;
+            padding-left: 5%;
+            flex: 1;
+        }
+html[data-theme="modern"] .phonetic-case {
+            color: #8b96a9;
+            font-size: 11px;
+            min-width: 70px;
+            text-align: center;
+            flex: 1;
+        }
+html[data-theme="modern"] .phonetic-case.uppercase {
+            color: #178a4c;
+        }
+html[data-theme="modern"] .phonetic-word {
+            color: #66738a;
+            flex: 1;
+            text-align: right;
+            padding-right: 5%;
+        }
+html[data-theme="modern"] .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #0e8074;
+            color: #ffffff;
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-weight: 500;
+            font-size: 13px;
+            border: 1px solid #0b6b61;
+            box-shadow: 0 4px 12px rgba(16, 24, 40, 0.12);
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.3s;
+            z-index: 2000;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+        }
+html[data-theme="modern"] .notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+html[data-theme="modern"] .notification.error {
+            background: #b32828;
+            border-color: #d23c3c;
+        }
+html[data-theme="modern"] .expiry-label {
+            font-size: 13px;
+            color: #66738a;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-switcher">
+        <label for="themeSelect">Theme</label>
+        <select id="themeSelect" title="Switch theme">
+            <option value="term">Terminal</option>
+            <option value="modern">Modern</option>
+            <option value="proton">Proton</option>
+            <option value="crt">CRT</option>
+        </select>
+    </div>
+
+    <div class="container">
+        <div class="terminal-header">
+            <div class="terminal-dot"></div>
+            <div class="terminal-dot"></div>
+            <div class="terminal-dot"></div>
+            <span class="terminal-title">password-generator.sh</span>
+        </div>
+        <div class="terminal-body">
+            <div class="password-display">
+                <div class="password-label">Generated Password</div>
+                <div class="password-text" id="passwordText" contenteditable="true" spellcheck="false">Password Generator</div>
+                <div class="strength-row">
+                    <div class="strength-indicator">
+                        <div class="strength-icon"></div>
+                        <span id="strengthText">Strong</span>
+                    </div>
+                    <button class="refresh-btn" id="refreshBtn" title="Generate new password"><img src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CiAgPHBhdGggZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMzZCN0U4IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgZD0iTTI1LjcgMTAuOUMyMy45IDcuNCAyMC4yIDUgMTYgNWMtNC43IDAtOC42IDIuOS0xMC4yIDdtLjQgOWMxLjggMy41IDUuNSA2IDkuOCA2IDQuNyAwIDguNi0yLjkgMTAuMi03Ii8+CiAgPHBhdGggZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMzZCN0U4IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgZD0iTTI2IDV2NmgtNk02IDI3di02aDYiLz4KPC9zdmc+Cg=='/></button>
+                </div>
+            </div>
+
+        <div class="section-header">
+            <span>TYPE</span>
+            <select class="dropdown" id="typeDropdown">
+                <option value="random">Random Password</option>
+                <option value="memorable">Memorable Password</option>
+                <option value="short">Short Memorable</option>
+                <option value="pin">PIN</option>
+                <option value="date">Date</option>
+            </select>
+        </div>
+        
+        <div class="options-container">
+            <div class="control-group">
+                <div class="slider-control">
+                    <div class="slider-label">
+                        <span><span class="slider-label-value" id="lengthValue">30</span> <span id="lengthLabel">characters</span></span>
+                    </div>
+                    <input type="range" id="lengthSlider" min="8" max="64" value="30">
+                    <div id="datePresets" class="date-presets" style="display: none;">
+                        <button class="date-preset-btn" data-days="60">60 days</button>
+                        <button class="date-preset-btn" data-days="90">90 days</button>
+                        <button class="date-preset-btn" data-days="120">120 days</button>
+                        <button class="date-preset-btn" data-days="180">180 days</button>
+                        <button class="date-preset-btn" data-days="274">9 months</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="toggle-group" id="randomOptions">
+                <div class="toggle-item">
+                    <span class="toggle-label">Special characters (!&+)</span>
+                    <div class="toggle-switch active" id="specialToggle"></div>
+                </div>
+                <div class="toggle-item">
+                    <span class="toggle-label">Capital letters (A-Z)</span>
+                    <div class="toggle-switch active" id="capitalToggle"></div>
+                </div>
+                <div class="toggle-item">
+                    <span class="toggle-label">Include numbers (0-9)</span>
+                    <div class="toggle-switch active" id="numbersToggle"></div>
+                </div>
+            </div>
+
+            <div class="toggle-group" id="memorableOptions" style="display: none;">
+                <div class="toggle-item">
+                    <span class="toggle-label">Capitalize</span>
+                    <div class="toggle-switch active" id="capitalizeToggle"></div>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0;">
+                    <span class="toggle-label">Type</span>
+                    <select class="dropdown" id="separatorDropdown">
+                        <option value="-">Hyphens</option>
+                        <option value=" ">Spaces</option>
+                        <option value=".">Periods</option>
+                        <option value=",">Commas</option>
+                        <option value="+">Plus</option>
+                        <option value="_">Underscores</option>
+                        <option value="">None</option>
+                        <option value="random">Random</option>
+                    </select>
+                </div>
+                <div class="toggle-item">
+                    <span class="toggle-label">Include numbers</span>
+                    <div class="toggle-switch" id="numbersMemorableToggle"></div>
+                </div>
+            </div>
+
+            <div class="toggle-group" id="shortOptions" style="display: none;">
+                <div class="toggle-item">
+                    <span class="toggle-label">Capitalize</span>
+                    <div class="toggle-switch active" id="capitalizeShortToggle"></div>
+                </div>
+                <div class="toggle-item">
+                    <span class="toggle-label">Include symbols</span>
+                    <div class="toggle-switch active" id="symbolsShortToggle"></div>
+                </div>
+                <div class="toggle-item">
+                    <span class="toggle-label">Include numbers</span>
+                    <div class="toggle-switch active" id="numbersShortToggle"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scrt.link fields - shown/hidden based on ENABLE_SCRT_INTEGRATION -->
+        <div id="scrtFields" style="display: none;">
+            <div class="section-header">
+                <span>SCRT.LINK</span>
+            </div>
+            <div class="control-group">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <span class="toggle-label expiry-label">Scrt.link valid for</span>
+                    <select class="dropdown" id="expiryDropdown">
+                        <option value="3600000">1 hour</option>
+                        <option value="86400000">24 hours</option>
+                        <option value="604800000" selected>7 days</option>
+                        <option value="2592000000">30 days</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <span class="toggle-label">View limit</span>
+                    <input type="number" value="1" min="1" max="1000" class="dropdown" id="viewLimitInput">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <span class="toggle-label">Password (optional)</span>
+                    <input type="text" class="dropdown" id="scrtPasswordInput" placeholder="Min 6 chars" style="width: 180px; font-family: 'Consolas', 'Monaco', 'Courier New', monospace;" minlength="0">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="toggle-label">Scrt.link Note (optional)</div>
+                <textarea class="note-input" id="noteInput" placeholder="Add a note for this password..."></textarea>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button class="btn btn-secondary" id="copyBtn">
+                <span>📋</span> Copy Password
+            </button>
+            <button class="btn btn-secondary" id="phoneticBtn">
+                <span>🔊</span> Phonetic Alphabet
+            </button>
+            <button class="btn btn-secondary" id="scrtBtn">
+                <span>🔐</span> Send via scrt.link
+            </button>
+            <button class="btn btn-secondary" id="qrBtn">
+                <span>📱</span> Generate QR Code
+            </button>
+        </div>
+        </div>
+    </div>
+
+    <div class="scrt-modal" id="scrtModal">
+        <div class="scrt-content">
+            <h3>Secret Link Created</h3>
+            <div class="scrt-link-display" id="scrtLinkDisplay" onclick="copyScrtLink()">
+                Click to copy link
+            </div>
+            <p style="color: #888; font-size: 12px; margin-bottom: 20px;" id="scrtExpiryText">Link expires in 7 days • Click link to copy</p>
+            <button class="btn btn-secondary" onclick="closeScrtModal()">Close</button>
+        </div>
+    </div>
+
+    <div class="phonetic-modal" id="phoneticModal">
+        <div class="phonetic-content">
+            <h3>Phonetic Alphabet</h3>
+            <div class="phonetic-list" id="phoneticList"></div>
+            <button class="btn btn-secondary" onclick="closePhoneticModal()">Close</button>
+        </div>
+    </div>
+
+    <div class="qr-modal" id="qrModal">
+        <div class="qr-content">
+            <h3>QR Code</h3>
+            <div id="qrcode"></div>
+            <button class="btn btn-secondary" onclick="closeQRModal()">Close</button>
+        </div>
+    </div>
+
+    <div class="notification" id="notification"></div>
+    <script src="wordlists.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script type="module">
+
+        // ── Theme switching ────────────────────────────────────────────
+        const THEMES = ['modern', 'term', 'proton', 'crt'];
+        const themeSelect = document.getElementById('themeSelect');
+
+        function applyTheme(theme) {
+            if (!THEMES.includes(theme)) theme = 'term';
+            document.documentElement.dataset.theme = theme;
+            themeSelect.value = theme;
+            settings.theme = theme;
+            // Re-render strength colours (var() picks up the new theme automatically,
+            // but inline styles set before a theme switch need a refresh)
+            if (typeof updatePasswordDisplay === "function" && currentPassword) updatePasswordDisplay();
+        }
+
+        themeSelect.addEventListener('change', () => {
+            applyTheme(themeSelect.value);
+            saveSettings();
+        });
+
+        // CRT flicker (only active while the CRT theme is selected)
+        (function crtFlicker() {
+            const container = document.querySelector('.container');
+            setInterval(() => {
+                if (document.documentElement.dataset.theme !== 'crt') return;
+                if (Math.random() < 0.03) {
+                    container.style.opacity = '0.92';
+                    setTimeout(() => { container.style.opacity = '1'; }, 50);
+                }
+            }, 100);
+            setInterval(() => {
+                if (document.documentElement.dataset.theme !== 'crt') return;
+                if (Math.random() < 0.01) {
+                    document.body.style.filter = 'brightness(1.15)';
+                    setTimeout(() => { document.body.style.filter = 'brightness(1)'; }, 100);
+                }
+            }, 500);
+        })();
+
+        // ============================================================================
+        // CONFIGURATION - EDIT THESE VALUES TO ENABLE/DISABLE FEATURES
+        // ============================================================================
+        const ENABLE_SCRT_INTEGRATION = false; // Set to true to enable scrt.link API integration
+        const SCRT_API_KEY = ''; // Replace with your scrt.link API key
+        const NTFY_TOPIC = ''; // Replace with your ntfy.sh topic name
+        // ============================================================================
+
+        // Import scrt.link module only if integration is enabled
+        let client = null;
+        let scrtIntegrationActive = false;
+        
+        if (ENABLE_SCRT_INTEGRATION) {
+            try {
+                // Try to load the local module first
+                const module = await import('./scrt-client-module.js');
+                client = module.scrtLink(SCRT_API_KEY);
+                scrtIntegrationActive = true;
+                console.log('scrt.link client initialized successfully from local file');
+            } catch (localError) {
+                console.warn('Failed to load local scrt.link module:', localError);
+                console.log('Attempting to load from remote URL...');
+
+                try {
+                    // Fall back to the remote URL
+                    const module = await import('https://scrt.link/api/v1/client-module');
+                    client = module.scrtLink(SCRT_API_KEY);
+                    scrtIntegrationActive = true;
+                    console.log('scrt.link client initialized successfully from remote URL');
+                } catch (remoteError) {
+                    console.error('Failed to load scrt.link module from both local and remote sources:', remoteError);
+                    console.log('scrt.link integration will be disabled. The app will work in fallback mode.');
+                    scrtIntegrationActive = false;
+                }
+            }
+        }
+
+        // Show/hide scrt.link fields based on configuration
+        if (scrtIntegrationActive && client) {
+            document.getElementById('scrtFields').style.display = 'block';
+        }
+                
+        // State
+        let settings = {
+            theme: 'term',
+            length: 30,
+            special: true,
+            capital: true,
+            numbers: true,
+            mode: 'random',
+            capitalize: true,
+            separator: '-',
+            numbersInPassphrase: false,
+            capitalizeShort: true,
+            symbolsShort: true,
+            numbersShort: true
+        };
+
+        let currentPassword = '';
+        
+        // Word lists live in wordlists.js (window.PASSGEN_WORDLISTS).
+        // A small built-in fallback keeps memorable modes working if that file is missing.
+        const FALLBACK_WORDS = ['amber','anchor','apple','aspen','autumn','badger','bamboo','basil','beacon','birch','blossom','breeze','bridge','cabin','candle','canyon','cedar','cinder','clover','cobalt','comet','copper','coral','cricket','crimson','dawn','delta','ember','falcon','fern','flint','forest','garnet','glacier','granite','harbor','hazel','heron','indigo','island','jasper','juniper','kestrel','lagoon','lantern','lark','linden','lunar','maple','marble','meadow','mesa','mirror','nectar','nimbus','oasis','ocean','onyx','orchard','otter','pebble','pine','plume','prairie','quartz','quill','raven','reef','ridge','river','saffron','sage','sequoia','shadow','sierra','slate','sparrow','spruce','summit','sunset','tempest','thistle','timber','topaz','trellis','tundra','velvet','violet','walnut','willow','winter','wren','zephyr'];
+        const FALLBACK_ADJECTIVES = ['amber','ancient','bold','brave','bright','calm','clever','coastal','cosmic','crisp','curious','daring','deep','eager','early','fabled','fleet','gentle','gilded','golden','grand','hardy','hidden','humble','keen','lively','lucky','mellow','mighty','misty','noble','nimble','polar','proud','quiet','rapid','royal','rustic','silent','silver','solar','steady','stellar','swift','tidal','vivid','wild','wise'];
+        const _wl = window.PASSGEN_WORDLISTS;
+        if (!_wl) console.warn('wordlists.js not found - using small built-in fallback word list');
+        const wordList = (_wl && _wl.words && _wl.words.length) ? _wl.words : FALLBACK_WORDS;
+        const adjectives = (_wl && _wl.adjectives && _wl.adjectives.length) ? _wl.adjectives : FALLBACK_ADJECTIVES;
+
+        // Elements
+        const lengthSlider = document.getElementById('lengthSlider');
+        const lengthValue = document.getElementById('lengthValue');
+        const lengthLabel = document.getElementById('lengthLabel');
+        const typeDropdown = document.getElementById('typeDropdown');
+        const randomOptions = document.getElementById('randomOptions');
+        const memorableOptions = document.getElementById('memorableOptions');
+        const shortOptions = document.getElementById('shortOptions');
+        const datePresets = document.getElementById('datePresets');
+        const specialToggle = document.getElementById('specialToggle');
+        const capitalToggle = document.getElementById('capitalToggle');
+        const numbersToggle = document.getElementById('numbersToggle');
+        const capitalizeToggle = document.getElementById('capitalizeToggle');
+        const separatorDropdown = document.getElementById('separatorDropdown');
+        const numbersMemorableToggle = document.getElementById('numbersMemorableToggle');
+        const capitalizeShortToggle = document.getElementById('capitalizeShortToggle');
+        const symbolsShortToggle = document.getElementById('symbolsShortToggle');
+        const numbersShortToggle = document.getElementById('numbersShortToggle');
+        const passwordText = document.getElementById('passwordText');
+        const strengthText = document.getElementById('strengthText');
+        const refreshBtn = document.getElementById('refreshBtn');
+        const copyBtn = document.getElementById('copyBtn');
+        const scrtBtn = document.getElementById('scrtBtn');
+        const qrBtn = document.getElementById('qrBtn');
+        const phoneticBtn = document.getElementById('phoneticBtn');
+        const qrModal = document.getElementById('qrModal');
+        const phoneticModal = document.getElementById('phoneticModal');
+        const phoneticList = document.getElementById('phoneticList');
+        const notification = document.getElementById('notification');
+        const scrtLinkDisplay = document.getElementById('scrtLinkDisplay');
+        const noteInput = document.getElementById('noteInput');
+        const expiryDropdown = document.getElementById('expiryDropdown');
+        const scrtModal = document.getElementById('scrtModal');
+
+        // Phonetic alphabet mapping
+        const phoneticAlphabet = {
+ 			'a': 'alpha', 'b': 'bravo', 'c': 'charlie', 'd': 'delta', 'e': 'echo',
+			'f': 'foxtrot','g': 'golf','h': 'hotel','i': 'india','j': 'juliet',
+			'k': 'kilo','l': 'lima','m': 'mike','n': 'november','o': 'oscar',
+			'p': 'papa','q': 'quebec','r': 'romeo','s': 'sierra','t': 'tango',
+			'u': 'uniform','v': 'victor','w': 'whiskey','x': 'x-Ray','y': 'yankee',
+			'z': 'zulu','A': 'Alpha','B': 'Bravo','C': 'Charlie','D': 'Delta',
+			'E': 'Echo','F': 'Foxtrot','G': 'Golf','H': 'Hotel','I': 'India',
+			'J': 'Juliet','K': 'Kilo','L': 'Lima','M': 'Mike','N': 'November',
+			'O': 'Oscar','P': 'Papa','Q': 'Quebec','R': 'Romeo','S': 'Sierra',
+			'T': 'Tango','U': 'Uniform','V': 'Victor','W': 'Whiskey','X': 'X-Ray',
+			'Y': 'Yankee','Z': 'Zulu','1': 'One','2': 'Two','3': 'Three','4': 'Four',
+			'5': 'Five','6': 'Six','7': 'Seven','8': 'Eight','9': 'Nine','0': 'Zero',
+			'~': 'Tilde/Squiggly','`': 'Grave-Accent','!': 'Exclamation-Mark',
+			'@': 'At-Sign','#': 'Hash','$': 'Dollar','%': 'Percent','^': 'Caret',
+			'&': 'Ampersand','*': 'Asterisk','(': 'Opening-Bracket',')': 'Closing-Bracket',
+			'_': 'Underscore','-': 'Minus/Hyphen/dash','+': 'Plus','=': 'Equals',
+			'{': 'Open-Curly-Bracket','}': 'Close-Curly-Bracket','[': 'Open-Square-Bracket',
+			']': 'Close-Square-Bracket','|': 'Vertical-Pipe','\\': 'Back-Slash',':': 'Colon',
+			';': 'Semicolon','"': 'Quotation-Mark','\'': 'Apostrophe',',': 'Comma','<': 'Less-Than',
+			'>': 'Greater-Than','.': 'Full-Stop','/': 'Forward-Slash','?': 'Question-Mark'
+        };
+
+        // ntfy notification function (only used if scrtIntegrationActive is true)
+        function ntfy(receiptId, secretLink, scrtPassword) {
+            if (!scrtIntegrationActive || NTFY_TOPIC.length < 8) {
+                return;
+            }
+
+            const title = "Secret created";
+            
+            // Work out expiry based on selected duration
+            const expiryMs = parseInt(expiryDropdown.value);
+            const date = new Date();
+            date.setTime(date.getTime() + expiryMs);
+
+            // Helper to pad single-digit numbers with a leading zero
+            const pad = (num) => String(num).padStart(2, '0');
+
+            // Build the formatted string
+            const day = pad(date.getDate());
+            const month = pad(date.getMonth() + 1);
+            const year = date.getFullYear();
+            const hours = pad(date.getHours());
+            const mins = pad(date.getMinutes());
+
+            const formatted = `${day}/${month}/${year} ${hours}:${mins}`;
+
+            // Check for note
+            const note = noteInput.value.trim();
+            let body;
+            if (note.length > 1) {
+                body = `The following secret has been created: ${receiptId}\nExpires: ${formatted}\nNote: ${note}`;
+            } else {
+                body = `The following secret has been created: ${receiptId}.\nExpires: ${formatted}`;
+            }
+
+            // Determine the action link based on whether a password was provided
+            const actionLink = scrtPassword ? secretLink : 'https://scrt.link/login';
+
+            // Prepare headers
+            const headers = {
+                'Tag': 'lock_with_ink_pen',
+                'Title': title,
+                'Priority': "3",
+                'Actions': `view, Read/Burn, ${actionLink}`
+            };
+
+            // Send the request
+            fetch(`https://ntfy.sh/${NTFY_TOPIC}`, {
+                method: 'POST',
+                headers,
+                body
+            })
+            .then(response => {
+                const message = response.ok ? 'Notification sent successfully!' : 'Failed to send notification.';
+                console.log(message);
+            })
+            .catch(error => {
+                console.log('Error sending notification: ' + error.message);
+            });
+        }
+
+        // Type dropdown change
+        typeDropdown.addEventListener('change', (e) => {
+            settings.mode = e.target.value;
+            
+            if (settings.mode === 'memorable') {
+                randomOptions.style.display = 'none';
+                memorableOptions.style.display = 'flex';
+                shortOptions.style.display = 'none';
+                datePresets.style.display = 'none';
+                lengthSlider.parentElement.style.display = 'block';
+                lengthSlider.min = 3;
+                lengthSlider.max = 10;
+                lengthSlider.value = 5;
+                lengthValue.textContent = 5;
+                lengthLabel.textContent = 'words';
+                settings.length = 5;
+            } else if (settings.mode === 'short') {
+                randomOptions.style.display = 'none';
+                memorableOptions.style.display = 'none';
+                shortOptions.style.display = 'flex';
+                datePresets.style.display = 'none';
+                lengthSlider.parentElement.style.display = 'block';
+                lengthSlider.min = 2;
+                lengthSlider.max = 5;
+                lengthSlider.value = 2;
+                lengthValue.textContent = 2;
+                lengthLabel.textContent = 'words';
+                settings.length = 2;
+            } else if (settings.mode === 'pin') {
+                randomOptions.style.display = 'none';
+                memorableOptions.style.display = 'none';
+                shortOptions.style.display = 'none';
+                datePresets.style.display = 'none';
+                lengthSlider.parentElement.style.display = 'block';
+                lengthSlider.min = 4;
+                lengthSlider.max = 32;
+                lengthSlider.value = 6;
+                lengthValue.textContent = 6;
+                lengthLabel.textContent = 'digits';
+                settings.length = 6;
+            } else if (settings.mode === 'date') {
+                randomOptions.style.display = 'none';
+                memorableOptions.style.display = 'none';
+                shortOptions.style.display = 'none';
+                datePresets.style.display = 'flex';
+                lengthSlider.parentElement.style.display = 'block';
+                lengthSlider.min = 1;
+                lengthSlider.max = 730;
+                lengthSlider.value = 90;
+                lengthValue.textContent = 90;
+                lengthLabel.textContent = 'days from today';
+                settings.length = 90;
+            } else {
+                randomOptions.style.display = 'flex';
+                memorableOptions.style.display = 'none';
+                shortOptions.style.display = 'none';
+                datePresets.style.display = 'none';
+                lengthSlider.parentElement.style.display = 'block';
+                lengthSlider.min = 8;
+                lengthSlider.max = 64;
+                lengthSlider.value = 30;
+                lengthValue.textContent = 30;
+                lengthLabel.textContent = 'characters';
+                settings.length = 30;
+            }
+            
+            generatePasswordAuto();
+        });
+
+        // Date preset buttons
+        document.querySelectorAll('.date-preset-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const days = parseInt(btn.getAttribute('data-days'));
+                lengthSlider.value = days;
+                lengthValue.textContent = days;
+                settings.length = days;
+                generatePasswordAuto();
+            });
+        });
+
+        // Slider - auto generate
+        lengthSlider.addEventListener('input', (e) => {
+            settings.length = parseInt(e.target.value);
+            lengthValue.textContent = settings.length;
+            generatePasswordAuto();
+        });
+
+        // Random password toggles - auto generate
+        specialToggle.addEventListener('click', () => {
+            settings.special = !settings.special;
+            specialToggle.classList.toggle('active');
+            generatePasswordAuto();
+        });
+
+        capitalToggle.addEventListener('click', () => {
+            settings.capital = !settings.capital;
+            capitalToggle.classList.toggle('active');
+            generatePasswordAuto();
+        });
+
+        numbersToggle.addEventListener('click', () => {
+            settings.numbers = !settings.numbers;
+            numbersToggle.classList.toggle('active');
+            generatePasswordAuto();
+        });
+
+        // Memorable password options - auto generate
+        capitalizeToggle.addEventListener('click', () => {
+            settings.capitalize = !settings.capitalize;
+            capitalizeToggle.classList.toggle('active');
+            generatePasswordAuto();
+        });
+
+        separatorDropdown.addEventListener('change', (e) => {
+            settings.separator = e.target.value;
+            generatePasswordAuto();
+        });
+
+        numbersMemorableToggle.addEventListener('click', () => {
+            settings.numbersInPassphrase = !settings.numbersInPassphrase;
+            numbersMemorableToggle.classList.toggle('active');
+            generatePasswordAuto();
+        });
+
+        // Short memorable password options - auto generate
+        capitalizeShortToggle.addEventListener('click', () => {
+            settings.capitalizeShort = !settings.capitalizeShort;
+            capitalizeShortToggle.classList.toggle('active');
+            generatePasswordAuto();
+        });
+
+        symbolsShortToggle.addEventListener('click', () => {
+            settings.symbolsShort = !settings.symbolsShort;
+            symbolsShortToggle.classList.toggle('active');
+            generatePasswordAuto();
+        });
+
+        numbersShortToggle.addEventListener('click', () => {
+            settings.numbersShort = !settings.numbersShort;
+            numbersShortToggle.classList.toggle('active');
+            generatePasswordAuto();
+        });
+
+        // Password generation
+        function generatePassword() {
+            let charset = 'abcdefghijklmnopqrstuvwxyz';
+            
+            if (settings.capital) {
+                charset += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            }
+            if (settings.numbers) {
+                charset += '0123456789';
+            }
+            if (settings.special) {
+                charset += '!@#$%^&*()_+-=[]{}|;:,.<>?';
+            }
+
+            if (charset.length === 0) {
+                charset = 'abcdefghijklmnopqrstuvwxyz';
+            }
+
+            let password = '';
+            const array = new Uint32Array(settings.length);
+            crypto.getRandomValues(array);
+            
+            for (let i = 0; i < settings.length; i++) {
+                password += charset[array[i] % charset.length];
+            }
+
+            return password;
+        }
+
+        function generatePassphrase() {
+            const words = [];
+            const array = new Uint32Array(settings.length * 2);
+            crypto.getRandomValues(array);
+            
+            for (let i = 0; i < settings.length; i++) {
+                const randomIndex = array[i] % wordList.length;
+                let word = wordList[randomIndex];
+                
+                if (settings.capitalize) {
+                    word = word.charAt(0).toUpperCase() + word.slice(1);
+                }
+                
+                words.push(word);
+            }
+
+            let passphrase = '';
+            
+            // Mix numbers between words if enabled
+            if (settings.numbersInPassphrase) {
+                for (let i = 0; i < words.length; i++) {
+                    passphrase += words[i];
+                    if (i < words.length - 1) {
+                        const numArray = new Uint32Array(1);
+                        crypto.getRandomValues(numArray);
+                        const number = numArray[0] % 10;
+                        
+                        // For random separator mode, use a mix of separators
+                        if (settings.separator === 'random') {
+                            const separators = ['-', '_', '.', '', ',', '+'];
+                            const sepArray = new Uint32Array(1);
+                            crypto.getRandomValues(sepArray);
+                            const separator = separators[sepArray[0] % separators.length];
+                            passphrase += number + separator;
+                        } else {
+                            passphrase += number + (settings.separator || '');
+                        }
+                    }
+                }
+            } else {
+                // For random separator mode, use a mix of separators between words
+                if (settings.separator === 'random') {
+                    const separators = ['-', '_', '.', '', ',', '+'];
+                    for (let i = 0; i < words.length; i++) {
+                        passphrase += words[i];
+                        if (i < words.length - 1) {
+                            const sepArray = new Uint32Array(1);
+                            crypto.getRandomValues(sepArray);
+                            const separator = separators[sepArray[0] % separators.length];
+                            passphrase += separator;
+                        }
+                    }
+                } else {
+                    passphrase = words.join(settings.separator);
+                }
+            }
+
+            return passphrase;
+        }
+
+        function generateShortMemorable() {
+            const array = new Uint32Array(settings.length + 3);
+            crypto.getRandomValues(array);
+            
+            // Get one adjective
+            const adjectiveIndex = array[0] % adjectives.length;
+            let adjective = adjectives[adjectiveIndex];
+            if (settings.capitalizeShort) {
+                    adjective = adjective.charAt(0).toUpperCase() + adjective.slice(1);
+                }
+            
+            // Get remaining words from main word list
+            const words = [adjective];
+            for (let i = 1; i < settings.length; i++) {
+                const wordIndex = array[i] % wordList.length;
+                let word = wordList[wordIndex];
+                if (settings.capitalizeShort) {
+                    word = word.charAt(0).toUpperCase() + word.slice(1);
+                }
+                words.push(word);
+            }
+            
+            let password = '';
+            
+            // Build password with symbols at word boundaries (like numbers)
+            if (settings.symbolsShort && settings.numbersShort) {
+                // Mix both symbols and numbers between words, ensuring at least one symbol
+                const boundaryCount = words.length - 1;
+                const symbolArray = new Uint32Array(boundaryCount + 3);
+                crypto.getRandomValues(symbolArray);
+                
+                // Start with a number
+                password += symbolArray[0] % 10;
+                
+                let symbolUsed = false;
+                const symbols = ['#', '+', '*', '@', '!', '&'];
+                
+                for (let i = 0; i < words.length; i++) {
+                    password += words[i];
+                    
+                    if (i < words.length - 1) {
+                        // Ensure at least one symbol is used
+                        // If this is the last boundary and we haven't used a symbol yet, force a symbol
+                        if (i === words.length - 2 && !symbolUsed) {
+                            const symbolIndex = symbolArray[i + boundaryCount + 1] % symbols.length;
+                            password += symbols[symbolIndex];
+                            symbolUsed = true;
+                        } else {
+                            // Randomly choose between symbol and number
+                            if (symbolArray[i + 1] % 2 === 0) {
+                                // Add symbol
+                                const symbolIndex = symbolArray[i + boundaryCount + 1] % symbols.length;
+                                password += symbols[symbolIndex];
+                                symbolUsed = true;
+                            } else {
+                                // Add number
+                                password += symbolArray[i + 1] % 10;
+                            }
+                        }
+                    }
+                }
+                
+                // End with a 2-digit number
+                const endNum = (symbolArray[boundaryCount + 2] % 90) + 10;
+                password += endNum;
+            } else if (settings.symbolsShort) {
+                // Only symbols at boundaries
+                for (let i = 0; i < words.length; i++) {
+                    password += words[i];
+                    if (i < words.length - 1) {
+                        const symbols = ['#', '+', '*', '@', '!', '&'];
+                        const symbolArray = new Uint32Array(1);
+                        crypto.getRandomValues(symbolArray);
+                        const symbolIndex = symbolArray[0] % symbols.length;
+                        password += symbols[symbolIndex];
+                    }
+                }
+            } else if (settings.numbersShort) {
+                // Only numbers at boundaries
+                const numArray = new Uint32Array(words.length + 1);
+                crypto.getRandomValues(numArray);
+                
+                password += numArray[0] % 10;
+                
+                for (let i = 0; i < words.length; i++) {
+                    password += words[i];
+                    
+                    if (i < words.length - 1) {
+                        password += numArray[i + 1] % 10;
+                    }
+                }
+                
+                const endNum = (numArray[words.length] % 90) + 10;
+                password += endNum;
+            } else {
+                // No symbols or numbers, just words
+                password = words.join('');
+            }
+
+            return password;
+        }
+
+        function generatePIN() {
+            let pin = '';
+            const array = new Uint32Array(settings.length);
+            crypto.getRandomValues(array);
+            
+            for (let i = 0; i < settings.length; i++) {
+                pin += array[i] % 10;
+            }
+
+            return pin;
+        }
+
+        function generateDate() {
+            const today = new Date();
+            const futureDate = new Date();
+            futureDate.setDate(today.getDate() + settings.length);
+            
+            const day = String(futureDate.getDate()).padStart(2, '0');
+            const month = String(futureDate.getMonth() + 1).padStart(2, '0');
+            const year = futureDate.getFullYear();
+            
+            return `${day}/${month}/${year}`;
+        }
+
+        // \u2500\u2500 Entropy-based strength \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+        // For generated passwords we know the exact search space, so entropy
+        // is computed from the generation parameters. If the user hand-edits
+        // the password, we fall back to a charset-size estimate.
+        let lastGeneratedPassword = null;
+        let generatedEntropy = null;
+
+        function entropyForSettings() {
+            const log2 = Math.log2;
+            const boundaries = Math.max(0, settings.length - 1);
+            switch (settings.mode) {
+                case 'memorable': {
+                    let bits = settings.length * log2(wordList.length);
+                    if (settings.separator === 'random') bits += boundaries * log2(6);
+                    if (settings.numbersInPassphrase) bits += boundaries * log2(10);
+                    return bits;
+                }
+                case 'short': {
+                    let bits = log2(adjectives.length) + boundaries * log2(wordList.length);
+                    if (settings.symbolsShort && settings.numbersShort) {
+                        // leading digit + symbol-or-digit at each boundary + trailing 2-digit number
+                        bits += log2(10) + boundaries * log2(16) + log2(90);
+                    } else if (settings.symbolsShort) {
+                        bits += boundaries * log2(6);
+                    } else if (settings.numbersShort) {
+                        bits += log2(10) + boundaries * log2(10) + log2(90);
+                    }
+                    return bits;
+                }
+                case 'pin':
+                    return settings.length * log2(10);
+                case 'date':
+                    // one random date within an N-day window
+                    return log2(Math.max(2, settings.length));
+                default: { // random characters
+                    let n = 26;
+                    if (settings.capital) n += 26;
+                    if (settings.numbers) n += 10;
+                    if (settings.special) n += 26;
+                    return settings.length * log2(n);
+                }
+            }
+        }
+
+        function estimateEntropyFromString(password) {
+            if (!password) return 0;
+            let n = 0;
+            if (/[a-z]/.test(password)) n += 26;
+            if (/[A-Z]/.test(password)) n += 26;
+            if (/[0-9]/.test(password)) n += 10;
+            if (/[^a-zA-Z0-9]/.test(password)) n += 26;
+            return password.length * Math.log2(n || 1);
+        }
+
+        function calculateStrength(password) {
+            const bits = Math.round(
+                (generatedEntropy !== null && password === lastGeneratedPassword)
+                    ? generatedEntropy
+                    : estimateEntropyFromString(password)
+            );
+            let text, color;
+            if (bits < 40)      { text = 'Weak';   color = 'var(--strength-weak)'; }
+            else if (bits < 70) { text = 'Medium'; color = 'var(--strength-medium)'; }
+            else                { text = 'Strong'; color = 'var(--strength-strong)'; }
+            return { text: text + ' \u00b7 ' + bits + ' bits', color: color };
+        }
+
+        function generatePasswordAuto() {
+            if (settings.mode === 'memorable') {
+                currentPassword = generatePassphrase();
+            } else if (settings.mode === 'short') {
+                currentPassword = generateShortMemorable();
+            } else if (settings.mode === 'pin') {
+                currentPassword = generatePIN();
+            } else if (settings.mode === 'date') {
+                currentPassword = generateDate();
+            } else {
+                currentPassword = generatePassword();
+            }
+
+            lastGeneratedPassword = currentPassword;
+            generatedEntropy = entropyForSettings();
+            updatePasswordDisplay();
+            saveSettings();
+        }
+
+        function colorizePassword(pw) {
+            return pw.split('').map(ch => {
+                if (/[0-9]/.test(ch)) return '<span class="char-number">' + ch + '</span>';
+                if (/[^a-zA-Z0-9]/.test(ch)) return '<span class="char-symbol">' + ch + '</span>';
+                return ch;
+            }).join('');
+        }
+
+        function getPlainText() {
+            return passwordText.textContent;
+        }
+
+        function updatePasswordDisplay() {
+            passwordText.innerHTML = colorizePassword(currentPassword);
+            
+            const strength = calculateStrength(currentPassword);
+            strengthText.textContent = strength.text;
+            strengthText.style.color = strength.color;
+            strengthText.previousElementSibling.style.background = strength.color;
+        }
+
+        // Copy button
+        copyBtn.addEventListener('click', () => {
+            const password = getPlainText();
+            if (password && password !== 'Password Generator') {
+                navigator.clipboard.writeText(password);
+                showNotification('Password copied to clipboard!', false);
+            } else {
+                showNotification('Generate a password first!', true);
+            }
+        });
+        // Refresh button
+        refreshBtn.addEventListener('click', () => {
+            generatePasswordAuto();
+        });
+
+        // Update password when manually edited
+        passwordText.addEventListener('input', (e) => {
+            // Capture cursor offset before we rewrite innerHTML
+            const sel = window.getSelection();
+            let offset = 0;
+            if (sel.rangeCount) {
+                const range = sel.getRangeAt(0);
+                const walker = document.createTreeWalker(passwordText, NodeFilter.SHOW_TEXT, null, false);
+                while (walker.nextNode()) {
+                    if (walker.currentNode === range.startContainer) {
+                        offset += range.startOffset;
+                        break;
+                    }
+                    offset += walker.currentNode.textContent.length;
+                }
+            }
+
+            currentPassword = passwordText.textContent;
+            passwordText.innerHTML = colorizePassword(currentPassword);
+
+            // Restore cursor
+            const walker2 = document.createTreeWalker(passwordText, NodeFilter.SHOW_TEXT, null, false);
+            let remaining = offset;
+            while (walker2.nextNode()) {
+                if (remaining <= walker2.currentNode.textContent.length) {
+                    const range = document.createRange();
+                    range.setStart(walker2.currentNode, remaining);
+                    range.collapse(true);
+                    sel.removeAllRanges();
+                    sel.addRange(range);
+                    break;
+                }
+                remaining -= walker2.currentNode.textContent.length;
+            }
+
+            const strength = calculateStrength(currentPassword);
+            strengthText.textContent = strength.text;
+            strengthText.style.color = strength.color;
+            strengthText.previousElementSibling.style.background = strength.color;
+        });
+
+        // Send via scrt.link - behavior depends on scrtIntegrationActive
+        scrtBtn.addEventListener('click', async () => {
+            const password = getPlainText();
+            if (!password || password === 'Password Generator') {
+                showNotification('Generate a password first!', true);
+                return;
+            }
+
+            if (scrtIntegrationActive && client) {
+                // Full scrt.link API integration
+                try {
+                    showNotification('Creating secret link...', false);
+                    
+                    const note = noteInput.value.trim();
+                    const expiryMs = parseInt(expiryDropdown.value);
+                    const scrtPassword = document.getElementById('scrtPasswordInput').value.trim();
+                    const viewLimit = parseInt(document.getElementById('viewLimitInput').value);
+                    
+                    // Validate password length if provided
+                    if (scrtPassword && scrtPassword.length < 6) {
+                        showNotification('Password must be at least 6 characters or left blank!', true);
+                        return;
+                    }
+                    
+                    const options = {
+                        secretType: 'text',
+                        publicNote: note || '',
+                        expiresIn: expiryMs,
+                    };
+                    
+                    // Add view limit if not unlimited
+                    if (viewLimit > 0) {
+                        options.viewLimit = viewLimit;
+                    }
+                    
+                    // Add password to options if provided
+                    if (scrtPassword) {
+                        options.password = scrtPassword;
+                    }
+                    
+                    const result = await client.createSecret(password, options);
+
+                    const { secretLink, receiptId } = result;
+                    
+                    // Store the link
+                    window.currentSecretLink = secretLink;
+                    
+                    // Send ntfy notification
+                    ntfy(receiptId, secretLink, scrtPassword);
+                    
+                    // Get expiry text and view limit text
+                    const expiryText = expiryDropdown.options[expiryDropdown.selectedIndex].text;
+                    const viewLimitText = `${viewLimit} view${viewLimit > 1 ? 's' : ''}`;
+                    
+                    // Show modal with link
+                    scrtLinkDisplay.textContent = secretLink;
+                    document.getElementById('scrtExpiryText').textContent = `Expires in ${expiryText} • ${viewLimitText} • Click link to copy`;
+                    scrtModal.classList.add('active');
+                    
+                    showNotification('Secret link created!', false);
+                    
+                } catch (error) {
+                    showNotification('Error creating secret link: ' + error.message, true);
+                    console.error(error);
+                }
+            } else {
+                // Simple mode: copy password and open scrt.link website
+                navigator.clipboard.writeText(password);
+                showNotification('Password copied! Opening scrt.link...', false);
+                window.open('https://scrt.link', '_blank');
+            }
+        });
+
+        // Phonetic Alphabet button
+        phoneticBtn.addEventListener('click', () => {
+            const password = getPlainText();
+            if (!password || password === 'Password Generator') {
+                showNotification('Generate a password first!', true);
+                return;
+            }
+
+            // Generate phonetic list
+            let phoneticHTML = '';
+            for (let char of password) {
+                const lowerChar = char.toLowerCase();
+                const phonetic = phoneticAlphabet[lowerChar] || phoneticAlphabet[char] || char;
+                const displayChar = char;
+                
+                // Determine case indicator
+                let caseHTML = '';
+                if (/[a-zA-Z]/.test(char)) {
+                    if (char === char.toUpperCase()) {
+                        caseHTML = '<span class="phonetic-case uppercase">uppercase</span>';
+                    } else {
+                        caseHTML = '<span class="phonetic-case">lowercase</span>';
+                    }
+                } else {
+                    caseHTML = '<span class="phonetic-case"></span>';
+                }
+                
+                phoneticHTML += `
+                    <div class="phonetic-item">
+                        <span class="phonetic-char">${displayChar}</span>
+                        ${caseHTML}
+                        <span class="phonetic-word">${phonetic}</span>
+                    </div>
+                `;
+            }
+            
+            phoneticList.innerHTML = phoneticHTML;
+            phoneticModal.classList.add('active');
+        });
+
+        // Generate QR Code
+        qrBtn.addEventListener('click', () => {
+            const password = getPlainText();
+            if (!password || password === 'Password Generator') {
+                showNotification('Generate a password first!', true);
+                return;
+            }
+
+            const qrcodeDiv = document.getElementById('qrcode');
+            qrcodeDiv.innerHTML = '';
+            
+            new QRCode(qrcodeDiv, {
+                text: password,
+                width: 256,
+                height: 256,
+                colorDark: '#000000',
+                colorLight: '#ffffff',
+                correctLevel: QRCode.CorrectLevel.H
+            });
+
+            qrModal.classList.add('active');
+        });
+
+        function closeQRModal() {
+            qrModal.classList.remove('active');
+        }
+
+        function closeScrtModal() {
+            scrtModal.classList.remove('active');
+        }
+
+        function closePhoneticModal() {
+            phoneticModal.classList.remove('active');
+        }
+
+        function copyScrtLink() {
+            if (window.currentSecretLink) {
+                navigator.clipboard.writeText(window.currentSecretLink);
+                showNotification('Secret link copied to clipboard!', false);
+            }
+        }
+
+        qrModal.addEventListener('click', (e) => {
+            if (e.target === qrModal) {
+                closeQRModal();
+            }
+        });
+
+        scrtModal.addEventListener('click', (e) => {
+            if (e.target === scrtModal) {
+                closeScrtModal();
+            }
+        });
+
+        phoneticModal.addEventListener('click', (e) => {
+            if (e.target === phoneticModal) {
+                closePhoneticModal();
+            }
+        });
+
+        function showNotification(message, isError = false) {
+            notification.textContent = message;
+            notification.className = 'notification show';
+            if (isError) {
+                notification.classList.add('error');
+            }
+
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Make functions available globally
+        window.closeQRModal = closeQRModal;
+        window.closeScrtModal = closeScrtModal;
+        window.closePhoneticModal = closePhoneticModal;
+        window.copyScrtLink = copyScrtLink;
+
+         // ── Settings persistence ──────────────────────────────────────────
+        const SETTINGS_KEY = 'passgen_settings';
+
+        function saveSettings() {
+            try {
+                localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+            } catch(e) {}
+        }
+
+        function loadSettings() {
+            try {
+                const saved = localStorage.getItem(SETTINGS_KEY);
+                if (saved) Object.assign(settings, JSON.parse(saved));
+            } catch(e) {}
+        }
+
+        // ── Sync UI panels from settings.mode (mirrors dropdown change handler) ──
+        function syncUIFromMode() {
+            const mode = settings.mode;
+            // Sync dropdown visual
+            typeDropdown.value = mode;
+
+            if (mode === 'memorable') {
+                randomOptions.style.display = 'none';
+                memorableOptions.style.display = 'flex';
+                shortOptions.style.display = 'none';
+                datePresets.style.display = 'none';
+                lengthSlider.min = 3; lengthSlider.max = 10;
+                lengthSlider.value = settings.length || 5;
+                lengthValue.textContent = lengthSlider.value;
+                lengthLabel.textContent = 'words';
+            } else if (mode === 'short') {
+                randomOptions.style.display = 'none';
+                memorableOptions.style.display = 'none';
+                shortOptions.style.display = 'flex';
+                datePresets.style.display = 'none';
+                lengthSlider.min = 2; lengthSlider.max = 5;
+                lengthSlider.value = settings.length || 2;
+                lengthValue.textContent = lengthSlider.value;
+                lengthLabel.textContent = 'words';
+            } else if (mode === 'pin') {
+                randomOptions.style.display = 'none';
+                memorableOptions.style.display = 'none';
+                shortOptions.style.display = 'none';
+                datePresets.style.display = 'none';
+                lengthSlider.min = 4; lengthSlider.max = 32;
+                lengthSlider.value = settings.length || 6;
+                lengthValue.textContent = lengthSlider.value;
+                lengthLabel.textContent = 'digits';
+            } else if (mode === 'date') {
+                randomOptions.style.display = 'none';
+                memorableOptions.style.display = 'none';
+                shortOptions.style.display = 'none';
+                datePresets.style.display = 'flex';
+                lengthSlider.min = 1; lengthSlider.max = 730;
+                lengthSlider.value = settings.length || 90;
+                lengthValue.textContent = lengthSlider.value;
+                lengthLabel.textContent = 'days from today';
+            } else {
+                randomOptions.style.display = 'flex';
+                memorableOptions.style.display = 'none';
+                shortOptions.style.display = 'none';
+                datePresets.style.display = 'none';
+                lengthSlider.min = 8; lengthSlider.max = 64;
+                lengthSlider.value = settings.length || 30;
+                lengthValue.textContent = lengthSlider.value;
+                lengthLabel.textContent = 'characters';
+            }
+
+            // Sync toggle states
+            if (specialToggle)  specialToggle.checked  = settings.special;
+            if (capitalToggle)  capitalToggle.checked  = settings.capital;
+            if (numbersToggle)  numbersToggle.checked  = settings.numbers;
+            if (capitalizeToggle)        capitalizeToggle.checked        = settings.capitalize;
+            if (numbersMemorableToggle)  numbersMemorableToggle.checked  = settings.numbersInPassphrase;
+            if (capitalizeShortToggle)   capitalizeShortToggle.checked   = settings.capitalizeShort;
+            if (symbolsShortToggle)      symbolsShortToggle.checked      = settings.symbolsShort;
+            if (numbersShortToggle)      numbersShortToggle.checked      = settings.numbersShort;
+            if (separatorDropdown)       separatorDropdown.value         = settings.separator;
+        }
+
+
+        // ── Initialise ────────────────────────────────────────────────────
+        // 1. Load persisted settings (survives tab suspend / browser restore)
+        loadSettings();
+        applyTheme(settings.theme);
+        // 2. Sync UI to restored settings (fixes dropdown ↔ mode mismatch)
+        syncUIFromMode();
+        // 3. Generate initial password consistent with the restored mode
+        generatePasswordAuto();
+    
+    </script>
+</body>
+</html>
