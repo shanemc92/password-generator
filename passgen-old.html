@@ -3,9 +3,10 @@
 <head>
 	<meta charset="utf-8">
 	<title>Password Generator</title>
-	<meta name="description" content="A page with loads of passwords">
+	<meta name="description" content="A single-file, offline-capable password generator. Everything is generated locally in your browser.">
 	<meta name="author" content="Shane McElhinney">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta name="referrer" content="no-referrer">
 	<link rel="shortcut icon" href="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgd2lkdGg9IjUxMnB4IiBoZWlnaHQ9IjUxMnB4IiBzdHlsZT0ic2hhcGUtcmVuZGVyaW5nOmdlb21ldHJpY1ByZWNpc2lvbjsgdGV4dC1yZW5kZXJpbmc6Z2VvbWV0cmljUHJlY2lzaW9uOyBpbWFnZS1yZW5kZXJpbmc6b3B0aW1pemVRdWFsaXR5OyBmaWxsLXJ1bGU6ZXZlbm9kZDsgY2xpcC1ydWxlOmV2ZW5vZGQiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj4KPGc+PHBhdGggc3R5bGU9Im9wYWNpdHk6MSIgZmlsbD0iIzYzNWM2MyIgZD0iTSAxNzkuNSwxNS41IEMgMTkzLjUzNSwxNS43Mjc2IDIwNy41MzUsMTYuNTYwOSAyMjEuNSwxOEMgMjUxLjM4LDIzLjg4MzggMjczLjIxNCw0MC4zODM4IDI4Nyw2Ny41QyAyODkuNjAyLDczLjYzODcgMjkxLjYwMiw3OS45NzIgMjkzLDg2LjVDIDI5NC41MTQsMTAxLjc5MiAyOTUuMzQ3LDExNy4xMjUgMjk1LjUsMTMyLjVDIDI4NS44MzMsMTMyLjUgMjc2LjE2NywxMzIuNSAyNjYuNSwxMzIuNUMgMjY2Ljc3NiwxMjAuNDY0IDI2Ni4yNzYsMTA4LjQ2NCAyNjUsOTYuNUMgMjYxLjc1LDg0LjkxNyAyNTQuMjUsNzcuNzUwMyAyNDIuNSw3NUMgMjI0LjY5Myw3My4yNTkzIDIwNy4wMjYsNzIuNzU5MyAxODkuNSw3My41QyAxNjcuODE0LDczLjIzNjUgMTQ2LjE0OCw3My43MzY1IDEyNC41LDc1QyAxMDUuMzgzLDc4LjQ2MDIgOTYuMjE2MSw4OS45NjAyIDk3LDEwOS41QyA5Ni4xMTkyLDEzNi40OTQgOTUuNjE5MiwxNjMuNDk0IDk1LjUsMTkwLjVDIDg3LjI1MTcsMTkxLjQ2OSA3OC45MTgzLDE5MS44MDIgNzAuNSwxOTEuNUMgNjkuMTY2NywxOTEuNSA2Ny44MzMzLDE5MS41IDY2LjUsMTkxLjVDIDY2Ljg4MDYsMTU4LjE1NyA2Ny43MTM5LDEyNC44MjMgNjksOTEuNUMgNzYuNTkyNSw1My41NzA1IDk5LjA5MjUsMjkuNDAzOCAxMzYuNSwxOUMgMTUwLjk4OCwxNy44ODIxIDE2NS4zMjIsMTYuNzE1NSAxNzkuNSwxNS41IFoiLz48L2c+CjxnPjxwYXRoIHN0eWxlPSJvcGFjaXR5OjEiIGZpbGw9IiM1MTRiNTEiIGQ9Ik0gMTc5LjUsMTUuNSBDIDE2NS4zMjIsMTYuNzE1NSAxNTAuOTg4LDE3Ljg4MjEgMTM2LjUsMTlDIDk5LjA5MjUsMjkuNDAzOCA3Ni41OTI1LDUzLjU3MDUgNjksOTEuNUMgNjcuNzEzOSwxMjQuODIzIDY2Ljg4MDYsMTU4LjE1NyA2Ni41LDE5MS41QyA1Ni42Mzc2LDE5MS42MzggNDYuOTcwOSwxOTIuOTcxIDM3LjUsMTk1LjVDIDM3LjM2ODIsMTYwLjgwNyAzOC4yMDE1LDEyNi4xNDEgNDAsOTEuNUMgNDYuNTcxNiw1NS4xODQ3IDY3LjQwNDksMzEuMzUxMyAxMDIuNSwyMEMgMTE0LjM1NywxNy40ODA5IDEyNi4zNTcsMTYuMTQ3NSAxMzguNSwxNkMgMTUyLjE2MywxNS41MDAxIDE2NS44MjksMTUuMzMzNCAxNzkuNSwxNS41IFoiLz48L2c+CjxnPjxwYXRoIHN0eWxlPSJvcGFjaXR5OjEiIGZpbGw9IiM1MTRiNTEiIGQ9Ik0gMTg5LjUsNzMuNSBDIDIwNy4wMjYsNzIuNzU5MyAyMjQuNjkzLDczLjI1OTMgMjQyLjUsNzVDIDI1NC4yNSw3Ny43NTAzIDI2MS43NSw4NC45MTcgMjY1LDk2LjVDIDI2Ni4yNzYsMTA4LjQ2NCAyNjYuNzc2LDEyMC40NjQgMjY2LjUsMTMyLjVDIDI1Ni44MzMsMTMyLjUgMjQ3LjE2NywxMzIuNSAyMzcuNSwxMzIuNUMgMjM3LjE5MywxMjEuMTYxIDIzNi42OTMsMTA5LjgyOCAyMzYsOTguNUMgMjMzLjI1LDg2Ljc1MDMgMjI2LjA4Myw3OS4yNTAzIDIxNC41LDc2QyAyMDYuMTg0LDc0LjkxMzEgMTk3Ljg1MSw3NC4wNzk4IDE4OS41LDczLjUgWiIvPjwvZz4KPGc+PHBhdGggc3R5bGU9Im9wYWNpdHk6MSIgZmlsbD0iI2RhNWQ2OSIgZD0iTSAzMzMuNSwxMDEuNSBDIDM0Mi4yMDcsMTAxLjAzNyAzNDUuNzA3LDEwNS4wMzcgMzQ0LDExMy41QyAzMzksMTI0LjE2NyAzMzQsMTM0LjgzMyAzMjksMTQ1LjVDIDMyNC45MjQsMTQ5LjAzNCAzMjAuNTkxLDE0OS4zNjcgMzE2LDE0Ni41QyAzMTUuMDY5LDE0NC41NDEgMzE0LjIzNiwxNDIuNTQxIDMxMy41LDE0MC41QyAzMTguNzI2LDEyOC4zODEgMzI0LjIyNiwxMTYuMzgxIDMzMCwxMDQuNUMgMzMxLjE0NSwxMDMuMzY0IDMzMi4zMTIsMTAyLjM2NCAzMzMuNSwxMDEuNSBaIi8+PC9nPgo8Zz48cGF0aCBzdHlsZT0ib3BhY2l0eToxIiBmaWxsPSIjZGE1ZDY5IiBkPSJNIDM2Ny41LDEzOC41IEMgMzc1LjY1OCwxMzcuODIzIDM3OS4xNTgsMTQxLjQ5IDM3OCwxNDkuNUMgMzc3LjIxNSwxNTEuMjg2IDM3Ni4wNDksMTUyLjc4NiAzNzQuNSwxNTRDIDM2Mi4zOTUsMTU4LjM2OCAzNTAuMjI4LDE2Mi41MzUgMzM4LDE2Ni41QyAzMzMuMTc4LDE2NS42NzggMzMwLjM0NCwxNjIuODQ0IDMyOS41LDE1OEMgMzI5LjkzNCwxNTUuNjg0IDMzMC45MzQsMTUzLjY4NCAzMzIuNSwxNTJDIDM0NC4yMjcsMTQ3LjM3NCAzNTUuODkzLDE0Mi44NzQgMzY3LjUsMTM4LjUgWiIvPjwvZz4KPGc+PHBhdGggc3R5bGU9Im9wYWNpdHk6MSIgZmlsbD0iI2RhNWQ2OSIgZD0iTSAzMzUuNSwxNzMuNSBDIDM0OS41MDMsMTc4LjA4NSAzNjIuNjcsMTg0LjQxOCAzNzUsMTkyLjVDIDM3Ny4yOSwyMDEuNzg5IDM3My43OSwyMDUuNjIyIDM2NC41LDIwNEMgMzUzLjgzMywxOTkgMzQzLjE2NywxOTQgMzMyLjUsMTg5QyAzMjYuNjQxLDE4Mi40NjIgMzI3LjY0MSwxNzcuMjk1IDMzNS41LDE3My41IFoiLz48L2c+CjxnPjxwYXRoIHN0eWxlPSJvcGFjaXR5OjEiIGZpbGw9IiNmMmQ5NDQiIGQ9Ik0gMzM0LjUsMzI5LjUgQyAyNzUuNDYzLDMyOS4wNDIgMjE2LjQ2MywzMzAuMjA5IDE1Ny41LDMzM0MgMTM2LjQ4MiwzMzkuMzU5IDEyNC45ODIsMzUzLjUyNSAxMjMsMzc1LjVDIDExOS40MjcsNDAzLjIzNyAxMTkuOTI3LDQzMC45MDQgMTI0LjUsNDU4LjVDIDEwNC44MjcsNDU3Ljk4MSA4NS4xNjA4LDQ1Ny4zMTUgNjUuNSw0NTYuNUMgNTEuNzk1OCw0NDcuMjg1IDQyLjk2MjUsNDM0LjYxOSAzOSw0MTguNUMgMzMuODk5NCwzNjEuMjMgMzMuMjMyNywzMDMuODk3IDM3LDI0Ni41QyAzNi41ODc1LDIyNi4wNDcgNDQuMDg3NSwyMDkuMjEzIDU5LjUsMTk2QyA2Mi44NjA1LDE5My40NjMgNjYuNTI3MSwxOTEuOTYzIDcwLjUsMTkxLjVDIDc4LjkxODMsMTkxLjgwMiA4Ny4yNTE3LDE5MS40NjkgOTUuNSwxOTAuNUMgMTU5LjUyNywxODguMDg4IDIyMy41MjcsMTg4LjkyMSAyODcuNSwxOTNDIDMxMC40NzUsMTk3Ljk3NiAzMjQuOTc1LDIxMS44MDkgMzMxLDIzNC41QyAzMzMuODczLDI2Ni4wOTUgMzM1LjAzOSwyOTcuNzYyIDMzNC41LDMyOS41IFoiLz48L2c+CjxnPjxwYXRoIHN0eWxlPSJvcGFjaXR5OjEiIGZpbGw9IiNlN2MxMmIiIGQ9Ik0gNjYuNSwxOTEuNSBDIDY3LjgzMzMsMTkxLjUgNjkuMTY2NywxOTEuNSA3MC41LDE5MS41QyA2Ni41MjcxLDE5MS45NjMgNjIuODYwNSwxOTMuNDYzIDU5LjUsMTk2QyA0NC4wODc1LDIwOS4yMTMgMzYuNTg3NSwyMjYuMDQ3IDM3LDI0Ni41QyAzMy4yMzI3LDMwMy44OTcgMzMuODk5NCwzNjEuMjMgMzksNDE4LjVDIDQyLjk2MjUsNDM0LjYxOSA1MS43OTU4LDQ0Ny4yODUgNjUuNSw0NTYuNUMgNDEuNDQxMiw0NTguMDUxIDIyLjYwNzgsNDQ5LjA1MSA5LDQyOS41QyA2LjQxMjc4LDQyNC43MzkgNC40MTI3OCw0MTkuNzM5IDMsNDE0LjVDIDEuNDY4Miw0MDAuNzE0IDAuMzAxNTMsMzg3LjA0NyAtMC41LDM3My41QyAtMC41LDM0MC4xNjcgLTAuNSwzMDYuODMzIC0wLjUsMjczLjVDIDAuNDQwMzQxLDI2MS45OTcgMS4yNzM2NywyNTAuMzMxIDIsMjM4LjVDIDUuNjUxODgsMjE3LjM1MyAxNy40ODUyLDIwMy4wMiAzNy41LDE5NS41QyA0Ni45NzA5LDE5Mi45NzEgNTYuNjM3NiwxOTEuNjM4IDY2LjUsMTkxLjUgWiIvPjwvZz4KPGc+PHBhdGggc3R5bGU9Im9wYWNpdHk6MSIgZmlsbD0iI2UxZGFlMCIgZD0iTSAzMzQuNSwzMjkuNSBDIDM3MS41MDksMzI5LjMzMyA0MDguNTA5LDMyOS44MzMgNDQ1LjUsMzMxQyA0ODguMDIzLDMyNy4wNCA1MTAuMDIzLDM0Ni4yMDcgNTExLjUsMzg4LjVDIDUxMS41LDQwNC4xNjcgNTExLjUsNDE5LjgzMyA1MTEuNSw0MzUuNUMgNTEwLjM0Miw0NDQuNDEzIDUwOC44NDIsNDUzLjQxMyA1MDcsNDYyLjVDIDQ5OS40MTIsNDgyLjQwNyA0ODQuOTEyLDQ5Mi41NzQgNDYzLjUsNDkzQyAzNjEuNDgsNDk2LjYxNSAyNTkuNDgsNDk2LjI4MiAxNTcuNSw0OTJDIDEzOS41ODIsNDg3LjU4MyAxMjguNTgyLDQ3Ni40MTYgMTI0LjUsNDU4LjVDIDExOS45MjcsNDMwLjkwNCAxMTkuNDI3LDQwMy4yMzcgMTIzLDM3NS41QyAxMjQuOTgyLDM1My41MjUgMTM2LjQ4MiwzMzkuMzU5IDE1Ny41LDMzM0MgMjE2LjQ2MywzMzAuMjA5IDI3NS40NjMsMzI5LjA0MiAzMzQuNSwzMjkuNSBaIi8+PC9nPgo8Zz48cGF0aCBzdHlsZT0ib3BhY2l0eToxIiBmaWxsPSIjZjJmMmYyIiBkPSJNIDI3Mi41LDM0NC41IEMgMzM4LjUzNywzNDMuOTEyIDQwNC41MzcsMzQ1LjA3OSA0NzAuNSwzNDhDIDQ4MC42MzksMzUwLjEzNiA0ODcuODA2LDM1NS45NjkgNDkyLDM2NS41QyA0OTcuNTYsMzk0Ljc4NCA0OTcuODk0LDQyNC4xMTggNDkzLDQ1My41QyA0OTAsNDY1LjE2NiA0ODIuODMzLDQ3Mi45OTkgNDcxLjUsNDc3QyAzNjguMTY4LDQ4MC4yOSAyNjQuODM1LDQ4MC4yOSAxNjEuNSw0NzdDIDE1MC42MTUsNDc0LjEyOCAxNDMuNDQ4LDQ2Ny4yOTUgMTQwLDQ1Ni41QyAxMzQuMDAxLDQyNy4xNzUgMTM0LjAwMSwzOTcuODQyIDE0MCwzNjguNUMgMTQyLjkwNSwzNTcuMjYzIDE1MC4wNzEsMzUwLjQzIDE2MS41LDM0OEMgMTk4LjY1MSwzNDYuNDg4IDIzNS42NTEsMzQ1LjMyMSAyNzIuNSwzNDQuNSBaIi8+PC9nPgo8Zz48cGF0aCBzdHlsZT0ib3BhY2l0eToxIiBmaWxsPSIjNjY1ZjY2IiBkPSJNIDE5Ny41LDQyNi41IEMgMTk3LjQ0LDQyNS45NTcgMTk3LjEwNyw0MjUuNjI0IDE5Ni41LDQyNS41QyAxOTUuNTAzLDQzMy4xMzggMTk1LjE2OSw0NDAuODA0IDE5NS41LDQ0OC41QyAxOTMuMzg3LDQ1NC40ODcgMTg5LjM4Nyw0NTUuOTg3IDE4My41LDQ1M0MgMTgyLjQxOCw0NTEuNjcgMTgxLjc1MSw0NTAuMTcgMTgxLjUsNDQ4LjVDIDE4MS44MzEsNDQwLjgwNCAxODEuNDk3LDQzMy4xMzggMTgwLjUsNDI1LjVDIDE3OS44OTMsNDI1LjYyNCAxNzkuNTYsNDI1Ljk1NyAxNzkuNSw0MjYuNUMgMTczLjE5NCw0MjkuOTg4IDE2Ni44Niw0MzMuNDg4IDE2MC41LDQzN0MgMTU1LjEyMiw0MzcuNDc5IDE1MS43ODksNDM0Ljk3OSAxNTAuNSw0MjkuNUMgMTUwLjcxOSw0MjguMDYyIDE1MS4yMTksNDI2LjcyOSAxNTIsNDI1LjVDIDE1OC43NDgsNDIwLjg3NiAxNjUuNTgxLDQxNi4zNzYgMTcyLjUsNDEyQyAxNjYuMDgyLDQwOC4wNDEgMTU5LjU4Miw0MDQuMjA3IDE1Myw0MDAuNUMgMTQ4Ljg1MiwzOTEuMzM2IDE1MS42ODYsMzg3LjE2OSAxNjEuNSwzODhDIDE2Ny42MywzOTEuMyAxNzMuNjMsMzk0LjggMTc5LjUsMzk4LjVDIDE4MC4zMzEsMzkwLjg1NSAxODAuODMxLDM4My4xODggMTgxLDM3NS41QyAxODMuNDM1LDM3MC43NzYgMTg3LjI2OSwzNjkuMjc2IDE5Mi41LDM3MUMgMTk0LjA0OSwzNzIuMjE0IDE5NS4yMTUsMzczLjcxNCAxOTYsMzc1LjVDIDE5Ni4zMzMsMzgzLjE2NyAxOTYuNjY3LDM5MC44MzMgMTk3LDM5OC41QyAyMDMuMDg1LDM5NC44NzMgMjA5LjI1MiwzOTEuMzczIDIxNS41LDM4OEMgMjI1LjMxNCwzODcuMTY5IDIyOC4xNDgsMzkxLjMzNiAyMjQsNDAwLjVDIDIxNy40MTgsNDA0LjIwNyAyMTAuOTE4LDQwOC4wNDEgMjA0LjUsNDEyQyAyMTEuNDE5LDQxNi4zNzYgMjE4LjI1Miw0MjAuODc2IDIyNSw0MjUuNUMgMjI3LjIsNDMyLjk3NCAyMjQuMzY3LDQzNi44MDcgMjE2LjUsNDM3QyAyMTAuMTQsNDMzLjQ4OCAyMDMuODA2LDQyOS45ODggMTk3LjUsNDI2LjUgWiIvPjwvZz4KPGc+PHBhdGggc3R5bGU9Im9wYWNpdHk6MSIgZmlsbD0iIzY1NWU2NSIgZD0iTSAyNjguNSwzNzAuNSBDIDI3MC44NTcsMzcwLjMzNyAyNzMuMTksMzcwLjUwMyAyNzUuNSwzNzFDIDI3Ny4zMzMsMzcxLjUgMjc4LjUsMzcyLjY2NyAyNzksMzc0LjVDIDI3OS4xNjgsMzgyLjUyMSAyNzkuNjY4LDM5MC41MjEgMjgwLjUsMzk4LjVDIDI4Ny42MDcsMzk0LjI4IDI5NC45NCwzOTAuNjEzIDMwMi41LDM4Ny41QyAzMDguNzMyLDM4OC42MTcgMzEwLjg5OCwzOTIuMjgzIDMwOSwzOTguNUMgMzA3LjgzMywzOTkuNjY3IDMwNi42NjcsNDAwLjgzMyAzMDUuNSw0MDJDIDI5OS40NjIsNDA1LjAxMyAyOTMuNzk2LDQwOC41MTMgMjg4LjUsNDEyLjVDIDI5NS4wODQsNDE2LjM3NSAzMDEuNTg0LDQyMC4zNzUgMzA4LDQyNC41QyAzMTEuNDUxLDQzMy4wMzkgMzA4LjYxOCw0MzcuMjA2IDI5OS41LDQzN0MgMjkzLjE2Nyw0MzMuMTY3IDI4Ni44MzMsNDI5LjMzMyAyODAuNSw0MjUuNUMgMjc5LjY2OCw0MzMuODEzIDI3OS4xNjgsNDQyLjE0NyAyNzksNDUwLjVDIDI3My44MzcsNDU2LjA2MiAyNjkuMTcxLDQ1NS43MjkgMjY1LDQ0OS41QyAyNjQuNjY3LDQ0MS41IDI2NC4zMzMsNDMzLjUgMjY0LDQyNS41QyAyNTcuMDg2LDQzMC4yOSAyNDkuNzUzLDQzNC4yOSAyNDIsNDM3LjVDIDIzMy42MTgsNDM0LjM2NyAyMzIuNDUxLDQyOS41MzQgMjM4LjUsNDIzQyAyNDQuNzY0LDQxOS43MyAyNTAuNzY0LDQxNi4wNjQgMjU2LjUsNDEyQyAyNDkuNTgzLDQwNy45NTkgMjQyLjc1LDQwMy43OTIgMjM2LDM5OS41QyAyMzMuMzIzLDM5MC44NDQgMjM2LjQ4OSwzODcuMDExIDI0NS41LDM4OEMgMjUxLjMzNiwzOTEuNzUyIDI1Ny4zMzYsMzk1LjI1MiAyNjMuNSwzOTguNUMgMjY0LjMzMiwzOTAuNTIxIDI2NC44MzIsMzgyLjUyMSAyNjUsMzc0LjVDIDI2Ni4zNzYsMzczLjI5NSAyNjcuNTQyLDM3MS45NjIgMjY4LjUsMzcwLjUgWiIvPjwvZz4KPGc+PHBhdGggc3R5bGU9Im9wYWNpdHk6MSIgZmlsbD0iIzY1NWU2NSIgZD0iTSAzNTIuNSwzNzAuNSBDIDM1NC44NTcsMzcwLjMzNyAzNTcuMTksMzcwLjUwMyAzNTkuNSwzNzFDIDM2MS4zMzMsMzcxLjUgMzYyLjUsMzcyLjY2NyAzNjMsMzc0LjVDIDM2My4xNjgsMzgyLjUyMSAzNjMuNjY4LDM5MC41MjEgMzY0LjUsMzk4LjVDIDM3MS40MjcsMzk0LjUzOCAzNzguNDI3LDM5MC44NzIgMzg1LjUsMzg3LjVDIDM5My4wOTQsMzg4LjU4OSAzOTUuMjYxLDM5Mi41ODkgMzkyLDM5OS41QyAzODUuNTgzLDQwNC4yOTQgMzc4Ljc1LDQwOC40NjEgMzcxLjUsNDEyQyAzNzguMzMzLDQxNi4xNjcgMzg1LjE2Nyw0MjAuMzMzIDM5Miw0MjQuNUMgMzk1LjIwMiw0MzIuOTUyIDM5Mi4zNjgsNDM3LjExOSAzODMuNSw0MzdDIDM3Nyw0MzMuMTY3IDM3MC41LDQyOS4zMzMgMzY0LDQyNS41QyAzNjMuNjY3LDQzMy41IDM2My4zMzMsNDQxLjUgMzYzLDQ0OS41QyAzNjAuNzc0LDQ1My44NjEgMzU3LjI3NCw0NTUuMzYxIDM1Mi41LDQ1NEMgMzUwLjk1MSw0NTIuNzg2IDM0OS43ODUsNDUxLjI4NiAzNDksNDQ5LjVDIDM0OC42NjcsNDQxLjUgMzQ4LjMzMyw0MzMuNSAzNDgsNDI1LjVDIDM0MS4wODYsNDMwLjI5IDMzMy43NTMsNDM0LjI5IDMyNiw0MzcuNUMgMzE4LjUyMSw0MzUuMzcgMzE2LjY4OCw0MzAuODcgMzIwLjUsNDI0QyAzMjcuMTY3LDQyMCAzMzMuODMzLDQxNiAzNDAuNSw0MTJDIDMzNC4xNjcsNDA4LjMzMyAzMjcuODMzLDQwNC42NjcgMzIxLjUsNDAxQyAzMTcuMjMxLDM5Ni4yOTEgMzE3LjU2NCwzOTEuOTU4IDMyMi41LDM4OEMgMzI0LjUsMzg3LjMzMyAzMjYuNSwzODcuMzMzIDMyOC41LDM4OEMgMzM0LjgzMywzOTEuNSAzNDEuMTY3LDM5NSAzNDcuNSwzOTguNUMgMzQ4LjMzMiwzOTAuNTIxIDM0OC44MzIsMzgyLjUyMSAzNDksMzc0LjVDIDM0OS42OSwzNzIuNjUgMzUwLjg1NiwzNzEuMzE2IDM1Mi41LDM3MC41IFoiLz48L2c+CjxnPjxwYXRoIHN0eWxlPSJvcGFjaXR5OjEiIGZpbGw9IiM2NTVlNjUiIGQ9Ik0gNDM1LjUsMzcwLjUgQyA0NDAuMjIzLDM2OS41NTMgNDQ0LjA1NiwzNzAuODg2IDQ0NywzNzQuNUMgNDQ3LjE2OCwzODIuNTIxIDQ0Ny42NjgsMzkwLjUyMSA0NDguNSwzOTguNUMgNDU1LjExMSwzOTQuMDI4IDQ2Mi4xMTEsMzkwLjM2MiA0NjkuNSwzODcuNUMgNDc3Ljc3OSwzODkuNTU3IDQ3OS40NDYsMzk0LjA1NyA0NzQuNSw0MDFDIDQ2OC4xNjcsNDA0LjY2NyA0NjEuODMzLDQwOC4zMzMgNDU1LjUsNDEyQyA0NjEuMjM2LDQxNi4wNjQgNDY3LjIzNiw0MTkuNzMgNDczLjUsNDIzQyA0NzguOTk3LDQyOC4wMzMgNDc4LjY2NCw0MzIuNyA0NzIuNSw0MzdDIDQ3MC44MzMsNDM3LjY2NyA0NjkuMTY3LDQzNy42NjcgNDY3LjUsNDM3QyA0NjAuNzUzLDQzMy41NDUgNDU0LjI1Myw0MjkuNzExIDQ0OCw0MjUuNUMgNDQ3LjY2Nyw0MzMuNSA0NDcuMzMzLDQ0MS41IDQ0Nyw0NDkuNUMgNDQyLjc0OCw0NTUuNjUzIDQzOC4wODEsNDU1Ljk4NiA0MzMsNDUwLjVDIDQzMi44MzIsNDQyLjE0NyA0MzIuMzMyLDQzMy44MTMgNDMxLjUsNDI1LjVDIDQyNC41MTUsNDI5LjkwNyA0MTcuMzQ4LDQzMy45MDcgNDEwLDQzNy41QyA0MDIuMzE5LDQzNS40OTcgNDAwLjQ4NSw0MzAuOTk3IDQwNC41LDQyNEMgNDEwLjgzMyw0MjAuMTY3IDQxNy4xNjcsNDE2LjMzMyA0MjMuNSw0MTIuNUMgNDE2LjU1Myw0MDguMDYyIDQwOS43MTksNDAzLjM5NSA0MDMsMzk4LjVDIDQwMS4zMzUsMzkwLjUwMSA0MDQuNTAyLDM4Ny4wMDEgNDEyLjUsMzg4QyA0MTguODMzLDM5MS41IDQyNS4xNjcsMzk1IDQzMS41LDM5OC41QyA0MzIuMzMyLDM5MC41MjEgNDMyLjgzMiwzODIuNTIxIDQzMywzNzQuNUMgNDMzLjY2MiwzNzMuMDE2IDQzNC40OTYsMzcxLjY4MyA0MzUuNSwzNzAuNSBaIi8+PC9nPgo8Zz48cGF0aCBzdHlsZT0ib3BhY2l0eToxIiBmaWxsPSIjOWM5NjljIiBkPSJNIDE3OS41LDQyNi41IEMgMTc5LjU2LDQyNS45NTcgMTc5Ljg5Myw0MjUuNjI0IDE4MC41LDQyNS41QyAxODEuNDk3LDQzMy4xMzggMTgxLjgzMSw0NDAuODA0IDE4MS41LDQ0OC41QyAxODAuODMzLDQ0MS4xNjcgMTgwLjE2Nyw0MzMuODMzIDE3OS41LDQyNi41IFoiLz48L2c+CjxnPjxwYXRoIHN0eWxlPSJvcGFjaXR5OjEiIGZpbGw9IiM5ZDk3OWQiIGQ9Ik0gMTk3LjUsNDI2LjUgQyAxOTYuODMzLDQzMy44MzMgMTk2LjE2Nyw0NDEuMTY3IDE5NS41LDQ0OC41QyAxOTUuMTY5LDQ0MC44MDQgMTk1LjUwMyw0MzMuMTM4IDE5Ni41LDQyNS41QyAxOTcuMTA3LDQyNS42MjQgMTk3LjQ0LDQyNS45NTcgMTk3LjUsNDI2LjUgWiIvPjwvZz4KPC9zdmc+Cg==">
     
 	<style>
@@ -304,15 +305,17 @@
 	</style>
 
 	<!-- Scripts-->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/js-sha256@0.9.0/build/sha256.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"
+	        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdn.jsdelivr.net/npm/js-sha256@0.9.0/build/sha256.min.js"
+	        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
 	<script type="text/javascript">
 	function credits(){
-		document.getElementById("credits").innerHTML = "<div class='container lg-6 lg-l sm-6 md-4'><div class='pad'><br><span class='grey oneliner'><a class='grey' id='Refresh' href='#' onclick='reload();return false;'>/</a>/ Credits --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</span><br><br><span class='credit white'>Created by </span><span class='credit green'>Shane McElhinney</span><br><br><p>Inspired by <a class='blue' href='http://musicforprogramming.net'>musicforprogramming.net</a></p><p>Password Meter powered by zxcvbn <a class='fuschia' href='https://github.com/dropbox/zxcvbn'>github.com/dropbox/zxcvbn</a></p><p>Wordlist from <a class='orange' href='https://github.com/dolph/dictionary'>github.com/dolph/dictionary</a></p><p>Nouns & Adjectives from <a class='purple' href='https://github.com/hugsy/stuff/tree/main/random-word'>github.com/hugsy/stuff/tree/main/random-word</a></p><p>One-time links via <a class='yellow' href='https://scrt.link/'>scrt.link</a></p><p>Notifications via <a class='green' href='https://ntfy.sh'>ntfy.sh</a><br><br></p><span class='grey oneliner'><a class='grey' id='Refresh' href='#' onclick='reload();return false;'>/</a>/  --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</span><br><br>";
+		document.getElementById("credits").innerHTML = "<div class='container lg-6 lg-l sm-6 md-4'><div class='pad'><br><span class='grey oneliner'><a class='grey' href='#' onclick='reload();return false;'>/</a>/ Credits --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</span><br><br><span class='credit white'>Created by </span><span class='credit green'>Shane McElhinney</span><br><br><p>Inspired by <a class='blue' href='http://musicforprogramming.net'>musicforprogramming.net</a></p><p>Password Meter powered by zxcvbn <a class='fuschia' href='https://github.com/dropbox/zxcvbn'>github.com/dropbox/zxcvbn</a></p><p>Wordlist from <a class='orange' href='https://github.com/dolph/dictionary'>github.com/dolph/dictionary</a></p><p>Nouns & Adjectives from <a class='purple' href='https://github.com/hugsy/stuff/tree/main/random-word'>github.com/hugsy/stuff/tree/main/random-word</a></p><p>One-time links via <a class='yellow' href='https://scrt.link/'>scrt.link</a></p><p>Notifications via <a class='green' href='https://ntfy.sh'>ntfy.sh</a><br><br></p><span class='grey oneliner'><a class='grey' href='#' onclick='reload();return false;'>/</a>/  --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</span><br><br>";
 	}
 
 	// wordlists
@@ -333,85 +336,79 @@
 	];
 
 	// cryptographically random integer generator used for any random values needed
+	// Uniform random integer in [min, max) using rejection sampling.
 	function getRandomInt(min, max){
-		var range = max - min;
+		const range = max - min;
+		if (range <= 1) return min;
 
-		var requestBytes = Math.ceil(Math.log2(range) / 8);
-		if (!requestBytes) { // No randomness required
-			return min;
-		}
-		var maxNum = Math.pow(4096, requestBytes);
-		var ar = new Uint8Array(requestBytes);
+		const requestBytes = Math.ceil(Math.log2(range) / 8);
+		// 2^(8 * requestBytes) - the true number of values the bytes can represent.
+		// (The original used 4096^n here, which silently disabled the bias rejection.)
+		const maxNum = Math.pow(256, requestBytes);
+		const ar = new Uint8Array(requestBytes);
+		const limit = maxNum - (maxNum % range);
 
-		while (true) {
-			window.crypto.getRandomValues(ar);
+		for (;;) {
+			crypto.getRandomValues(ar);
 
-			var val = 0;
-			for (var i = 0;i < requestBytes;i++) {
-				val = (val << 8) + ar[i];
+			let val = 0;
+			// multiply rather than << 8: shifting overflows past 4 bytes
+			for (let i = 0; i < requestBytes; i++) {
+				val = val * 256 + ar[i];
 			}
 
-			if (val < maxNum - maxNum % range) {
-				return min + (val % range);
-			}
+			if (val < limit) return min + (val % range);
 		}
 	}
 
-	// function to shuffle the password
-	function shuffle(array) {
-		var currentIndex = array.length, temporaryValue, randomIndex;
+	// Inclusive of both ends - for dice, digits, etc.
+	function getRandomIntInclusive(min, max){
+		return getRandomInt(min, max + 1);
+	}
 
-		// While there remain elements to shuffle...
-		while (0 !== currentIndex) {
+	// Fisher-Yates shuffle. Accepts a string or array, returns the same type.
+	// The original mutated a string in place, which JS silently ignores - so the
+	// generated passwords were never actually shuffled.
+	function shuffle(input) {
+		const isString = typeof input === 'string';
+		const arr = isString ? input.split('') : input;
 
-			// Pick a remaining element...
-			randomIndex = Math.floor(Math.random() * currentIndex);
-			currentIndex -= 1;
-
-			// And swap it with the current element.
-			temporaryValue = array[currentIndex];
-			array[currentIndex] = array[randomIndex];
-			array[randomIndex] = temporaryValue;
+		for (let i = arr.length - 1; i > 0; i--) {
+			const j = getRandomInt(0, i + 1);
+			[arr[i], arr[j]] = [arr[j], arr[i]];
 		}
 
-		return array;
+		return isString ? arr.join('') : arr;
 	}
 
 	// random password generator
 	function randomPassword(length) {
-		var lowercase = "abcdefghijklmnopqrstuvwxyz";
-		var uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-		var numbers = "0123456789";
-		var symbols = "!@#$=%^&*()-+~;:?/[]}{.,\\";
+		// Exclude characters that look similar to one another
+		const exclude = /[1l0O]/g;
 
-		// Exclude characters that look similar to others
-		var exclude = "1l0O";
-		// include numbers and letters in pool 3 times to have lower probability of symbols
-		var characters = lowercase + uppercase + numbers + lowercase + uppercase + numbers + lowercase + uppercase + numbers + symbols;
-		characters = characters.replace(new RegExp("[" + exclude + "]", "g"), "");
+		const lowercase = "abcdefghijklmnopqrstuvwxyz".replace(exclude, "");
+		const uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".replace(exclude, "");
+		const numbers   = "0123456789".replace(exclude, "");
+		const symbols   = "!@#$=%^&*()-+~;:?/[]}{.,\\";
 
-		// create variable for the password
-		var password = "";
+		// alphanumerics appear 3x so symbols stay a minority of the pool
+		const characters = (lowercase + uppercase + numbers).repeat(3) + symbols;
 
-		// Add at least one of each type of character to the password
-		password += (lowercase.charAt(getRandomInt(0, lowercase.length)));
-		password += (uppercase.charAt(getRandomInt(0, uppercase.length)));
-		password += (numbers.charAt(getRandomInt(0, numbers.length)));
-		password += (symbols.charAt(getRandomInt(0, symbols.length)));
+		const required = [
+			lowercase.charAt(getRandomInt(0, lowercase.length)),
+			uppercase.charAt(getRandomInt(0, uppercase.length)),
+			numbers.charAt(getRandomInt(0, numbers.length)),
+			symbols.charAt(getRandomInt(0, symbols.length))
+		];
 
-		// remove 4 from length
-		length -= 4
+		// don't emit more required chars than the requested length
+		const chars = required.slice(0, Math.max(0, length));
 
-		// add remaining characters
-		for (var x = 0; x < length; x++) {
-			var i = getRandomInt(0, characters.length);
-			password += characters.charAt(i);
+		for (let x = chars.length; x < length; x++) {
+			chars.push(characters.charAt(getRandomInt(0, characters.length)));
 		}
 
-		// Shuffle the password
-		password = shuffle(password);
-
-		return password;
+		return shuffle(chars).join('');
 	}
 
 	// random special char generator
@@ -434,7 +431,7 @@
 	function randomPIN(length) {
 		var pin = "";
 		for (var x = 0; x < length; x++) {
-			pin += getRandomInt(0, 9);
+			pin += getRandomInt(0, 10);
 		}
 		return pin;
 	}
@@ -461,13 +458,12 @@
 
 	// pull x random words up to a maximum total length
 	function readablePassphrase(words, max) {
-		var passphrase = "0".repeat(max+1);
-		// keep regenerating random word list until it meets criteria
-		while (passphrase.length > max) {
+		let passphrase = randomWordList(words);
+		// keep regenerating until it fits, but don't spin forever
+		for (let attempt = 0; attempt < 500 && passphrase.length > max; attempt++) {
 			passphrase = randomWordList(words);
 		}
 		return passphrase;
-
 	}
 	
 	// one random adjective from the global list above 
@@ -522,18 +518,47 @@
 		location.reload();
 	}
 
-	// copy value of a given element to clipboard
-	function CopyToClipboard(id) {
-		var r = document.createRange();
-		r.selectNode(document.getElementById(id));
-		document.getElementById(id).classList.add('pass-highlight');
-		window.getSelection().removeAllRanges();
-		window.getSelection().addRange(r);
-		document.execCommand('copy');
-		window.getSelection().removeAllRanges();
-		document.getElementById("copied").innerHTML = '<span class="yellow">Password copied </span>';
-		setTimeout(function(){document.getElementById("copied").innerHTML = '(Click to copy) ';}, 500);
-		setTimeout(function(){document.getElementById(id).classList.remove('pass-highlight');}, 500);
+	// Copy text to the clipboard. Uses the async Clipboard API where available
+	// and falls back to the old execCommand path for file:// / older browsers.
+	async function copyText(text) {
+		if (navigator.clipboard && window.isSecureContext) {
+			try {
+				await navigator.clipboard.writeText(text);
+				return true;
+			} catch (e) { /* fall through */ }
+		}
+
+		const ta = document.createElement('textarea');
+		ta.value = text;
+		ta.setAttribute('readonly', '');
+		ta.style.position = 'fixed';
+		ta.style.left = '-9999px';
+		document.body.appendChild(ta);
+		ta.select();
+		let ok = false;
+		try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+		ta.remove();
+		return ok;
+	}
+
+	// Flash the element and show a confirmation next to the section heading.
+	function flashCopied(el, ok) {
+		const copied = document.getElementById("copied");
+		el.classList.add('pass-highlight');
+		copied.innerHTML = ok
+			? '<span class="yellow">Password copied </span>'
+			: '<span class="orange">Copy failed </span>';
+		setTimeout(() => {
+			copied.innerHTML = '(Click to copy) ';
+			el.classList.remove('pass-highlight');
+		}, 500);
+	}
+
+	// copy the text of a given element to the clipboard
+	async function CopyToClipboard(id) {
+		const el = document.getElementById(id);
+		if (!el) return;
+		flashCopied(el, await copyText(el.textContent));
 	}
 
 	// check password strength using the zxcvbn library 
@@ -544,10 +569,9 @@
         pwd.addEventListener("input", function () {
 			var pwdVal = pwd.value;
 			let result = zxcvbn(pwdVal);
-			var feedback
 			pwdStrength.className = "strength-" + result.score;
-			if (result.feedback.warning.length < 1) { feedback = "<br>" } else
-			if (result.feedback.warning.length > 1 ) { feedback = result.feedback.warning }
+			const warning = (result.feedback && result.feedback.warning) || "";
+			const feedback = warning.length ? warning : "<br>";
 
 			document.getElementById("feedback").innerHTML = "<span class='blue'>" + feedback +"</span>";
 			document.getElementById("entropy").innerHTML = "<span class='green'> Entropy: </span><span class='white'>" + passwordEntropy(pwdVal)+"</span>";
@@ -580,31 +604,13 @@
 		}
 
 		// Calculate the entropy
-		passwordEntropy = password.length * (Math.log(characterSetSize) / Math.log(2));
+		if (!password.length || !characterSetSize) return "0.00 bit (0 chars)";
+		passwordEntropy = password.length * Math.log2(characterSetSize);
 
 		//include the length
 		passwordEntropy = passwordEntropy.toFixed(2) + " bit ("+ password.length +" chars)"
 
 		return passwordEntropy;
-	}
-
-	// convert passphrases to leetspeak
-	function leetify(str) {
-		// Character mapping
-		const leetChars = {
-			'a': '4', 'e': '3', 'i': '1', 'o': '0', 's': '$', 't': '7'
-		};
-
-		// Convert random letters to leet speak
-		let newStr = '';
-		for (let i = 0; i < str.length; i++) {
-			if (Math.random() < 0.5) {
-			newStr += leetChars[str[i]] || str[i];
-			} else {
-			newStr += str[i];
-			}
-		}
-		return newStr;
 	}
 
 	// update calculation of date when day values change
@@ -638,26 +644,13 @@
 		return sha256(randHex); // from js‑sha256
 	}
 
-	// copy value of a random hash to clipboard
+	// generate a fresh random hash and copy it
 	async function SHA256ToClipboard(id) {
-		const hash = randomSha256(); 
-		
-		var r = document.createRange();
-		r.selectNode(document.getElementById(id));
-		document.getElementById(id).classList.add('pass-highlight');
-		window.getSelection().removeAllRanges();
-		window.getSelection().addRange(r);
-		try {
-			await navigator.clipboard.writeText(hash);   // copies to clipboard
-		} catch (e) {
-			console.error('Clipboard write failed:', e);
-		}
-		window.getSelection().removeAllRanges();
-		document.getElementById("copied").innerHTML = '<span class="yellow">Password copied </span>';
-		setTimeout(function(){document.getElementById("copied").innerHTML = '(Click to copy) ';}, 500);
-		setTimeout(function(){document.getElementById(id).classList.remove('pass-highlight');}, 500);
+		const el = document.getElementById(id);
+		if (!el) return;
+		const hash = randomSha256();
+		flashCopied(el, await copyText(hash));
 	}
-
 
 	/* -------------------------------------------------------------
    QR‑code generation for the password‑meter text
@@ -783,14 +776,6 @@
         });
 	}
 
-	function toggleBanner() {
-		var banner = document.getElementById("scrt_link").classList.toggle("hidden");
-		if (banner) {
-			banner.classList.toggle("visible");
-			banner.classList.toggle("hidden");
-		}
-	}
-	
 	function generate(){
 		// Passwords
 		var sixteen = "";
@@ -802,7 +787,7 @@
 		var four = "";
 		var eight = "";
 		var alpha = 'abcdefghijkmnopqrstuvwxyz';
-		for (i = 1; i <= 9; i++) {
+		for (let i = 1; i <= 9; i++) {
 			if (i < 10) {
 				var j = "0"+i;
 			}
@@ -826,7 +811,7 @@
 		var four = "";
 		var eight = "";
 		var alpha = 'abcdefghijkmnopqrstuvwxyz';
-		for (i = 1; i <= 8; i++) {
+		for (let i = 1; i <= 8; i++) {
 			four += `<span class="blue">${alpha.charAt(i-1)}. </span><span id="four${i}" class="pass" onclick="CopyToClipboard('four${i}');return false;">${randomPIN(4)}</span><br>`;
 			eight += `<span class="blue">${alpha.charAt(i-1)}. </span><span id="eight${i}" class="pass" onclick="CopyToClipboard('eight${i}');return false;">${randomPIN(8)}</span><br>`;
 		}
@@ -835,7 +820,7 @@
 		
 		// Random 
 		document.getElementById("badpass").innerHTML = `<span id="badpasstxt" class="pass" onclick="CopyToClipboard('badpasstxt');return false;">${badPassword()}</span>`;
-		document.getElementById("dice").innerHTML = `<span id="dicetxt" class="pass" onclick="CopyToClipboard('dicetxt');return false;">${getRandomInt(1, 6)} 🎲</span>`;
+		document.getElementById("dice").innerHTML = `<span id="dicetxt" class="pass" onclick="CopyToClipboard('dicetxt');return false;">${getRandomIntInclusive(1, 6)} 🎲</span>`;
 		document.getElementById("rockpaperscissors").innerHTML = `<span id="rpstxt" class="pass" onclick="CopyToClipboard('rpstxt');return false;">${rockPaperScissors()}</span>`;
 		document.getElementById("playingcard").innerHTML = `<span id="cardtxt" class="pass" onclick="CopyToClipboard('cardtxt');return false;">${getRandomCard()}</span>`;
 		document.getElementById("coin").innerHTML = `<span id="cointxt" class="pass" onclick="CopyToClipboard('cointxt');return false;">${coinToss()} 🪙</span>`;
@@ -982,7 +967,7 @@
 				<span class="grey oneliner pass">// Introduction ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</span><br>
 				<span class="sm-off"><br></span>
 				<div class="container elg-3 lg-3 lg-l sm-6 md-5">	
-					<br><span class="blue"><em>function </em></span><a class="green" id="Refresh" href="" onclick="generate();return false;">generate</a>(<span class="orange"><em>click</em></span>)
+					<br><span class="blue"><em>function </em></span><a class="green" href="" onclick="generate();return false;">generate</a>(<span class="orange"><em>click</em></span>)
 					<!-- <span class="sm-off"> -->
 						<span id="scrt_measure" class="measure"></span>
 						{<br>
@@ -1038,7 +1023,7 @@
 		<div class="container elg-5 lg-6 lg-l sm-6 md-5">
 			<div class="pad">
 				<br>
-				<span class="grey oneliner pass"><a class="grey" id="Refresh" href="#" onclick="credits();return false;">/</a>/ Passwords <span id="copied" class="grey small ">(Click to copy) </span>----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</span><br>
+				<span class="grey oneliner pass"><a class="grey" href="#" onclick="credits();return false;">/</a>/ Passwords <span id="copied" class="grey small ">(Click to copy) </span>----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</span><br>
 				<br>
 				
 				<span class="green">16 Characters</span>
@@ -1060,7 +1045,7 @@
 				<br>
 
 				
-				<span><a class="green" id="xkcd-link" href="https://xkcd.com/936/" target="_blank">Readable Passphrase</a></span>
+				<span><a class="green" id="xkcd-link" href="https://xkcd.com/936/" target="_blank" rel="noopener noreferrer">Readable Passphrase</a></span>
 				<div id="readable" class="multi-column"><br>
 				<!--Passwords appear here -->
 				</div>
