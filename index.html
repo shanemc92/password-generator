@@ -2295,11 +2295,19 @@ html[data-theme="modern"] .expiry-label {
 
             <div class="toggle-group" id="memorableOptions" style="display: none;">
                 <div class="toggle-item">
-                    <span class="toggle-label">Capitalize</span>
+                    <span class="toggle-label">Special characters (!&amp;+)</span>
+                    <div class="toggle-switch" id="specialMemorableToggle"></div>
+                </div>
+                <div class="toggle-item">
+                    <span class="toggle-label">Capital letters (A-Z)</span>
                     <div class="toggle-switch active" id="capitalizeToggle"></div>
                 </div>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0;">
-                    <span class="toggle-label">Type</span>
+                <div class="toggle-item">
+                    <span class="toggle-label">Include numbers (0-9)</span>
+                    <div class="toggle-switch" id="numbersMemorableToggle"></div>
+                </div>
+                <div class="toggle-item">
+                    <span class="toggle-label">Word Separator</span>
                     <select class="dropdown" id="separatorDropdown">
                         <option value="-">Hyphens</option>
                         <option value=" ">Spaces</option>
@@ -2312,23 +2320,48 @@ html[data-theme="modern"] .expiry-label {
                     </select>
                 </div>
                 <div class="toggle-item">
-                    <span class="toggle-label">Include numbers</span>
-                    <div class="toggle-switch" id="numbersMemorableToggle"></div>
+                    <span class="toggle-label">Add characters</span>
+                    <input type="text" class="dropdown charset-input" id="charsAddMemorable" placeholder="e.g. £€" spellcheck="false" autocomplete="off">
+                </div>
+                <div class="toggle-item">
+                    <span class="toggle-label">Exclude characters</span>
+                    <input type="text" class="dropdown charset-input" id="charsExcludeMemorable" placeholder="e.g. &lt;&gt;&amp;&quot;" spellcheck="false" autocomplete="off">
                 </div>
             </div>
 
             <div class="toggle-group" id="shortOptions" style="display: none;">
                 <div class="toggle-item">
-                    <span class="toggle-label">Capitalize</span>
+                    <span class="toggle-label">Special characters (!&amp;+)</span>
+                    <div class="toggle-switch" id="symbolsShortToggle"></div>
+                </div>
+                <div class="toggle-item">
+                    <span class="toggle-label">Capital letters (A-Z)</span>
                     <div class="toggle-switch active" id="capitalizeShortToggle"></div>
                 </div>
                 <div class="toggle-item">
-                    <span class="toggle-label">Include symbols</span>
-                    <div class="toggle-switch active" id="symbolsShortToggle"></div>
+                    <span class="toggle-label">Include numbers (0-9)</span>
+                    <div class="toggle-switch" id="numbersShortToggle"></div>
                 </div>
                 <div class="toggle-item">
-                    <span class="toggle-label">Include numbers</span>
-                    <div class="toggle-switch active" id="numbersShortToggle"></div>
+                    <span class="toggle-label">Word Separator</span>
+                    <select class="dropdown" id="separatorShortDropdown">
+                        <option value="-">Hyphens</option>
+                        <option value=" ">Spaces</option>
+                        <option value=".">Periods</option>
+                        <option value=",">Commas</option>
+                        <option value="+">Plus</option>
+                        <option value="_">Underscores</option>
+                        <option value="">None</option>
+                        <option value="random">Random</option>
+                    </select>
+                </div>
+                <div class="toggle-item">
+                    <span class="toggle-label">Add characters</span>
+                    <input type="text" class="dropdown charset-input" id="charsAddShort" placeholder="e.g. £€" spellcheck="false" autocomplete="off">
+                </div>
+                <div class="toggle-item">
+                    <span class="toggle-label">Exclude characters</span>
+                    <input type="text" class="dropdown charset-input" id="charsExcludeShort" placeholder="e.g. &lt;&gt;&amp;&quot;" spellcheck="false" autocomplete="off">
                 </div>
             </div>
         </div>
@@ -2448,6 +2481,8 @@ html[data-theme="modern"] .expiry-label {
             // Re-render strength colours (var() picks up the new theme automatically,
             // but inline styles set before a theme switch need a refresh)
             if (typeof updatePasswordDisplay === "function" && currentPassword) updatePasswordDisplay();
+            // Theme metrics differ, so the tallest layout does too.
+            if (typeof lockOptionsHeight === "function") requestAnimationFrame(lockOptionsHeight);
         }
 
         themeSelect.addEventListener('change', () => {
@@ -2531,6 +2566,7 @@ html[data-theme="modern"] .expiry-label {
             symbolsShort: true,
             numbersShort: true,
             excludeAmbiguous: false,
+            specialInPassphrase: false,
             charsAdd: '',
             charsExclude: '',
             batchCount: 10
@@ -2565,6 +2601,12 @@ html[data-theme="modern"] .expiry-label {
         const poolInfo = document.getElementById('poolInfo');
         const capitalizeToggle = document.getElementById('capitalizeToggle');
         const separatorDropdown = document.getElementById('separatorDropdown');
+        const separatorShortDropdown = document.getElementById('separatorShortDropdown');
+        const specialMemorableToggle = document.getElementById('specialMemorableToggle');
+        const charsAddMemorable = document.getElementById('charsAddMemorable');
+        const charsExcludeMemorable = document.getElementById('charsExcludeMemorable');
+        const charsAddShort = document.getElementById('charsAddShort');
+        const charsExcludeShort = document.getElementById('charsExcludeShort');
         const numbersMemorableToggle = document.getElementById('numbersMemorableToggle');
         const capitalizeShortToggle = document.getElementById('capitalizeShortToggle');
         const symbolsShortToggle = document.getElementById('symbolsShortToggle');
@@ -2787,13 +2829,38 @@ html[data-theme="modern"] .expiry-label {
             generatePasswordAuto();
         });
 
-        charsAddInput.addEventListener('input', () => {
-            settings.charsAdd = charsAddInput.value;
-            generatePasswordAuto();
-        });
+        // Add / Exclude characters are one setting shown in three places (Random,
+        // Memorable, Short). Typing in any copy updates the setting and mirrors
+        // the value into the others so switching type never loses what you typed.
+        const charsAddFields = [charsAddInput, charsAddMemorable, charsAddShort].filter(Boolean);
+        const charsExcludeFields = [charsExcludeInput, charsExcludeMemorable, charsExcludeShort].filter(Boolean);
 
-        charsExcludeInput.addEventListener('input', () => {
-            settings.charsExclude = charsExcludeInput.value;
+        function bindSharedField(fields, key) {
+            for (const field of fields) {
+                field.addEventListener('input', () => {
+                    settings[key] = field.value;
+                    for (const other of fields) if (other !== field) other.value = field.value;
+                    generatePasswordAuto();
+                });
+            }
+        }
+
+        bindSharedField(charsAddFields, 'charsAdd');
+        bindSharedField(charsExcludeFields, 'charsExclude');
+
+        // Word Separator likewise appears in both word modes.
+        const separatorFields = [separatorDropdown, separatorShortDropdown].filter(Boolean);
+        for (const field of separatorFields) {
+            field.addEventListener('change', () => {
+                settings.separator = field.value;
+                for (const other of separatorFields) if (other !== field) other.value = field.value;
+                generatePasswordAuto();
+            });
+        }
+
+        specialMemorableToggle.addEventListener('click', () => {
+            settings.specialInPassphrase = !settings.specialInPassphrase;
+            specialMemorableToggle.classList.toggle('active');
             generatePasswordAuto();
         });
 
@@ -2801,11 +2868,6 @@ html[data-theme="modern"] .expiry-label {
         capitalizeToggle.addEventListener('click', () => {
             settings.capitalize = !settings.capitalize;
             capitalizeToggle.classList.toggle('active');
-            generatePasswordAuto();
-        });
-
-        separatorDropdown.addEventListener('change', (e) => {
-            settings.separator = e.target.value;
             generatePasswordAuto();
         });
 
@@ -2878,73 +2940,168 @@ html[data-theme="modern"] .expiry-label {
             return out;
         }
 
+        // ── Word-mode character pools ───────────────────────────────
+        const RANDOM_SEPARATORS = ['-', '_', '.', '', ',', '+'];
+
+        // Symbols available at word boundaries: the base set plus anything the
+        // user added, minus anything they excluded.
+        function wordSymbolPool() {
+            const banned = new Set(settings.charsExclude || '');
+            const pool = [...new Set([...SHORT_SYMBOLS, ...(settings.charsAdd || '')])]
+                .filter(c => !banned.has(c));
+            return pool;
+        }
+
+        // Characters typed into "Add characters" are treated as a hard
+        // requirement, not just an enlarged pool: each one must appear at least
+        // once so a password can satisfy a policy that demands a specific symbol.
+        // An excluded character wins over an added one.
+        function requiredChars() {
+            const banned = new Set(settings.charsExclude || '');
+            return [...new Set(settings.charsAdd || '')].filter(c => !banned.has(c));
+        }
+
+        function wordDigitPool() {
+            const banned = new Set(settings.charsExclude || '');
+            return [...'0123456789'].filter(c => !banned.has(c));
+        }
+
+        // Excluded characters also remove whole words, so a password never
+        // contains a banned character anywhere. Matching is case-insensitive so
+        // excluding "A" also drops "apple" once Capital letters is on.
+        // Filtering 25k words is not free, so the result is cached per key.
+        let _listCache = { key: null, words: null, adjectives: null };
+
+        function filteredLists() {
+            const key = settings.charsExclude || '';
+            if (_listCache.key === key) return _listCache;
+            let words = wordList, adjs = adjectives;
+            if (key) {
+                const banned = new Set(key.toLowerCase());
+                const keep = w => ![...w.toLowerCase()].some(c => banned.has(c));
+                const fw = wordList.filter(keep);
+                const fa = adjectives.filter(keep);
+                // Never leave an empty list - fall back to unfiltered.
+                words = fw.length ? fw : wordList;
+                adjs = fa.length ? fa : adjectives;
+            }
+            _listCache = { key, words, adjectives: adjs };
+            return _listCache;
+        }
+
+        // What fills the gap between two words. The separator is the default;
+        // when symbols and/or numbers are on, each gap independently has a 50%
+        // chance of being overridden by one of those characters instead.
+        function gapOverridePool(useSymbols, useNumbers) {
+            const pool = [];
+            if (useSymbols) pool.push(...wordSymbolPool());
+            if (useNumbers) pool.push(...wordDigitPool());
+            return pool;
+        }
+
+        function buildGapFills(gapCount, useSymbols, useNumbers) {
+            const fills = [];
+            const overrides = gapOverridePool(useSymbols, useNumbers);
+            const sepIsRandom = settings.separator === 'random';
+
+            for (let i = 0; i < gapCount; i++) {
+                const sep = sepIsRandom
+                    ? RANDOM_SEPARATORS[randomIndices(1, RANDOM_SEPARATORS.length)[0]]
+                    : (settings.separator || '');
+                if (!overrides.length || randomIndices(1, 2)[0] === 0) {
+                    fills.push(sep);
+                } else {
+                    fills.push(overrides[randomIndices(1, overrides.length)[0]]);
+                }
+            }
+            return fills;
+        }
+
+        // Policy guarantee: every enabled class must appear at least once.
+        // If a class already landed in a gap naturally we protect that gap, so
+        // the next class cannot overwrite the only symbol (or the only digit).
+        // With too few gaps to hold everything, the leftover is appended.
+        function assembleWords(words, useSymbols, useNumbers) {
+            const gaps = Math.max(0, words.length - 1);
+            const fills = buildGapFills(gaps, useSymbols, useNumbers);
+            const locked = new Set();
+            let appended = '';
+
+            const ensure = (pool) => {
+                if (!pool.length) return;
+                const existing = fills.findIndex((f, i) => pool.includes(f) && !locked.has(i));
+                if (existing !== -1) { locked.add(existing); return; }
+                const pick = pool[randomIndices(1, pool.length)[0]];
+                const free = fills.map((f, i) => i).filter(i => !locked.has(i));
+                if (free.length) {
+                    const slot = free[randomIndices(1, free.length)[0]];
+                    fills[slot] = pick;
+                    locked.add(slot);
+                } else {
+                    appended += pick;
+                }
+            };
+
+            // Explicit requirements are placed first so they cannot be crowded
+            // out, then the class guarantees fill whatever is left.
+            for (const ch of requiredChars()) ensure([ch]);
+            if (useSymbols) ensure(wordSymbolPool());
+            // Two digits rather than one. Each ensure() locks a separate gap, so
+            // when there is no room left both get appended as a 2-digit tail.
+            if (useNumbers) { ensure(wordDigitPool()); ensure(wordDigitPool()); }
+
+            let out = '';
+            for (let i = 0; i < words.length; i++) {
+                out += words[i];
+                if (i < words.length - 1) out += fills[i];
+            }
+            return out + appended;
+        }
+
+        // Overwrites random positions so every required character is present.
+        // Characters already in the password count, so nothing is placed twice.
+        // If more are required than there is room for, as many as fit are placed.
+        function enforceRequiredChars(password) {
+            const required = requiredChars();
+            if (!required.length) return password;
+
+            const chars = [...password];
+            const used = new Set();
+            const missing = [];
+            for (const ch of required) {
+                const at = chars.findIndex((c, i) => c === ch && !used.has(i));
+                if (at === -1) missing.push(ch); else used.add(at);
+            }
+            if (!missing.length) return password;
+
+            const free = chars.map((c, i) => i).filter(i => !used.has(i));
+            for (const ch of missing) {
+                if (!free.length) break;
+                const slot = free.splice(randomIndices(1, free.length)[0], 1)[0];
+                chars[slot] = ch;
+            }
+            return chars.join('');
+        }
+
         // Password generation
         function generatePassword() {
             const pool = buildCharset();
             const idx = randomIndices(settings.length, pool.length);
             let password = '';
             for (let i = 0; i < settings.length; i++) password += pool[idx[i]];
-            return password;
+            return enforceRequiredChars(password);
         }
 
         function generatePassphrase() {
+            const { words: pool } = filteredLists();
+            const idx = randomIndices(settings.length, pool.length);
             const words = [];
-            const array = new Uint32Array(settings.length * 2);
-            crypto.getRandomValues(array);
-            
             for (let i = 0; i < settings.length; i++) {
-                const randomIndex = array[i] % wordList.length;
-                let word = wordList[randomIndex];
-                
-                if (settings.capitalize) {
-                    word = word.charAt(0).toUpperCase() + word.slice(1);
-                }
-                
+                let word = pool[idx[i]];
+                if (settings.capitalize) word = word.charAt(0).toUpperCase() + word.slice(1);
                 words.push(word);
             }
-
-            let passphrase = '';
-            
-            // Mix numbers between words if enabled
-            if (settings.numbersInPassphrase) {
-                for (let i = 0; i < words.length; i++) {
-                    passphrase += words[i];
-                    if (i < words.length - 1) {
-                        const numArray = new Uint32Array(1);
-                        crypto.getRandomValues(numArray);
-                        const number = numArray[0] % 10;
-                        
-                        // For random separator mode, use a mix of separators
-                        if (settings.separator === 'random') {
-                            const separators = ['-', '_', '.', '', ',', '+'];
-                            const sepArray = new Uint32Array(1);
-                            crypto.getRandomValues(sepArray);
-                            const separator = separators[sepArray[0] % separators.length];
-                            passphrase += number + separator;
-                        } else {
-                            passphrase += number + (settings.separator || '');
-                        }
-                    }
-                }
-            } else {
-                // For random separator mode, use a mix of separators between words
-                if (settings.separator === 'random') {
-                    const separators = ['-', '_', '.', '', ',', '+'];
-                    for (let i = 0; i < words.length; i++) {
-                        passphrase += words[i];
-                        if (i < words.length - 1) {
-                            const sepArray = new Uint32Array(1);
-                            crypto.getRandomValues(sepArray);
-                            const separator = separators[sepArray[0] % separators.length];
-                            passphrase += separator;
-                        }
-                    }
-                } else {
-                    passphrase = words.join(settings.separator);
-                }
-            }
-
-            return passphrase;
+            return assembleWords(words, settings.specialInPassphrase, settings.numbersInPassphrase);
         }
 
         const SHORT_SYMBOLS = ['#', '+', '*', '@', '!', '&'];
@@ -2953,92 +3110,17 @@ html[data-theme="modern"] .expiry-label {
         const SHORT_BOUNDARY_POOL = [...SHORT_SYMBOLS, '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
         function generateShortMemorable() {
-            const array = new Uint32Array(settings.length + 3);
-            crypto.getRandomValues(array);
-            
-            // Get one adjective
-            const adjectiveIndex = array[0] % adjectives.length;
-            let adjective = adjectives[adjectiveIndex];
-            if (settings.capitalizeShort) {
-                    adjective = adjective.charAt(0).toUpperCase() + adjective.slice(1);
-                }
-            
-            // Get remaining words from main word list
-            const words = [adjective];
-            for (let i = 1; i < settings.length; i++) {
-                const wordIndex = array[i] % wordList.length;
-                let word = wordList[wordIndex];
-                if (settings.capitalizeShort) {
-                    word = word.charAt(0).toUpperCase() + word.slice(1);
-                }
-                words.push(word);
+            const lists = filteredLists();
+            const cap = w => settings.capitalizeShort ? w.charAt(0).toUpperCase() + w.slice(1) : w;
+
+            // First slot is an adjective, the rest come from the main word list.
+            const words = [cap(lists.adjectives[randomIndices(1, lists.adjectives.length)[0]])];
+            const rest = Math.max(0, settings.length - 1);
+            if (rest) {
+                const idx = randomIndices(rest, lists.words.length);
+                for (let i = 0; i < rest; i++) words.push(cap(lists.words[idx[i]]));
             }
-            
-            let password = '';
-            
-            // Build password with symbols at word boundaries (like numbers)
-            if (settings.symbolsShort && settings.numbersShort) {
-                const boundaryCount = words.length - 1;
-
-                // One independent draw per boundary from the combined pool.
-                // The previous version indexed a buffer of boundaryCount + 3 at
-                // i + boundaryCount + 1, which runs past the end for 4+ words and
-                // yielded the literal string "undefined". It also derived the
-                // symbol-or-digit choice and the digit itself from the same
-                // number, so only odd digits could ever appear.
-                const fills = boundaryCount
-                    ? [...randomIndices(boundaryCount, SHORT_BOUNDARY_POOL.length)]
-                          .map(i => SHORT_BOUNDARY_POOL[i])
-                    : [];
-
-                // Guarantee at least one symbol, for policies that demand one.
-                // Replace a randomly chosen boundary rather than always the last.
-                if (boundaryCount && !fills.some(c => SHORT_SYMBOLS.includes(c))) {
-                    const slot = randomIndices(1, boundaryCount)[0];
-                    fills[slot] = SHORT_SYMBOLS[randomIndices(1, SHORT_SYMBOLS.length)[0]];
-                }
-
-                password += randomIndices(1, 10)[0];
-                for (let i = 0; i < words.length; i++) {
-                    password += words[i];
-                    if (i < words.length - 1) password += fills[i];
-                }
-                password += randomIndices(1, 90)[0] + 10;
-            } else if (settings.symbolsShort) {
-                // Only symbols at boundaries
-                for (let i = 0; i < words.length; i++) {
-                    password += words[i];
-                    if (i < words.length - 1) {
-                        const symbols = ['#', '+', '*', '@', '!', '&'];
-                        const symbolArray = new Uint32Array(1);
-                        crypto.getRandomValues(symbolArray);
-                        const symbolIndex = symbolArray[0] % symbols.length;
-                        password += symbols[symbolIndex];
-                    }
-                }
-            } else if (settings.numbersShort) {
-                // Only numbers at boundaries
-                const numArray = new Uint32Array(words.length + 1);
-                crypto.getRandomValues(numArray);
-                
-                password += numArray[0] % 10;
-                
-                for (let i = 0; i < words.length; i++) {
-                    password += words[i];
-                    
-                    if (i < words.length - 1) {
-                        password += numArray[i + 1] % 10;
-                    }
-                }
-                
-                const endNum = (numArray[words.length] % 90) + 10;
-                password += endNum;
-            } else {
-                // No symbols or numbers, just words
-                password = words.join('');
-            }
-
-            return password;
+            return assembleWords(words, settings.symbolsShort, settings.numbersShort);
         }
 
         function generatePIN() {
@@ -3072,27 +3154,32 @@ html[data-theme="modern"] .expiry-label {
         let lastGeneratedPassword = null;
         let generatedEntropy = null;
 
+        // Entropy of a single gap. The separator is chosen half the time (itself
+        // one of 6 options in Random mode), an override character the other half:
+        //   H = -sum(p*log2(p)) over that mixture.
+        function gapEntropy(useSymbols, useNumbers) {
+            const log2 = Math.log2;
+            const sepCount = settings.separator === 'random' ? RANDOM_SEPARATORS.length : 1;
+            const m = gapOverridePool(useSymbols, useNumbers).length;
+            if (!m) return log2(sepCount);
+            // p(each separator) = 1/(2*sepCount), p(each override) = 1/(2*m)
+            return 0.5 * log2(2 * sepCount) + 0.5 * log2(2 * m);
+        }
+
         function entropyForSettings() {
             const log2 = Math.log2;
             const boundaries = Math.max(0, settings.length - 1);
             switch (settings.mode) {
                 case 'memorable': {
-                    let bits = settings.length * log2(wordList.length);
-                    if (settings.separator === 'random') bits += boundaries * log2(6);
-                    if (settings.numbersInPassphrase) bits += boundaries * log2(10);
-                    return bits;
+                    const lists = filteredLists();
+                    return settings.length * log2(lists.words.length)
+                         + boundaries * gapEntropy(settings.specialInPassphrase, settings.numbersInPassphrase);
                 }
                 case 'short': {
-                    let bits = log2(adjectives.length) + boundaries * log2(wordList.length);
-                    if (settings.symbolsShort && settings.numbersShort) {
-                        // leading digit + symbol-or-digit at each boundary + trailing 2-digit number
-                        bits += log2(10) + boundaries * log2(16) + log2(90);
-                    } else if (settings.symbolsShort) {
-                        bits += boundaries * log2(6);
-                    } else if (settings.numbersShort) {
-                        bits += log2(10) + boundaries * log2(10) + log2(90);
-                    }
-                    return bits;
+                    const lists = filteredLists();
+                    return log2(lists.adjectives.length)
+                         + boundaries * log2(lists.words.length)
+                         + boundaries * gapEntropy(settings.symbolsShort, settings.numbersShort);
                 }
                 case 'pin':
                     return settings.length * log2(10);
@@ -3153,10 +3240,12 @@ html[data-theme="modern"] .expiry-label {
             if (!poolInfo) return;
             const mode = settings.mode;
             if (mode === 'memorable') {
-                const perWord = Math.log2(wordList.length).toFixed(1);
-                poolInfo.textContent = `· ${wordList.length.toLocaleString()}-word list, ${perWord} bits/word`;
+                const lists = filteredLists();
+                const perWord = Math.log2(lists.words.length).toFixed(1);
+                poolInfo.textContent = `· ${lists.words.length.toLocaleString()}-word list, ${perWord} bits/word`;
             } else if (mode === 'short') {
-                poolInfo.textContent = `· ${adjectives.length.toLocaleString()} adj × ${wordList.length.toLocaleString()} nouns`;
+                const lists = filteredLists();
+                poolInfo.textContent = `· ${lists.adjectives.length.toLocaleString()} adj × ${lists.words.length.toLocaleString()} nouns`;
             } else if (mode === 'random') {
                 poolInfo.textContent = `· ${buildCharset().length} char pool`;
             } else {
@@ -3597,12 +3686,81 @@ html[data-theme="modern"] .expiry-label {
             setToggle(capitalizeShortToggle,   settings.capitalizeShort);
             setToggle(symbolsShortToggle,      settings.symbolsShort);
             setToggle(numbersShortToggle,      settings.numbersShort);
-            if (separatorDropdown)  separatorDropdown.value  = settings.separator;
-            if (charsAddInput)      charsAddInput.value      = settings.charsAdd || '';
-            if (charsExcludeInput)  charsExcludeInput.value  = settings.charsExclude || '';
+            setToggle(specialMemorableToggle,  settings.specialInPassphrase);
+            // Separator and the two charset fields are shared across modes, so
+            // every copy of each control gets the same restored value.
+            for (const el of [separatorDropdown, separatorShortDropdown]) if (el) el.value = settings.separator;
+            for (const el of [charsAddInput, charsAddMemorable, charsAddShort]) if (el) el.value = settings.charsAdd || '';
+            for (const el of [charsExcludeInput, charsExcludeMemorable, charsExcludeShort]) if (el) el.value = settings.charsExclude || '';
             if (batchCountInput)    batchCountInput.value    = settings.batchCount || 10;
         }
 
+
+        // ── Stop the panel resizing between modes ────────────────────
+        // Each type shows a different set of option rows (Random has the most),
+        // so the terminal grew and shrank as you switched. Rather than hardcode
+        // a pixel value - which would break across the four themes and at narrow
+        // widths - measure every mode's layout and pin the tallest as a
+        // min-height. All measurement happens inside one frame, so nothing is
+        // painted mid-measure and there is no flicker.
+        const optionsContainer = document.querySelector('.options-container');
+
+        function lockOptionsHeight() {
+            if (!optionsContainer) return;
+
+            const groups = [randomOptions, memorableOptions, shortOptions].filter(Boolean);
+            const saved = {
+                groups: groups.map(g => g.style.display),
+                presets: datePresets ? datePresets.style.display : null,
+                pool: poolInfo ? poolInfo.textContent : null
+            };
+
+            optionsContainer.style.minHeight = '';
+
+            // The pool readout differs per mode and can wrap onto a second line
+            // on narrow screens, so measure using whichever string is longest.
+            if (poolInfo) {
+                const readouts = [
+                    `· ${buildCharset().length} char pool`,
+                    `· ${wordList.length.toLocaleString()}-word list, ${Math.log2(wordList.length).toFixed(1)} bits/word`,
+                    `· ${adjectives.length.toLocaleString()} adj × ${wordList.length.toLocaleString()} nouns`
+                ];
+                poolInfo.textContent = readouts.reduce((a, b) => (b.length > a.length ? b : a));
+            }
+
+            let tallest = 0;
+
+            // Random / Memorable / Short: exactly one toggle group visible.
+            for (const target of groups) {
+                for (const g of groups) g.style.display = (g === target) ? 'flex' : 'none';
+                if (datePresets) datePresets.style.display = 'none';
+                tallest = Math.max(tallest, optionsContainer.offsetHeight);
+            }
+
+            // PIN and Date: no toggle group. Date also shows the preset row.
+            for (const g of groups) g.style.display = 'none';
+            for (const presetState of ['none', 'flex']) {
+                if (datePresets) datePresets.style.display = presetState;
+                tallest = Math.max(tallest, optionsContainer.offsetHeight);
+            }
+
+            groups.forEach((g, i) => { g.style.display = saved.groups[i]; });
+            if (datePresets) datePresets.style.display = saved.presets;
+            if (poolInfo) poolInfo.textContent = saved.pool;
+
+            // If layout is not available yet (hidden tab, fonts still loading)
+            // every measurement reads 0. Leave the height unpinned rather than
+            // writing a bogus 0px, and try again on the next resize or theme change.
+            if (tallest > 0) optionsContainer.style.minHeight = tallest + 'px';
+        }
+
+        // Re-measure when the layout basis changes. Themes use different fonts
+        // and padding, and a resize can change whether labels wrap.
+        let resizeTimer = null;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(lockOptionsHeight, 150);
+        });
 
         // ── Initialise ────────────────────────────────────────────────────
         // 1. Load persisted settings (survives tab suspend / browser restore)
@@ -3612,6 +3770,10 @@ html[data-theme="modern"] .expiry-label {
         syncUIFromMode();
         // 3. Generate initial password consistent with the restored mode
         generatePasswordAuto();
+        // 4. Pin the options panel to its tallest layout so switching type
+        //    does not move the terminal. Deferred a frame so webfonts and the
+        //    initial layout have settled before we measure.
+        requestAnimationFrame(lockOptionsHeight);
     
     </script>
 </body>
