@@ -156,6 +156,7 @@ body {
     padding: 24px;
     min-height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background: var(--bg);
@@ -198,18 +199,46 @@ html[data-theme="crt"] body::after {
 /* ============================================================
    Theme switcher
    ============================================================ */
+/* Deliberately NOT fixed. Pinning it to the viewport corner means it collides
+   with the card at any width where the gutter is narrower than the switcher,
+   and chasing that with breakpoints never quite covers every case. Sitting in
+   normal flow above the card, in the same 720px column, it cannot overlap at
+   any size. */
 .theme-switcher {
-    position: fixed;
-    top: 16px;
-    right: 18px;
+    width: 100%;
+    max-width: 720px;
+    flex: 0 0 auto;
+    margin-bottom: 12px;
     z-index: 100;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-end;
     gap: 8px;
     font-family: var(--font-ui);
     font-size: 12px;
     color: var(--ui-fg);
 }
+
+.switcher-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* The scrt toggle sits outside the card, so it takes the outside-surface
+   colours rather than the card ones or it disappears on the light theme. */
+.switcher-row .toggle-switch {
+    background: var(--ui-bg);
+    border-color: var(--ui-border);
+}
+.switcher-row .toggle-switch::after {
+    background: var(--ui-fg);
+    opacity: 0.5;
+}
+.switcher-row .toggle-switch.active::after { opacity: 1; }
+
+.scrt-toggle-label { cursor: pointer; }
+.scrt-toggle-label:hover { text-decoration: underline; }
 
 .theme-switcher select {
     font: inherit;
@@ -228,6 +257,7 @@ html[data-theme="crt"] body::after {
 .container {
     width: 100%;
     max-width: 720px;
+    flex: 0 0 auto;
     background: var(--card);
     border: 1px solid var(--line);
     border-radius: var(--radius);
@@ -777,22 +807,17 @@ html[data-theme="proton"] .btn:active { transform: translateY(0) scale(0.985); }
 /* ============================================================
    Responsive
    ============================================================ */
+/* On a short window, centring pushes the top of the page out of reach, so
+   anchor to the top and let it scroll instead. */
+@media (max-height: 700px) {
+    body { justify-content: flex-start; }
+}
+
 @media (max-width: 640px) {
     body {
         padding: 14px;
-        flex-direction: column;
         justify-content: flex-start;
     }
-    /* Out of fixed positioning so it can never sit on the card. */
-    .theme-switcher {
-        position: static;
-        top: auto;
-        right: auto;
-        align-self: flex-end;
-        flex: 0 0 auto;
-        margin-bottom: 10px;
-    }
-    .container { flex: 0 0 auto; }
     .terminal-body { padding: 16px; }
     .button-group { grid-template-columns: 1fr; }
     .charset-input { width: 118px; }
@@ -816,13 +841,19 @@ html[data-theme="proton"] .btn:active { transform: translateY(0) scale(0.985); }
 </head>
 <body>
     <div class="theme-switcher">
-        <label for="themeSelect">Theme</label>
-        <select id="themeSelect" title="Switch theme">
-            <option value="term">Terminal</option>
-            <option value="modern">Modern</option>
-            <option value="proton">Proton</option>
-            <option value="crt">CRT</option>
-        </select>
+        <div class="switcher-row">
+            <label for="themeSelect">Theme</label>
+            <select id="themeSelect" title="Switch theme">
+                <option value="term">Terminal</option>
+                <option value="modern">Modern</option>
+                <option value="proton">Proton</option>
+                <option value="crt">CRT</option>
+            </select>
+        </div>
+        <div class="switcher-row">
+            <span class="scrt-toggle-label" id="scrtConfigLink" title="scrt.link settings">scrt.link</span>
+            <div class="toggle-switch" id="scrtToggle" title="Enable scrt.link integration"></div>
+        </div>
     </div>
 
     <div class="container">
@@ -1029,6 +1060,31 @@ html[data-theme="proton"] .btn:active { transform: translateY(0) scale(0.985); }
         </div>
     </div>
 
+    <!-- Credentials for this browser session only. Nothing is written to disk. -->
+    <div class="scrt-modal" id="scrtConfigModal">
+        <div class="scrt-content">
+            <h3>scrt.link Settings</h3>
+            <div id="scrtConfigPane" style="text-align: left;">
+                <div class="control-group" style="margin-bottom: 12px;">
+                    <div class="toggle-label">scrt.link API key</div>
+                    <input type="text" class="dropdown" id="scrtApiKeyInput" placeholder="Leave blank to just open scrt.link" spellcheck="false" style="width: 100%;">
+                </div>
+                <div class="control-group" style="margin-bottom: 12px;">
+                    <div class="toggle-label">ntfy.sh topic (optional)</div>
+                    <input type="text" class="dropdown" id="scrtNtfyInput" placeholder="your-topic-name" spellcheck="false" style="width: 100%;">
+                </div>
+                <p class="scrt-meta" style="text-align: left;">
+                    Stored for this browser session only, cleared when the tab closes.
+                    Without an API key the button just opens scrt.link in a new tab.
+                </p>
+                <div class="button-group" style="margin-top: 4px;">
+                    <button class="btn btn-secondary" id="scrtConfigSaveBtn"><span>💾</span> Save</button>
+                    <button class="btn btn-secondary" id="scrtConfigCancelBtn">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="phonetic-modal" id="phoneticModal">
         <div class="phonetic-content">
             <h3>Phonetic Alphabet</h3>
@@ -1089,6 +1145,7 @@ html[data-theme="proton"] .btn:active { transform: translateY(0) scale(0.985); }
             saveSettings();
         });
 
+
         // CRT flicker (only active while the CRT theme is selected)
         (function crtFlicker() {
             const container = document.querySelector('.container');
@@ -1116,34 +1173,151 @@ html[data-theme="proton"] .btn:active { transform: translateY(0) scale(0.985); }
         const NTFY_TOPIC = ''; // Replace with your ntfy.sh topic name
         // ============================================================================
 
-        // Import scrt.link module only if integration is enabled
-        let client = null;
-        let scrtIntegrationActive = false;
-        
-        if (ENABLE_SCRT_INTEGRATION) {
-            try {
-                // Try to load the local module first
-                const module = await import('./scrt-client-module.js');
-                client = module.scrtLink(SCRT_API_KEY);
-                scrtIntegrationActive = true;
-                console.log('scrt.link client initialized successfully from local file');
-            } catch (localError) {
-                console.warn('Failed to load local scrt.link module:', localError);
-                console.log('Attempting to load from remote URL...');
+        // The values above are the defaults. The toggle beside the theme picker
+        // can override them for the current tab, which is what lets someone on
+        // the public hosted copy plug in their own key without editing the file.
+        // sessionStorage, not localStorage - the key dies with the tab.
+        const SCRT_SESSION_KEY = 'passgen_scrt_session';
 
-                try {
-                    // Fall back to the remote URL
-                    const module = await import('https://scrt.link/api/v1/client-module');
-                    client = module.scrtLink(SCRT_API_KEY);
-                    scrtIntegrationActive = true;
-                    console.log('scrt.link client initialized successfully from remote URL');
-                } catch (remoteError) {
-                    console.error('Failed to load scrt.link module from both local and remote sources:', remoteError);
-                    console.log('scrt.link integration will be disabled. The app will work in fallback mode.');
-                    scrtIntegrationActive = false;
-                }
+        let scrtConfig = {
+            enabled: ENABLE_SCRT_INTEGRATION,
+            apiKey: SCRT_API_KEY,
+            ntfyTopic: NTFY_TOPIC
+        };
+
+        try {
+            const savedScrt = sessionStorage.getItem(SCRT_SESSION_KEY);
+            if (savedScrt) Object.assign(scrtConfig, JSON.parse(savedScrt));
+        } catch (e) {
+            console.warn('Could not read scrt.link session config:', e);
+        }
+
+        function saveScrtConfig() {
+            try {
+                sessionStorage.setItem(SCRT_SESSION_KEY, JSON.stringify(scrtConfig));
+            } catch (e) {
+                console.warn('Could not save scrt.link session config:', e);
             }
         }
+
+        let client = null;
+        let scrtIntegrationActive = false;
+        let scrtModulePromise = null;
+
+        // Cached so switching keys mid-session doesn't re-fetch the module.
+        function loadScrtModule() {
+            if (!scrtModulePromise) {
+                scrtModulePromise = import('./scrt-client-module.js').catch((localError) => {
+                    console.warn('Failed to load local scrt.link module:', localError);
+                    console.log('Attempting to load from remote URL...');
+                    return import('https://scrt.link/api/v1/client-module');
+                });
+            }
+            return scrtModulePromise;
+        }
+
+        // Re-runnable: called on load and again whenever the key changes.
+        // No key means fallback mode, where the button just opens scrt.link.
+        async function initScrtClient() {
+            client = null;
+            scrtIntegrationActive = false;
+
+            if (!scrtConfig.enabled || !scrtConfig.apiKey) return false;
+
+            try {
+                const module = await loadScrtModule();
+                client = module.scrtLink(scrtConfig.apiKey);
+                scrtIntegrationActive = true;
+                console.log('scrt.link client initialized successfully');
+            } catch (error) {
+                console.error('Failed to load scrt.link module:', error);
+                console.log('scrt.link integration will be disabled. The app will work in fallback mode.');
+                scrtModulePromise = null; // let a later attempt retry the import
+            }
+
+            return scrtIntegrationActive;
+        }
+
+        await initScrtClient();
+
+        // ── scrt.link toggle + session settings ─────────────────
+        const scrtToggle = document.getElementById('scrtToggle');
+        const scrtConfigLink = document.getElementById('scrtConfigLink');
+        const scrtConfigModal = document.getElementById('scrtConfigModal');
+        const scrtApiKeyInput = document.getElementById('scrtApiKeyInput');
+        const scrtNtfyInput = document.getElementById('scrtNtfyInput');
+
+        // Set when the modal was opened by flicking the toggle on, so that
+        // cancelling puts the toggle back rather than leaving it half-enabled.
+        let scrtPendingEnable = false;
+
+        function syncScrtToggle() {
+            scrtToggle.classList.toggle('active', scrtConfig.enabled);
+            scrtToggle.title = scrtConfig.enabled
+                ? 'scrt.link enabled - click the label to edit settings'
+                : 'Enable scrt.link integration';
+        }
+
+        function openScrtConfigModal() {
+            scrtApiKeyInput.value = scrtConfig.apiKey;
+            scrtNtfyInput.value = scrtConfig.ntfyTopic;
+            scrtConfigModal.classList.add('active');
+            scrtApiKeyInput.focus();
+        }
+
+        function closeScrtConfigModal() {
+            scrtConfigModal.classList.remove('active');
+            // Cancelled straight after enabling, so undo the enable.
+            if (scrtPendingEnable) {
+                scrtConfig.enabled = false;
+                scrtPendingEnable = false;
+                saveScrtConfig();
+                syncScrtToggle();
+            }
+        }
+
+        scrtToggle.addEventListener('click', async () => {
+            if (scrtConfig.enabled) {
+                scrtConfig.enabled = false;
+                saveScrtConfig();
+                syncScrtToggle();
+                await initScrtClient();
+                showNotification('scrt.link integration disabled', false);
+                return;
+            }
+
+            scrtConfig.enabled = true;
+            scrtPendingEnable = true;
+            syncScrtToggle();
+            openScrtConfigModal();
+        });
+
+        scrtConfigLink.addEventListener('click', () => {
+            if (scrtConfig.enabled) openScrtConfigModal();
+        });
+
+        document.getElementById('scrtConfigSaveBtn').addEventListener('click', async () => {
+            scrtConfig.apiKey = scrtApiKeyInput.value.trim();
+            scrtConfig.ntfyTopic = scrtNtfyInput.value.trim();
+            scrtPendingEnable = false;
+            saveScrtConfig();
+            scrtConfigModal.classList.remove('active');
+
+            const ok = await initScrtClient();
+            showNotification(
+                ok ? 'scrt.link integration enabled'
+                   : 'Saved - no API key, so the button will just open scrt.link',
+                false
+            );
+        });
+
+        document.getElementById('scrtConfigCancelBtn').addEventListener('click', closeScrtConfigModal);
+
+        scrtConfigModal.addEventListener('click', (e) => {
+            if (e.target === scrtConfigModal) closeScrtConfigModal();
+        });
+
+        syncScrtToggle();
 
         // The scrt.link settings now live inside the modal, so there is
         // nothing to reveal up front - the button decides what happens.
@@ -1254,7 +1428,7 @@ html[data-theme="proton"] .btn:active { transform: translateY(0) scale(0.985); }
 
         // ntfy notification function (only used if scrtIntegrationActive is true)
         function ntfy(receiptId, secretLink, scrtPassword) {
-            if (!scrtIntegrationActive || NTFY_TOPIC.length < 8) {
+            if (!scrtIntegrationActive || scrtConfig.ntfyTopic.length < 8) {
                 return;
             }
 
@@ -1298,7 +1472,7 @@ html[data-theme="proton"] .btn:active { transform: translateY(0) scale(0.985); }
             };
 
             // Send the request
-            fetch(`https://ntfy.sh/${NTFY_TOPIC}`, {
+            fetch(`https://ntfy.sh/${scrtConfig.ntfyTopic}`, {
                 method: 'POST',
                 headers,
                 body
@@ -2113,6 +2287,7 @@ html[data-theme="proton"] .btn:active { transform: translateY(0) scale(0.985); }
 
             if (e.key === 'Escape') {
                 closeQRModal(); closeScrtModal(); closePhoneticModal(); closeBatchModal();
+                closeScrtConfigModal();
                 return;
             }
 

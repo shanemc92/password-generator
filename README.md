@@ -64,7 +64,7 @@ Word lists live in `wordlists.js` and are filtered to remove slurs and hard prof
 
 ## scrt.link Integration
 
-![scrt.link integration](./docs/scrt-link.png)
+<img src="./docs/scrt-link.png" alt="scrt.link integration" style="zoom: 33%;" />
 
 When enabled, the **Send via scrt.link** button creates a one-time secret link for the generated password rather than sending it in plaintext.
 
@@ -75,21 +75,27 @@ Options exposed in the UI:
 - **Password protection** — optional passphrase the recipient must enter to reveal the secret
 - **Note** — optional public note attached to the link
 
-There are two modes, depending on whether you've added your own API key:
+There are two modes, depending on whether an API key is in play:
 
-- **Public (no API key)** — clicking the button just opens the scrt.link website in a new tab, with nothing pre-filled or sent on your behalf.
-- **Self-hosted (API key set)** — the app calls the scrt.link API directly and creates the link for you in place. You can also set an [ntfy.sh](https://ntfy.sh) topic to get a push notification whenever a link is created and whenever it's viewed, so you can monitor usage without storing anything server-side yourself.
+- **No API key** — clicking the button just opens the scrt.link website in a new tab, with nothing pre-filled or sent on your behalf.
+- **API key set** — the app calls the scrt.link API directly and creates the link for you in place. You can also set an [ntfy.sh](https://ntfy.sh) topic to get a push notification whenever a link is created, so you can monitor usage without storing anything server-side yourself.
+
+The key can either be hardcoded into the file if you're self-hosting, or entered client-side from the toggle in the UI — see [Setup](#setup) below.
 
 ### ntfy notifications
 
-![ntfy notification](./docs/ntfy.jpg)
+<img src="./docs/ntfy.jpg" alt="ntfy notification" style="zoom: 33%;" />
 
-If a `NTFY_TOPIC` is set, created scrt.link secrets are pushed to that topic as notifications. What you can do from the notification depends on whether the secret was password-protected:
+If a `NTFY_TOPIC` is set, created scrt.link secrets are pushed to that topic as notifications. Since ntfy is public and the only protection against other people reading your notifications is a complex topic address. What you can do from the notification depends on whether the secret was password-protected:
 
-- **No password set** — the notification includes **Read** and **Burn** actions, so you can view or destroy the secret directly from the notification.
-- **Password set** — since the app doesn't hold your password, those actions aren't available. Log into your scrt.link account instead to read or burn the secret.
+- **No password set** — the notification includes a **Read/Burn** action, so you can view or destroy the secret directly from the notification.
+- **Password set** — the read/burn button still appears but the button opens the scrt.link website instead so you can log into your account to burn the secret.
 
 ### Setup
+
+There are two ways to configure this, and they work together — the file supplies the defaults, the browser can override them.
+
+**1. Hardcoded (self-hosting)**
 
 Open `index.html` and edit the three constants near the top of the `<script>` block:
 
@@ -99,7 +105,17 @@ const SCRT_API_KEY = 'your_scrt_link_api_key_here';
 const NTFY_TOPIC  = 'your_ntfy_topic_here';
 ```
 
-Set `ENABLE_SCRT_INTEGRATION = false` to disable the feature entirely and hide the scrt.link fields.
+Set `ENABLE_SCRT_INTEGRATION = false` to leave the feature off by default.
+
+**2. Client-side (any copy, including the public one)**
+
+There's a **scrt.link** toggle under the theme dropdown. Switching it on opens a settings box where you can paste your own API key and ntfy topic. The fields are prefilled with whatever the constants above are set to, so on a self-hosted copy you can just confirm them, and on the public hosted copy you can supply your own without touching the file.
+
+<img src="./docs/scrt-setup.png" alt="scrt-link-setup" />
+
+These values are held in `sessionStorage`, so they apply to that tab only and are gone once it's closed. Nothing is written to disk and no key is ever shared with the host of the page. Switching the toggle back off drops the client immediately.
+
+With no API key in play — neither hardcoded nor entered — the button falls back to the public behaviour and simply opens scrt.link in a new tab.
 
 ---
 
@@ -138,6 +154,7 @@ Or host it anywhere that serves static files — GitHub Pages, Netlify, Cloudfla
 - All password generation happens **entirely in the browser** — nothing is ever sent to a server
 - The scrt.link API call only occurs when you explicitly click **Send via scrt.link**, and only when an API key is configured
 - Settings are stored in `localStorage` on your own device only
+- An API key or ntfy topic entered through the UI lives in `sessionStorage` for that tab only, and is discarded when the tab closes
 
 ---
 
