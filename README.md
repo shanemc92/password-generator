@@ -4,7 +4,7 @@ A stylish, client-side password generator with multiple themes and secure sharin
 
 ---
 
-![Screenshot](./docs/screenshot.png)
+![Screenshot](./docs/screenshot.gif)
 
 ---
 
@@ -23,6 +23,8 @@ A stylish, client-side password generator with multiple themes and secure sharin
 
 ## Themes
 
+![Themes](./docs/themes.png)
+
 | Theme | Description |
 |---|---|
 | **Terminal** *(default)* | Sleek dark command-line aesthetic |
@@ -36,6 +38,8 @@ Pick a theme from the dropdown in the top-right corner — the choice is remembe
 
 ## Password Modes
 
+![Password modes](./docs/modes.png)
+
 | Mode | Description | Configurable |
 |---|---|---|
 | **Random** | Cryptographically random characters | Length, uppercase, numbers, symbols |
@@ -48,7 +52,19 @@ Word lists live in `wordlists.js` and are filtered to remove slurs and hard prof
 
 ---
 
+## Extras
+
+![Phonetic, QR codes and batch generation](./docs/extras.png)
+
+- **Phonetic alphabet** — expand a password into NATO phonetic spelling for reading it on the phone
+- **QR code** — generate a scannable QR code for any password
+- **Batch generation** — produce several passwords at once
+
+---
+
 ## scrt.link Integration
+
+![scrt.link integration](./docs/scrt-link.png)
 
 When enabled, the **Send via scrt.link** button creates a one-time secret link for the generated password rather than sending it in plaintext.
 
@@ -59,7 +75,19 @@ Options exposed in the UI:
 - **Password protection** — optional passphrase the recipient must enter to reveal the secret
 - **Note** — optional public note attached to the link
 
-A push notification is sent via [ntfy.sh](https://ntfy.sh) when a secret link is created, so you can monitor usage without storing anything server-side.
+There are two modes, depending on whether you've added your own API key:
+
+- **Public (no API key)** — clicking the button just opens the scrt.link website in a new tab, with nothing pre-filled or sent on your behalf.
+- **Self-hosted (API key set)** — the app calls the scrt.link API directly and creates the link for you in place. You can also set an [ntfy.sh](https://ntfy.sh) topic to get a push notification whenever a link is created and whenever it's viewed, so you can monitor usage without storing anything server-side yourself.
+
+### ntfy notifications
+
+![ntfy notification](./docs/ntfy.jpg)
+
+If a `NTFY_TOPIC` is set, created scrt.link secrets are pushed to that topic as notifications. What you can do from the notification depends on whether the secret was password-protected:
+
+- **No password set** — the notification includes **Read** and **Burn** actions, so you can view or destroy the secret directly from the notification.
+- **Password set** — since the app doesn't hold your password, those actions aren't available. Log into your scrt.link account instead to read or burn the secret.
 
 ### Setup
 
@@ -108,7 +136,7 @@ Or host it anywhere that serves static files — GitHub Pages, Netlify, Cloudfla
 ## Privacy
 
 - All password generation happens **entirely in the browser** — nothing is ever sent to a server
-- The scrt.link API call only occurs when you explicitly click **Send via scrt.link**
+- The scrt.link API call only occurs when you explicitly click **Send via scrt.link**, and only when an API key is configured
 - Settings are stored in `localStorage` on your own device only
 
 ---

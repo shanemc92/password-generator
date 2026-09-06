@@ -10,2201 +10,808 @@
     <title>Password Generator</title>
     <style>
 
-/* ================= SHARED / EXTRAS ================= */
-* { margin: 0; padding: 0; box-sizing: border-box; }
+/* ============================================================
+   passgen — alternative build
+   One structural stylesheet driven by per-theme design tokens.
+   The original repeated every rule per theme (~2,100 lines for
+   four); everything below is written once for five and themed
+   by variables.
+   ============================================================ */
 
-/* strength colours per theme (used by JS via var()) */
-html[data-theme="term"], html[data-theme="proton"] {
-    --strength-weak: #f87171; --strength-medium: #fbbf24; --strength-strong: #4ade80;
-    --ui-fg: #c9d1d9; --ui-bg: rgba(22,27,34,.9); --ui-border: #30363d;
+/* ---------- Tokens: Terminal (default) ----------
+   Blue accent on cool slate with green toggles, and the classic
+   traffic-light buttons kept in the title bar. */
+:root,
+html[data-theme="term"] {
+    --bg:            #10141c;
+    --card:          #161b25;
+    --sunken:        #11161f;
+    --raised:        #1b212d;
+    --line:          #262d3a;
+    --line-soft:     #1e2431;
+    --fg:            #c7ccd6;
+    --fg-dim:        #7b8496;
+    --fg-faint:      #59616f;
+    --accent:        #58a6ff;
+    --accent-soft:   rgba(88, 166, 255, 0.14);
+    --accent-ink:    #06111f;
+    --toggle-on:     #3fb950;
+    --toggle-ink:    #06210c;
+    --font:          'Fira Code', 'JetBrains Mono', 'Consolas', monospace;
+    --font-ui:       'Fira Code', 'JetBrains Mono', 'Consolas', monospace;
+    --radius:        10px;
+    --radius-sm:     6px;
+    --glow:          none;
+    --shadow:        0 18px 50px -18px rgba(0, 0, 0, 0.75);
+    --strength-weak:   #f87171;
+    --strength-medium: #d29922;
+    --strength-strong: #3fb950;
+    --ui-fg: #7b8496; --ui-bg: rgba(22, 27, 37, 0.92); --ui-border: #262d3a;
 }
-html[data-theme="proton"] { --ui-fg: #e0e0e0; --ui-bg: rgba(37,37,56,.9); --ui-border: #3a3a52; }
-html[data-theme="crt"] {
-    --strength-weak: #006600; --strength-medium: #00aa00; --strength-strong: #00ff00;
-    --ui-fg: #00cc00; --ui-bg: rgba(0,10,0,.9); --ui-border: #004400;
-}
+
+/* ---------- Tokens: Modern ----------
+   Cool paper, ink text, one deep-teal accent. Hairline borders
+   instead of a stack of identical drop-shadowed cards. */
 html[data-theme="modern"] {
-    --strength-weak: #dc2626; --strength-medium: #d97706; --strength-strong: #15803d;
-    --ui-fg: #1d2534; --ui-bg: rgba(255,255,255,.9); --ui-border: #d7dee8;
+    --bg:            #eef1f5;
+    --card:          #ffffff;
+    --sunken:        #f5f7f9;
+    --raised:        #ffffff;
+    --line:          #d9dfe7;
+    --line-soft:     #e8edf2;
+    --fg:            #0e1620;
+    --fg-dim:        #5f6b7a;
+    --fg-faint:      #8b96a5;
+    --accent:        #0f766e;
+    --accent-soft:   rgba(15, 118, 110, 0.10);
+    --accent-ink:    #ffffff;
+    --toggle-on:     #0f766e;
+    --toggle-ink:    #ffffff;
+    --font:          'Fira Code', 'JetBrains Mono', 'Consolas', monospace;
+    --font-ui:       'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --radius:        14px;
+    --radius-sm:     8px;
+    --glow:          none;
+    --shadow:        0 1px 2px rgba(16, 24, 40, 0.04), 0 12px 32px -12px rgba(16, 24, 40, 0.18);
+    --strength-weak:   #dc2626;
+    --strength-medium: #b45309;
+    --strength-strong: #0f766e;
+    --ui-fg: #5f6b7a; --ui-bg: rgba(255, 255, 255, 0.94); --ui-border: #d9dfe7;
 }
 
-/* modern: hide terminal chrome, soften the card */
-html[data-theme="modern"] .terminal-header { display: none; }
-html[data-theme="modern"] .terminal-body { padding: 26px 28px; }
-html[data-theme="modern"] .container {
-    border-radius: 18px;
-    box-shadow: 0 12px 40px rgba(16,24,40,.10), 0 2px 8px rgba(16,24,40,.06);
+/* ---------- Tokens: Proton ----------
+   Matched to Proton Pass's own generator: violet accent and
+   toggles, green for symbols and the strength readout, violet
+   for digits, Segoe UI, over the diagonal slate gradient. */
+html[data-theme="proton"] {
+    /* Sampled from Proton Pass: flat #201f31 ground (no gradient), a single
+       violet accent, and the two-tone toggle where the track is the darker
+       violet and the knob is the bright one. */
+    --bg:            #201f31;
+    --card:          #201f31;
+    --sunken:        #1b1a29;
+    --raised:        #2f284a;
+    --line:          #343341;
+    --line-soft:     #2b2a3a;
+    --fg:            #d1d1d3;
+    --fg-dim:        #9a98a8;
+    --fg-faint:      #6f6c82;
+    --accent:        #a779ff;
+    --accent-soft:   rgba(167, 121, 255, 0.16);
+    --accent-ink:    #201f31;
+    --toggle-on:     #684fa0;
+    --toggle-ink:    #a779ff;
+    --char-number:   #b697f5;
+    --char-symbol:   #6abdb3;
+    --font:          'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-ui:       'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --radius:        16px;
+    --radius-sm:     8px;
+    --glow:          none;
+    --shadow:        0 8px 32px rgba(0, 0, 0, 0.4);
+    --strength-weak:   #f87171;
+    --strength-medium: #fbbf24;
+    --strength-strong: #4ab89b;
+    --ui-fg: #9a98a8; --ui-bg: rgba(32, 31, 49, 0.92); --ui-border: #343341;
 }
-html[data-theme="modern"] body {
-    background: radial-gradient(1100px 600px at 15% -10%, #e2f3f0 0%, rgba(226,243,240,0) 60%), #edf0f5;
+
+/* ---------- Tokens: CRT ----------
+   Phosphor green on black. Green only — no other hue appears
+   anywhere in this theme, including the strength scale, which
+   steps through brightness rather than changing colour. */
+html[data-theme="crt"] {
+    --bg:            #000000;
+    --card:          #000000;
+    --sunken:        #000000;
+    --raised:        #011a06;
+    --line:          #0b3d14;
+    --line-soft:     #072a0e;
+    --fg:            #00ff41;
+    --fg-dim:        #00a52c;
+    --fg-faint:      #00701d;
+    --accent:        #00ff41;
+    --accent-soft:   rgba(0, 255, 65, 0.14);
+    --accent-ink:    #000000;
+    --toggle-on:     #00ff41;
+    --toggle-ink:    #000000;
+    --font:          'VT323', 'Share Tech Mono', 'Courier New', monospace;
+    --font-ui:       'VT323', 'Share Tech Mono', 'Courier New', monospace;
+    --radius:        4px;
+    --radius-sm:     2px;
+    --glow:          0 0 6px rgba(0, 255, 65, 0.55);
+    --shadow:        0 0 60px -10px rgba(0, 255, 65, 0.25);
+    --strength-weak:   #00701d;
+    --strength-medium: #00c934;
+    --strength-strong: #00ff41;
+    --ui-fg: #00a52c; --ui-bg: rgba(0, 8, 2, 0.92); --ui-border: #0b3d14;
 }
 
-/* proton: markup carries the terminal wrapper; neutralise it */
-html[data-theme="proton"] .terminal-header { display: none; }
-html[data-theme="proton"] .terminal-body { padding: 28px; }
+/* ============================================================
+   Base
+   ============================================================ */
+* { box-sizing: border-box; }
 
-/* crt: original theme used uppercase text-only buttons */
-html[data-theme="crt"] .button-group .btn span { display: none; }
-html[data-theme="crt"] .button-group .btn { text-transform: uppercase; }
-
-/* theme switcher */
-.theme-switcher {
-    position: fixed; top: 14px; right: 16px; z-index: 100;
-    display: flex; align-items: center; gap: 8px;
-    font-family: inherit; font-size: 12px; color: var(--ui-fg);
+body {
+    margin: 0;
+    padding: 24px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-ui);
+    font-size: 15px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
 }
-.theme-switcher select {
-    font: inherit; color: var(--ui-fg);
-    background: var(--ui-bg); border: 1px solid var(--ui-border);
-    border-radius: 8px; padding: 5px 8px; cursor: pointer; outline: none;
-}
-@media (max-width: 640px) { .theme-switcher { top: 8px; right: 10px; } }
 
-
-
-/* ================= THEME BLOCKS ================= */
-/* ---- term ---- */
-html[data-theme="term"] body {
-            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-            background: #0d1117;
-            color: #c9d1d9;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-html[data-theme="term"] .container {
-            background: #161b22;
-            border: 1px solid #30363d;
-            border-radius: 6px;
-            padding: 0;
-            max-width: 700px;
-            width: 100%;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
-            overflow: hidden;
-        }
-html[data-theme="term"] .terminal-header {
-            background: #21262d;
-            border-bottom: 1px solid #30363d;
-            padding: 8px 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-html[data-theme="term"] .terminal-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #ff5f56;
-        }
-html[data-theme="term"] .terminal-dot:nth-child(2) {
-            background: #ffbd2e;
-        }
-html[data-theme="term"] .terminal-dot:nth-child(3) {
-            background: #27c93f;
-        }
-html[data-theme="term"] .terminal-title {
-            margin-left: 12px;
-            font-size: 13px;
-            color: #8b949e;
-            font-weight: 500;
-        }
-html[data-theme="term"] .terminal-body {
-            padding: 20px;
-        }
-html[data-theme="term"] .header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-html[data-theme="term"] .header h1 {
-            font-size: 28px;
-            font-weight: 600;
-            color: #ffffff;
-            margin-bottom: 8px;
-        }
-html[data-theme="term"] .header-logo {
-            margin-top: 3px;
-            width: 40px;
-            height: auto;
-        }
-html[data-theme="term"] .password-display {
-            background: #0d1117;
-            border: 1px solid #30363d;
-            border-radius: 6px;
-            padding: 16px;
-            margin-bottom: 16px;
-            position: relative;
-        }
-html[data-theme="term"] .password-label {
-            font-size: 11px;
-            color: #58a6ff;
-            margin-bottom: 8px;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-html[data-theme="term"] .password-label::before {
-            content: '> ';
-            color: #7ee787;
-        }
-html[data-theme="term"] .strength-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-html[data-theme="term"] .refresh-btn {
-            width: 28px;
-            height: 28px;
-            border-radius: 4px;
-            background: #21262d;
-            border: 1px solid #30363d;
-            color: #8b949e;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-            padding: 0;
-        }
-html[data-theme="term"] .refresh-btn:hover {
-            background: #30363d;
-            border-color: #58a6ff;
-        }
-html[data-theme="term"] .refresh-btn:active {
-            transform: scale(0.95);
-        }
-html[data-theme="term"] .refresh-btn img {
-            width: 14px;
-            height: 14px;
-            opacity: 0.7;
-            transition: transform 0.3s;
-        }
-html[data-theme="term"] .refresh-btn:hover img {
-            opacity: 1;
-            transform: rotate(180deg);
-        }
-html[data-theme="term"] .char-number { color: #79c0ff; }
-html[data-theme="term"] .char-symbol { color: #56d364; }
-html[data-theme="term"] .password-text {
-            font-size: 16px;
-            font-weight: 500;
-            color: #c9d1d9;
-            word-break: break-all;
-            margin-bottom: 12px;
-            font-family: 'Fira Code', 'JetBrains Mono', 'Source Code Pro', 'Consolas', 'Monaco', 'Courier New', monospace;
-            letter-spacing: 0.5px;
-            cursor: text;
-            min-height: 80px;
-            background: #0d1117;
-            border: 1px solid #30363d;
-            border-radius: 4px;
-            padding: 12px;
-            outline: none;
-            width: 100%;
-            line-height: 1.6;
-            text-align: left;
-            box-sizing: border-box;
-            user-select: text;
-        }
-html[data-theme="term"] .password-text:focus {
-            border-color: #58a6ff;
-            box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1);
-        }
-html[data-theme="term"] .password-text:hover {
-            border-color: #484f58;
-        }
-html[data-theme="term"] .strength-indicator {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #7ee787;
-            font-size: 12px;
-            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-        }
-html[data-theme="term"] .strength-icon {
-            width: 6px;
-            height: 6px;
-            background: #7ee787;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-html[data-theme="term"] .strength-icon::before {
-            content: '';
-        }
-html[data-theme="term"] .section-header {
-            color: #8b949e;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 12px;
-            font-weight: 600;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-        }
-html[data-theme="term"] .section-header span:first-child::before {
-            content: '// ';
-            color: #58a6ff;
-        }
-html[data-theme="term"] .dropdown {
-            background: #0d1117;
-            border: 1px solid #30363d;
-            border-radius: 4px;
-            padding: 6px 10px;
-            color: #c9d1d9;
-            font-size: 12px;
-            cursor: pointer;
-            outline: none;
-            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-            transition: all 0.2s;
-        }
-html[data-theme="term"] .dropdown:hover {
-            border-color: #58a6ff;
-        }
-html[data-theme="term"] .dropdown:focus {
-            border-color: #58a6ff;
-            box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1);
-        }
-html[data-theme="term"] /* Chrome, html[data-theme="term"] Safari, html[data-theme="term"] Edge, html[data-theme="term"] Opera */
-        input::-webkit-outer-spin-button, html[data-theme="term"] input::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-html[data-theme="term"] /* Firefox */
-        input[type=number] {
-            -moz-appearance: textfield;
-            appearance: textfield;
-        }
-html[data-theme="term"] .options-container {
-            flex: 0 0 auto;
-            margin-bottom: 16px;
-        }
-html[data-theme="term"] .control-group {
-            margin-bottom: 18px;
-        }
-html[data-theme="term"] .slider-control {
-            margin-bottom: 16px;
-        }
-html[data-theme="term"] .slider-label {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            font-size: 12px;
-            color: #8b949e;
-            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-        }
-html[data-theme="term"] .slider-label-value {
-            color: #79c0ff;
-            font-weight: 600;
-        }
-html[data-theme="term"] input[type="range"] {
-            width: 100%;
-            height: 4px;
-            background: #21262d;
-            border: 1px solid #30363d;
-            border-radius: 4px;
-            outline: none;
-            -webkit-appearance: none;
-            appearance: none;
-        }
-html[data-theme="term"] input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 16px;
-            height: 16px;
-            background: #58a6ff;
-            cursor: pointer;
-            border-radius: 3px;
-            border: 1px solid #30363d;
-        }
-html[data-theme="term"] input[type="range"]::-moz-range-thumb {
-            width: 16px;
-            height: 16px;
-            background: #58a6ff;
-            cursor: pointer;
-            border-radius: 3px;
-            border: 1px solid #30363d;
-        }
-html[data-theme="term"] .toggle-group {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-html[data-theme="term"] .charset-input {
-            width: 130px;
-            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-        }
-html[data-theme="term"] .pool-info {
-            opacity: 0.6;
-            font-size: 0.85em;
-            margin-left: 8px;
-        }
-html[data-theme="term"] .toggle-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-html[data-theme="term"] .toggle-label {
-            font-size: 13px;
-            color: #8b949e;
-            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-        }
-html[data-theme="term"] .toggle-switch {
-            position: relative;
-            width: 40px;
-            height: 20px;
-            background: #21262d;
-            border: 1px solid #30363d;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-html[data-theme="term"] .toggle-switch.active {
-            background: #238636;
-            border-color: #238636;
-        }
-html[data-theme="term"] .toggle-switch::after {
-            content: '';
-            position: absolute;
-            width: 14px;
-            height: 14px;
-            background: #8b949e;
-            border-radius: 3px;
-            top: 2px;
-            left: 2px;
-            transition: all 0.3s;
-        }
-html[data-theme="term"] .toggle-switch.active::after {
-            background: #ffffff;
-            transform: translateX(18px);
-        }
-html[data-theme="term"] .note-input {
-            width: 100%;
-            background: #0d1117;
-            border: 1px solid #3a3a52;
-            border-radius: 6px;
-            padding: 10px;
-            color: #ffffff;
-            font-size: 13px;
-            font-family: inherit;
-            resize: vertical;
-            min-height: 50px;
-            margin-top: 6px;
-        }
-html[data-theme="term"] .note-input:focus {
-            outline: none;
-            border-color: #6366f1;
-        }
-html[data-theme="term"] .date-presets {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-top: 10px;
-            justify-content: center;
-        }
-html[data-theme="term"] .date-preset-btn {
-            padding: 4px 10px;
-            border-radius: 4px;
-            border: 1px solid #30363d;
-            background: #0d1117;
-            color: #8b949e;
-            font-size: 11px;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-        }
-html[data-theme="term"] .date-preset-btn:hover {
-            background: #21262d;
-            border-color: #58a6ff;
-            color: #c9d1d9;
-        }
-html[data-theme="term"] .button-group {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 16px;
-        }
-html[data-theme="term"] .btn {
-            padding: 10px 16px;
-            border-radius: 4px;
-            border: 1px solid #30363d;
-            font-size: 13px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-transform: none;
-            letter-spacing: 0.3px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-        }
-html[data-theme="term"] .btn-secondary {
-            background: #21262d;
-            color: #c9d1d9;
-        }
-html[data-theme="term"] .btn-secondary:hover {
-            background: #30363d;
-            border-color: #58a6ff;
-        }
-html[data-theme="term"] .btn-secondary:active {
-            transform: scale(0.98);
-        }
-html[data-theme="term"] .qr-modal, html[data-theme="term"] .scrt-modal, html[data-theme="term"] .phonetic-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-html[data-theme="term"] .qr-modal.active, html[data-theme="term"] .scrt-modal.active, html[data-theme="term"] .phonetic-modal.active {
-            display: flex;
-        }
-html[data-theme="term"] .qr-content, html[data-theme="term"] .scrt-content {
-            background: #161b22;
-            border: 1px solid #30363d;
-            border-radius: 6px;
-            padding: 30px;
-            text-align: center;
-            max-width: 400px;
-        }
-html[data-theme="term"] .scrt-content h3, html[data-theme="term"] .qr-content h3 {
-            margin-bottom: 20px;
-            color: #c9d1d9;
-            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-            font-weight: 500;
-        }
-html[data-theme="term"] #qrcode {
-            display: inline-block;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-html[data-theme="term"] .scrt-link-display {
-            background: #0d1117;
-            border: 1px solid #30363d;
-            border-radius: 6px;
-            padding: 15px;
-            margin-bottom: 20px;
-            word-break: break-all;
-            color: #58a6ff;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-        }
-html[data-theme="term"] .scrt-link-display:hover {
-            background: #21262d;
-            border-color: #58a6ff;
-        }
-html[data-theme="term"] .phonetic-content {
-            background: #161b22;
-            border: 1px solid #30363d;
-            border-radius: 6px;
-            padding: 30px;
-            max-width: 600px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-html[data-theme="term"] .phonetic-content h3 {
-            margin-bottom: 20px;
-            color: #c9d1d9;
-            text-align: center;
-            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-            font-weight: 500;
-        }
-html[data-theme="term"] .phonetic-list {
-            background: #0d1117;
-            border: 1px solid #30363d;
-            border-radius: 6px;
-            padding: 20px;
-            margin-bottom: 20px;
-            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-        }
-html[data-theme="term"] .phonetic-item {
-            display: flex;
-            gap: 15px;
-            padding: 8px 0;
-            border-bottom: 1px solid #30363d;
-            justify-content: center;
-            align-items: center;
-        }
-html[data-theme="term"] .phonetic-item:last-child {
-            border-bottom: none;
-        }
-html[data-theme="term"] .phonetic-char {
-            color: #c9d1d9;
-            font-weight: 600;
-            min-width: 30px;
-            text-align: left;
-            padding-left: 5%;
-            flex: 1;
-        }
-html[data-theme="term"] .phonetic-case {
-            color: #6e7681;
-            font-size: 11px;
-            min-width: 70px;
-            text-align: center;
-            flex: 1;
-        }
-html[data-theme="term"] .phonetic-case.uppercase {
-            color: #7ee787;
-        }
-html[data-theme="term"] .phonetic-word {
-            color: #8b949e;
-            flex: 1;
-            text-align: right;
-            padding-right: 5%;
-        }
-html[data-theme="term"] .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #238636;
-            color: #ffffff;
-            padding: 12px 18px;
-            border-radius: 6px;
-            font-weight: 500;
-            font-size: 13px;
-            border: 1px solid #2ea043;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-            opacity: 0;
-            transform: translateY(-20px);
-            transition: all 0.3s;
-            z-index: 2000;
-            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-        }
-html[data-theme="term"] .notification.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-html[data-theme="term"] .notification.error {
-            background: #da3633;
-            border-color: #f85149;
-        }
-html[data-theme="term"] .expiry-label {
-            font-size: 13px;
-            color: #8b949e;
-            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-        }
-
-/* ---- proton ---- */
-html[data-theme="proton"] body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1e1e2e 0%, #2a2a3e 100%);
-            color: #e0e0e0;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-html[data-theme="proton"] .container {
-            background: #252538;
-            border: 1px solid #3a3a52;
-            border-radius: 16px;
-            padding: 0;
-            max-width: 700px;
-            width: 100%;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-            overflow: hidden;
-        }
-html[data-theme="proton"] .header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-html[data-theme="proton"] .header h1 {
-            font-size: 28px;
-            font-weight: 600;
-            color: #ffffff;
-            margin-bottom: 8px;
-        }
-html[data-theme="proton"] .header-logo {
-            margin-top: 3px;
-            width: 40px;
-            height: auto;
-        }
-html[data-theme="proton"] .password-display {
-            background: #1e1e2e;
-            border-radius: 10px;
-            padding: 14px;
-            margin-bottom: 20px;
-            border: 1px solid #3a3a52;
-            position: relative;
-        }
-html[data-theme="proton"] .password-label {
-            font-size: 11px;
-            color: #a78bfa;
-            margin-bottom: 8px;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            text-align: left;
-        }
-html[data-theme="proton"] .strength-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-html[data-theme="proton"] .refresh-btn {
-            width: 32px;
-            height: 32px;
-            border-radius: 6px;
-            background: #2a2a3e;
-            border: 1px solid #3a3a52;
-            color: #ffffff;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-            padding: 0;
-        }
-html[data-theme="proton"] .refresh-btn:hover {
-            background: #353549;
-            border-color: #4a4a62;
-        }
-html[data-theme="proton"] .refresh-btn:active {
-            transform: scale(0.95);
-        }
-html[data-theme="proton"] .refresh-btn img {
-            width: 16px;
-            height: 16px;
-            transition: transform 0.3s;
-        }
-html[data-theme="proton"] .refresh-btn:hover img {
-            transform: rotate(180deg);
-        }
-html[data-theme="proton"] .char-number { color: #a78bfa; }
-html[data-theme="proton"] .char-symbol { color: #34d399; }
-html[data-theme="proton"] .password-text {
-            font-size: 17px;
-            font-weight: 600;
-            color: #ffffff;
-            word-break: break-all;
-            margin-bottom: 8px;
-            font-family: 'Courier New', monospace;
-            letter-spacing: 0.3px;
-            cursor: text;
-            min-height: 55px;
-            background: #252538;
-            border: 1px solid #3a3a52;
-            border-radius: 6px;
-            padding: 10px;
-            outline: none;
-            width: 100%;
-            line-height: 1.4;
-            text-align: center;
-            box-sizing: border-box;
-            user-select: text;
-        }
-html[data-theme="proton"] .password-text:focus {
-            border-color: #6366f1;
-        }
-html[data-theme="proton"] .password-text:hover {
-            border-color: #4a4a62;
-        }
-html[data-theme="proton"] .strength-indicator {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            color: #4ade80;
-            font-size: 12px;
-        }
-html[data-theme="proton"] .strength-icon {
-            width: 16px;
-            height: 16px;
-            background: #4ade80;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-html[data-theme="proton"] .strength-icon::before {
-            content: '✓';
-            color: #1e1e2e;
-            font-weight: bold;
-            font-size: 10px;
-        }
-html[data-theme="proton"] .section-header {
-            color: #999;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            margin-bottom: 10px;
-            font-weight: 600;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-html[data-theme="proton"] .dropdown {
-            background: #1e1e2e;
-            border: 1px solid #3a3a52;
-            border-radius: 6px;
-            padding: 6px 10px;
-            color: #ffffff;
-            font-size: 12px;
-            cursor: pointer;
-            outline: none;
-            font-family: inherit;
-            transition: border-color 0.2s;
-        }
-html[data-theme="proton"] .dropdown:hover {
-            border-color: #5558dd;
-        }
-html[data-theme="proton"] .dropdown:focus {
-            border-color: #6366f1;
-        }
-html[data-theme="proton"] /* Chrome, html[data-theme="proton"] Safari, html[data-theme="proton"] Edge, html[data-theme="proton"] Opera */
-        input::-webkit-outer-spin-button, html[data-theme="proton"] input::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-html[data-theme="proton"] /* Firefox */
-        input[type=number] {
-            -moz-appearance: textfield;
-            appearance: textfield;
-        }
-html[data-theme="proton"] .options-container {
-            flex: 0 0 auto;
-            margin-bottom: 16px;
-        }
-html[data-theme="proton"] .control-group {
-            margin-bottom: 18px;
-        }
-html[data-theme="proton"] .slider-control {
-            margin-bottom: 16px;
-        }
-html[data-theme="proton"] .slider-label {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            font-size: 13px;
-            color: #b0b0b0;
-        }
-html[data-theme="proton"] .slider-label-value {
-            color: #ffffff;
-            font-weight: 600;
-        }
-html[data-theme="proton"] input[type="range"] {
-            width: 100%;
-            height: 5px;
-            background: #3a3a52;
-            border-radius: 3px;
-            outline: none;
-            -webkit-appearance: none;
-            appearance: none;
-        }
-html[data-theme="proton"] input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 18px;
-            height: 18px;
-            background: #ffffff;
-            cursor: pointer;
-            border-radius: 50%;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-        }
-html[data-theme="proton"] input[type="range"]::-moz-range-thumb {
-            width: 18px;
-            height: 18px;
-            background: #ffffff;
-            cursor: pointer;
-            border-radius: 50%;
-            border: none;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-        }
-html[data-theme="proton"] .toggle-group {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-html[data-theme="proton"] .charset-input {
-            width: 130px;
-            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-        }
-html[data-theme="proton"] .pool-info {
-            opacity: 0.6;
-            font-size: 0.85em;
-            margin-left: 8px;
-        }
-html[data-theme="proton"] .toggle-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-html[data-theme="proton"] .toggle-label {
-            font-size: 13px;
-            color: #b0b0b0;
-        }
-html[data-theme="proton"] .toggle-switch {
-            position: relative;
-            width: 46px;
-            height: 24px;
-            background: #3a3a52;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-html[data-theme="proton"] .toggle-switch.active {
-            background: #f87171;
-        }
-html[data-theme="proton"] .toggle-switch::after {
-            content: '';
-            position: absolute;
-            width: 18px;
-            height: 18px;
-            background: #ffffff;
-            border-radius: 50%;
-            top: 3px;
-            left: 3px;
-            transition: transform 0.3s;
-        }
-html[data-theme="proton"] .toggle-switch.active::after {
-            transform: translateX(22px);
-        }
-html[data-theme="proton"] .note-input {
-            width: 100%;
-            background: #1e1e2e;
-            border: 1px solid #3a3a52;
-            border-radius: 6px;
-            padding: 10px;
-            color: #ffffff;
-            font-size: 13px;
-            font-family: inherit;
-            resize: vertical;
-            min-height: 50px;
-            margin-top: 6px;
-        }
-html[data-theme="proton"] .note-input:focus {
-            outline: none;
-            border-color: #6366f1;
-        }
-html[data-theme="proton"] .date-presets {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-top: 10px;
-            justify-content: center;
-        }
-html[data-theme="proton"] .date-preset-btn {
-            padding: 4px 10px;
-            border-radius: 4px;
-            border: 1px solid #3a3a52;
-            background: #1e1e2e;
-            color: #b0b0b0;
-            font-size: 11px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-html[data-theme="proton"] .date-preset-btn:hover {
-            background: #2a2a3e;
-            border-color: #5558dd;
-            color: #ffffff;
-        }
-html[data-theme="proton"] .button-group {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 16px;
-        }
-html[data-theme="proton"] .btn {
-            padding: 11px 18px;
-            border-radius: 8px;
-            border: none;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-transform: none;
-            letter-spacing: 0.3px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
-html[data-theme="proton"] .btn-secondary {
-            background: linear-gradient(135deg, #3a3a52 0%, #2d2d3f 100%);
-            color: #e0e0e0;
-            border: 1px solid #4a4a5f;
-        }
-html[data-theme="proton"] .btn-secondary:hover {
-            background: linear-gradient(135deg, #4a4a62 0%, #3d3d4f 100%);
-            border-color: #5a5a6f;
-            transform: translateY(-1px);
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-        }
-html[data-theme="proton"] .btn-secondary:active {
-            transform: translateY(0);
-        }
-html[data-theme="proton"] .qr-modal, html[data-theme="proton"] .scrt-modal, html[data-theme="proton"] .phonetic-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-html[data-theme="proton"] .qr-modal.active, html[data-theme="proton"] .scrt-modal.active, html[data-theme="proton"] .phonetic-modal.active {
-            display: flex;
-        }
-html[data-theme="proton"] .qr-content, html[data-theme="proton"] .scrt-content {
-            background: #252538;
-            border-radius: 16px;
-            padding: 30px;
-            text-align: center;
-            max-width: 400px;
-        }
-html[data-theme="proton"] .scrt-content h3, html[data-theme="proton"] .qr-content h3 {
-            margin-bottom: 20px;
-            color: #ffffff;
-        }
-html[data-theme="proton"] #qrcode {
-            display: inline-block;
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-        }
-html[data-theme="proton"] .scrt-link-display {
-            background: #1e1e2e;
-            border: 1px solid #3a3a52;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 20px;
-            word-break: break-all;
-            color: #6366f1;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-html[data-theme="proton"] .scrt-link-display:hover {
-            background: #2a2a3e;
-            border-color: #6366f1;
-        }
-html[data-theme="proton"] .phonetic-content {
-            background: #252538;
-            border-radius: 16px;
-            padding: 30px;
-            max-width: 600px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-html[data-theme="proton"] .phonetic-content h3 {
-            margin-bottom: 20px;
-            color: #ffffff;
-            text-align: center;
-        }
-html[data-theme="proton"] .phonetic-list {
-            background: #1e1e2e;
-            border: 1px solid #3a3a52;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-            font-family: 'Courier New', monospace;
-        }
-html[data-theme="proton"] .phonetic-item {
-            display: flex;
-            gap: 15px;
-            padding: 8px 0;
-            border-bottom: 1px solid #3a3a52;
-            justify-content: center;
-            align-items: center;
-        }
-html[data-theme="proton"] .phonetic-item:last-child {
-            border-bottom: none;
-        }
-html[data-theme="proton"] .phonetic-char {
-            color: #ffffff;
-            font-weight: 600;
-            min-width: 30px;
-            text-align: left;
-            padding-left: 5%;
-            flex: 1;
-        }
-html[data-theme="proton"] .phonetic-case {
-            color: #888;
-            font-size: 11px;
-            min-width: 70px;
-            text-align: center;
-            flex: 1;
-        }
-html[data-theme="proton"] .phonetic-case.uppercase {
-            color: #4ade80;
-        }
-html[data-theme="proton"] .phonetic-word {
-            color: #b0b0b0;
-            flex: 1;
-            text-align: right;
-            padding-right: 5%;
-        }
-html[data-theme="proton"] .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #4ade80;
-            color: #1e1e2e;
-            padding: 14px 20px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 13px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            opacity: 0;
-            transform: translateY(-20px);
-            transition: all 0.3s;
-            z-index: 2000;
-        }
-html[data-theme="proton"] .notification.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-html[data-theme="proton"] .notification.error {
-            background: #f87171;
-            color: #ffffff;
-        }
-html[data-theme="proton"] .expiry-label {
-            font-size: 13px;
-            color: #b0b0b0;
-        }
-
-/* ---- crt ---- */
 html[data-theme="crt"] body {
-            font-family: 'VT323', 'Share Tech Mono', 'Courier New', monospace;
-            background: #000000;
-            color: #00ff00;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            text-shadow: 0 0 5px #00ff00;
-        }
-html[data-theme="crt"] .container {
-            background: #000000;
-            border: 2px solid #00ff00;
-            border-radius: 0;
-            padding: 0;
-            max-width: 800px;
-            width: 100%;
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3), inset 0 0 100px rgba(0, 255, 0, 0.05);
-            overflow: hidden;
-            position: relative;
-        }
-html[data-theme="crt"] .container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: repeating-linear-gradient(
-                0deg,
-                rgba(0, 255, 0, 0.03) 0px,
-                rgba(0, 255, 0, 0.03) 1px,
-                transparent 1px,
-                transparent 2px
-            );
-            pointer-events: none;
-            z-index: 1000;
-        }
-html[data-theme="crt"] .terminal-header {
-            background: #000000;
-            border-bottom: 2px solid #00ff00;
-            padding: 12px 20px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 20px;
-            letter-spacing: 2px;
-        }
-html[data-theme="crt"] .terminal-dot {
-            display: none;
-        }
-html[data-theme="crt"] .terminal-title {
-            margin-left: 0;
-            font-size: 20px;
-            color: #00ff00;
-            font-weight: 400;
-            text-transform: uppercase;
-        }
-html[data-theme="crt"] .terminal-title::before {
-            content: '> ';
-            animation: blink 1s infinite;
-        }
-@keyframes blink {
-            0%, 49% { opacity: 1; }
-            50%, 100% { opacity: 0; }
-        }
-html[data-theme="crt"] .terminal-body {
-            padding: 20px;
-            position: relative;
-            z-index: 1;
-        }
-html[data-theme="crt"] .header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-html[data-theme="crt"] .header h1 {
-            font-size: 28px;
-            font-weight: 600;
-            color: #ffffff;
-            margin-bottom: 8px;
-        }
-html[data-theme="crt"] .header-logo {
-            margin-top: 3px;
-            width: 40px;
-            height: auto;
-        }
-html[data-theme="crt"] .password-display {
-            background: #0d1117;
-            border: 1px solid #30363d;
-            border-radius: 6px;
-            padding: 16px;
-            margin-bottom: 16px;
-            position: relative;
-        }
-html[data-theme="crt"] .password-label {
-            font-size: 11px;
-            color: #58a6ff;
-            margin-bottom: 8px;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-html[data-theme="crt"] .password-label::before {
-            content: '> ';
-            color: #7ee787;
-        }
-html[data-theme="crt"] .strength-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-html[data-theme="crt"] .refresh-btn {
-            width: auto;
-            height: auto;
-            padding: 6px 12px;
-            border-radius: 0;
-            background: transparent;
-            border: 1px solid #00ff00;
-            color: #00ff00;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-            font-family: 'VT323', 'Share Tech Mono', 'Courier New', monospace;
-            font-size: 18px;
-            letter-spacing: 1px;
-        }
-html[data-theme="crt"] .refresh-btn:hover {
-            background: #00ff00;
-            color: #000000;
-            box-shadow: 0 0 10px #00ff00;
-        }
-html[data-theme="crt"] .refresh-btn:active {
-            transform: scale(0.95);
-        }
-html[data-theme="crt"] .refresh-btn img {
-            display: none;
-        }
-html[data-theme="crt"] .refresh-btn::before {
-            content: '[GEN]';
-        }
-html[data-theme="crt"] .char-number { color: #00ff00; opacity: 0.9; }
-html[data-theme="crt"] .char-symbol { color: #00ff00; opacity: 1; }
-html[data-theme="crt"] .password-text {
-            font-size: 22px;
-            font-weight: 400;
-            color: #00ff00;
-            word-break: break-all;
-            margin-bottom: 12px;
-            font-family: 'VT323', 'Share Tech Mono', 'Courier New', monospace;
-            letter-spacing: 1px;
-            cursor: text;
-            min-height: 60px;
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid #003300;
-            border-radius: 0;
-            padding: 8px 0;
-            outline: none;
-            width: 100%;
-            line-height: 1.4;
-            text-align: left;
-            box-sizing: border-box;
-            user-select: text;
-            text-shadow: 0 0 5px #00ff00;
-        }
-html[data-theme="crt"] .password-text:focus {
-            border-bottom-color: #00ff00;
-        }
-html[data-theme="crt"] .password-text:hover {
-            border-bottom-color: #00ff00;
-        }
-html[data-theme="crt"] .strength-indicator {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #00ff00;
-            font-size: 18px;
-            font-family: 'VT323', 'Share Tech Mono', 'Courier New', monospace;
-            letter-spacing: 1px;
-        }
-html[data-theme="crt"] .strength-icon {
-            width: 8px;
-            height: 8px;
-            background: #00ff00;
-            border-radius: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 5px #00ff00;
-        }
-html[data-theme="crt"] .strength-icon::before {
-            content: '';
-        }
-html[data-theme="crt"] .section-header {
-            color: #00ff00;
-            font-size: 18px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 12px;
-            font-weight: 400;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-family: 'VT323', 'Share Tech Mono', 'Courier New', monospace;
-        }
-html[data-theme="crt"] .section-header span:first-child::before {
-            content: '[ ';
-            color: #00ff00;
-        }
-html[data-theme="crt"] .section-header span:first-child::after {
-            content: ' ]';
-            color: #00ff00;
-        }
-html[data-theme="crt"] .dropdown {
-            background: #000000;
-            border: 1px solid #00ff00;
-            border-radius: 0;
-            padding: 6px 10px;
-            color: #00ff00;
-            font-size: 16px;
-            cursor: pointer;
-            outline: none;
-            font-family: 'VT323', 'Share Tech Mono', 'Courier New', monospace;
-            transition: all 0.2s;
-            text-shadow: 0 0 5px #00ff00;
-        }
-html[data-theme="crt"] .dropdown:hover {
-            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
-        }
-html[data-theme="crt"] .dropdown:focus {
-            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
-        }
-html[data-theme="crt"] /* Chrome, html[data-theme="crt"] Safari, html[data-theme="crt"] Edge, html[data-theme="crt"] Opera */
-        input::-webkit-outer-spin-button, html[data-theme="crt"] input::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-html[data-theme="crt"] /* Firefox */
-        input[type=number] {
-            -moz-appearance: textfield;
-            appearance: textfield;
-        }
-html[data-theme="crt"] .options-container {
-            flex: 0 0 auto;
-            margin-bottom: 16px;
-        }
-html[data-theme="crt"] .control-group {
-            margin-bottom: 18px;
-        }
-html[data-theme="crt"] .slider-control {
-            margin-bottom: 16px;
-        }
-html[data-theme="crt"] .slider-label {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            font-size: 18px;
-            color: #00ff00;
-            font-family: 'VT323', 'Share Tech Mono', 'Courier New', monospace;
-            letter-spacing: 1px;
-        }
-html[data-theme="crt"] .slider-label-value {
-            color: #00ff00;
-            font-weight: 400;
-        }
-html[data-theme="crt"] input[type="range"] {
-            width: 100%;
-            height: 4px;
-            background: #003300;
-            border: 1px solid #00ff00;
-            border-radius: 0;
-            outline: none;
-            -webkit-appearance: none;
-            appearance: none;
-        }
-html[data-theme="crt"] input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 16px;
-            height: 16px;
-            background: #00ff00;
-            cursor: pointer;
-            border-radius: 0;
-            border: 1px solid #00ff00;
-            box-shadow: 0 0 5px #00ff00;
-        }
-html[data-theme="crt"] input[type="range"]::-moz-range-thumb {
-            width: 16px;
-            height: 16px;
-            background: #00ff00;
-            cursor: pointer;
-            border-radius: 0;
-            border: 1px solid #00ff00;
-            box-shadow: 0 0 5px #00ff00;
-        }
-html[data-theme="crt"] .toggle-group {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-html[data-theme="crt"] .charset-input {
-            width: 130px;
-            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-        }
-html[data-theme="crt"] .pool-info {
-            opacity: 0.6;
-            font-size: 0.85em;
-            margin-left: 8px;
-        }
-html[data-theme="crt"] .toggle-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-html[data-theme="crt"] .toggle-label {
-            font-size: 18px;
-            color: #00ff00;
-            font-family: 'VT323', 'Share Tech Mono', 'Courier New', monospace;
-            letter-spacing: 1px;
-        }
-html[data-theme="crt"] .toggle-switch {
-            position: relative;
-            width: 50px;
-            height: 24px;
-            background: #000000;
-            border: 1px solid #00ff00;
-            border-radius: 0;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-html[data-theme="crt"] .toggle-switch.active {
-            background: #003300;
-            border-color: #00ff00;
-            box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
-        }
-html[data-theme="crt"] .toggle-switch::after {
-            content: '';
-            position: absolute;
-            width: 18px;
-            height: 18px;
-            background: #00ff00;
-            border-radius: 0;
-            top: 2px;
-            left: 2px;
-            transition: all 0.3s;
-            box-shadow: 0 0 5px #00ff00;
-        }
-html[data-theme="crt"] .toggle-switch.active::after {
-            background: #00ff00;
-            transform: translateX(24px);
-        }
-html[data-theme="crt"] .note-input {
-            width: 100%;
-            background: #0d1117;
-            border: 1px solid #3a3a52;
-            border-radius: 6px;
-            padding: 10px;
-            color: #ffffff;
-            font-size: 14px;
-            font-family: inherit;
-            resize: vertical;
-            min-height: 50px;
-            margin-top: 6px;
-        }
-html[data-theme="crt"] .note-input:focus {
-            outline: none;
-            border-color: #00ff00;
-        }
-html[data-theme="crt"] .date-presets {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-top: 10px;
-            justify-content: center;
-        }
-html[data-theme="crt"] .date-preset-btn {
-            padding: 6px 12px;
-            border-radius: 0;
-            border: 1px solid #00ff00;
-            background: #000000;
-            color: #00ff00;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-family: 'VT323', 'Share Tech Mono', 'Courier New', monospace;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-html[data-theme="crt"] .date-preset-btn:hover {
-            background: #00ff00;
-            color: #000000;
-            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
-        }
-html[data-theme="crt"] .button-group {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 16px;
-        }
-html[data-theme="crt"] .btn {
-            padding: 12px 16px;
-            border-radius: 0;
-            border: 1px solid #00ff00;
-            font-size: 18px;
-            font-weight: 400;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            font-family: 'VT323', 'Share Tech Mono', 'Courier New', monospace;
-        }
-html[data-theme="crt"] .btn-secondary {
-            background: #000000;
-            color: #00ff00;
-        }
-html[data-theme="crt"] .btn-secondary:hover {
-            background: #00ff00;
-            color: #000000;
-            box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
-        }
-html[data-theme="crt"] .btn-secondary:active {
-            transform: scale(0.98);
-        }
-html[data-theme="crt"] .qr-modal, html[data-theme="crt"] .scrt-modal, html[data-theme="crt"] .phonetic-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-html[data-theme="crt"] .qr-modal.active, html[data-theme="crt"] .scrt-modal.active, html[data-theme="crt"] .phonetic-modal.active {
-            display: flex;
-        }
-html[data-theme="crt"] .qr-content, html[data-theme="crt"] .scrt-content {
-            background: #000000;
-            border: 2px solid #00ff00;
-            border-radius: 0;
-            padding: 30px;
-            text-align: center;
-            max-width: 400px;
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
-        }
-html[data-theme="crt"] .scrt-content h3, html[data-theme="crt"] .qr-content h3 {
-            margin-bottom: 20px;
-            color: #00ff00;
-            font-family: 'VT323', 'Share Tech Mono', 'Courier New', monospace;
-            font-weight: 400;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 24px;
-        }
-html[data-theme="crt"] #qrcode {
-            display: inline-block;
-            background: white;
-            padding: 20px;
-            border-radius: 0;
-            margin-bottom: 20px;
-        }
-html[data-theme="crt"] .scrt-link-display {
-            background: #000000;
-            border: 1px solid #00ff00;
-            border-radius: 0;
-            padding: 15px;
-            margin-bottom: 20px;
-            word-break: break-all;
-            color: #00ff00;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: 'VT323', 'Share Tech Mono', 'Courier New', monospace;
-            font-size: 18px;
-        }
-html[data-theme="crt"] .scrt-link-display:hover {
-            background: #001a00;
-            box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
-        }
-html[data-theme="crt"] .phonetic-content {
-            background: #000000;
-            border: 2px solid #00ff00;
-            border-radius: 0;
-            padding: 30px;
-            max-width: 600px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
-        }
-html[data-theme="crt"] .phonetic-content h3 {
-            margin-bottom: 20px;
-            color: #00ff00;
-            text-align: center;
-            font-family: 'VT323', 'Share Tech Mono', 'Courier New', monospace;
-            font-weight: 400;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 24px;
-        }
-html[data-theme="crt"] .phonetic-list {
-            background: #000000;
-            border: 1px solid #00ff00;
-            border-radius: 0;
-            padding: 20px;
-            margin-bottom: 20px;
-            font-family: 'VT323', 'Share Tech Mono', 'Courier New', monospace;
-        }
-html[data-theme="crt"] .phonetic-item {
-            display: flex;
-            gap: 15px;
-            padding: 8px 0;
-            border-bottom: 1px solid #003300;
-            justify-content: center;
-            align-items: center;
-        }
-html[data-theme="crt"] .phonetic-item:last-child {
-            border-bottom: none;
-        }
-html[data-theme="crt"] .phonetic-char {
-            color: #00ff00;
-            font-weight: 400;
-            min-width: 30px;
-            text-align: left;
-            padding-left: 5%;
-            flex: 1;
-            font-size: 20px;
-        }
-html[data-theme="crt"] .phonetic-case {
-            color: #00ff00;
-            font-size: 16px;
-            min-width: 70px;
-            text-align: center;
-            flex: 1;
-            opacity: 0.7;
-        }
-html[data-theme="crt"] .phonetic-case.uppercase {
-            color: #00ff00;
-            opacity: 1;
-        }
-html[data-theme="crt"] .phonetic-word {
-            color: #00ff00;
-            flex: 1;
-            text-align: right;
-            padding-right: 5%;
-            font-size: 18px;
-        }
-html[data-theme="crt"] .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #000000;
-            color: #00ff00;
-            padding: 12px 18px;
-            border-radius: 0;
-            font-weight: 400;
-            font-size: 18px;
-            border: 2px solid #00ff00;
-            box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
-            opacity: 0;
-            transform: translateY(-20px);
-            transition: all 0.3s;
-            z-index: 2000;
-            font-family: 'VT323', 'Share Tech Mono', 'Courier New', monospace;
-            letter-spacing: 1px;
-        }
-html[data-theme="crt"] .notification.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-html[data-theme="crt"] .notification.error {
-            background: #000000;
-            border-color: #00ff00;
-            color: #00ff00;
-        }
-html[data-theme="crt"] .expiry-label {
-            font-size: 16px;
-            color: #00ff00;
-            font-family: 'VT323', 'Share Tech Mono', 'Courier New', monospace;
-            opacity: 0.7;
-        }
+    text-shadow: var(--glow);
+    background:
+        radial-gradient(ellipse at 50% 50%, #041106 0%, #000000 78%);
+}
 
-/* ---- modern ---- */
-html[data-theme="modern"] body {
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
-            background: #edf0f5;
-            color: #1d2534;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-html[data-theme="modern"] .container {
-            background: #ffffff;
-            border: 1px solid #e2e7ee;
-            border-radius: 12px;
-            padding: 0;
-            max-width: 700px;
-            width: 100%;
-            box-shadow: 0 8px 24px rgba(16, 24, 40, 0.10);
-            overflow: hidden;
-        }
-html[data-theme="modern"] .terminal-header {
-            background: #f5f7fa;
-            border-bottom: 1px solid #e2e7ee;
-            padding: 8px 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-html[data-theme="modern"] .terminal-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #ff5f56;
-        }
-html[data-theme="modern"] .terminal-dot:nth-child(2) {
-            background: #ffbd2e;
-        }
-html[data-theme="modern"] .terminal-dot:nth-child(3) {
-            background: #27c93f;
-        }
-html[data-theme="modern"] .terminal-title {
-            margin-left: 12px;
-            font-size: 13px;
-            color: #66738a;
-            font-weight: 500;
-        }
-html[data-theme="modern"] .terminal-body {
-            padding: 20px;
-        }
-html[data-theme="modern"] .header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-html[data-theme="modern"] .header h1 {
-            font-size: 28px;
-            font-weight: 600;
-            color: #ffffff;
-            margin-bottom: 8px;
-        }
-html[data-theme="modern"] .header-logo {
-            margin-top: 3px;
-            width: 40px;
-            height: auto;
-        }
-html[data-theme="modern"] .password-display {
-            background: #edf0f5;
-            border: 1px solid #e2e7ee;
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 16px;
-            position: relative;
-        }
-html[data-theme="modern"] .password-label {
-            font-size: 11px;
-            color: #0e8074;
-            margin-bottom: 8px;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-html[data-theme="modern"] .password-label::before {
-            content: '> ';
-            color: #178a4c;
-        }
-html[data-theme="modern"] .strength-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-html[data-theme="modern"] .refresh-btn {
-            width: 28px;
-            height: 28px;
-            border-radius: 4px;
-            background: #f5f7fa;
-            border: 1px solid #e2e7ee;
-            color: #66738a;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-            padding: 0;
-        }
-html[data-theme="modern"] .refresh-btn:hover {
-            background: #e2e7ee;
-            border-color: #0e8074;
-        }
-html[data-theme="modern"] .refresh-btn:active {
-            transform: scale(0.95);
-        }
-html[data-theme="modern"] .refresh-btn img {
-            width: 14px;
-            height: 14px;
-            opacity: 0.7;
-            transition: transform 0.3s;
-        }
-html[data-theme="modern"] .refresh-btn:hover img {
-            opacity: 1;
-            transform: rotate(180deg);
-        }
-html[data-theme="modern"] .char-number { color: #0b6b61; }
-html[data-theme="modern"] .char-symbol { color: #1da35b; }
-html[data-theme="modern"] .password-text {
-            font-size: 16px;
-            font-weight: 500;
-            color: #1d2534;
-            word-break: break-all;
-            margin-bottom: 12px;
-            font-family: 'Fira Code', 'JetBrains Mono', 'Source Code Pro', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
-            letter-spacing: 0.5px;
-            cursor: text;
-            min-height: 80px;
-            background: #edf0f5;
-            border: 1px solid #e2e7ee;
-            border-radius: 4px;
-            padding: 12px;
-            outline: none;
-            width: 100%;
-            line-height: 1.6;
-            text-align: left;
-            box-sizing: border-box;
-            user-select: text;
-        }
-html[data-theme="modern"] .password-text:focus {
-            border-color: #0e8074;
-            box-shadow: 0 0 0 3px rgba(14, 128, 116, 0.10);
-        }
-html[data-theme="modern"] .password-text:hover {
-            border-color: #b9c2d0;
-        }
-html[data-theme="modern"] .strength-indicator {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #178a4c;
-            font-size: 12px;
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
-        }
-html[data-theme="modern"] .strength-icon {
-            width: 6px;
-            height: 6px;
-            background: #178a4c;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-html[data-theme="modern"] .strength-icon::before {
-            content: '';
-        }
-html[data-theme="modern"] .section-header {
-            color: #66738a;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 12px;
-            font-weight: 600;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
-        }
-html[data-theme="modern"] .section-header span:first-child::before {
-            content: '// ';
-            color: #0e8074;
-        }
-html[data-theme="modern"] .dropdown {
-            background: #edf0f5;
-            border: 1px solid #e2e7ee;
-            border-radius: 4px;
-            padding: 6px 10px;
-            color: #1d2534;
-            font-size: 12px;
-            cursor: pointer;
-            outline: none;
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
-            transition: all 0.2s;
-        }
-html[data-theme="modern"] .dropdown:hover {
-            border-color: #0e8074;
-        }
-html[data-theme="modern"] .dropdown:focus {
-            border-color: #0e8074;
-            box-shadow: 0 0 0 3px rgba(14, 128, 116, 0.10);
-        }
-html[data-theme="modern"] /* Chrome, html[data-theme="modern"] Safari, html[data-theme="modern"] Edge, html[data-theme="modern"] Opera */
-        input::-webkit-outer-spin-button, html[data-theme="modern"] input::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-html[data-theme="modern"] /* Firefox */
-        input[type=number] {
-            -moz-appearance: textfield;
-            appearance: textfield;
-        }
-html[data-theme="modern"] .options-container {
-            flex: 0 0 auto;
-            margin-bottom: 16px;
-        }
-html[data-theme="modern"] .control-group {
-            margin-bottom: 18px;
-        }
-html[data-theme="modern"] .slider-control {
-            margin-bottom: 16px;
-        }
-html[data-theme="modern"] .slider-label {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            font-size: 12px;
-            color: #66738a;
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
-        }
-html[data-theme="modern"] .slider-label-value {
-            color: #0b6b61;
-            font-weight: 600;
-        }
-html[data-theme="modern"] input[type="range"] {
-            width: 100%;
-            height: 4px;
-            background: #f5f7fa;
-            border: 1px solid #e2e7ee;
-            border-radius: 4px;
-            outline: none;
-            -webkit-appearance: none;
-            appearance: none;
-        }
-html[data-theme="modern"] input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 16px;
-            height: 16px;
-            background: #0e8074;
-            cursor: pointer;
-            border-radius: 3px;
-            border: 1px solid #e2e7ee;
-        }
-html[data-theme="modern"] input[type="range"]::-moz-range-thumb {
-            width: 16px;
-            height: 16px;
-            background: #0e8074;
-            cursor: pointer;
-            border-radius: 3px;
-            border: 1px solid #e2e7ee;
-        }
-html[data-theme="modern"] .toggle-group {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-html[data-theme="modern"] .charset-input {
-            width: 130px;
-            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-        }
-html[data-theme="modern"] .pool-info {
-            opacity: 0.6;
-            font-size: 0.85em;
-            margin-left: 8px;
-        }
-html[data-theme="modern"] .toggle-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-html[data-theme="modern"] .toggle-label {
-            font-size: 13px;
-            color: #66738a;
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
-        }
-html[data-theme="modern"] .toggle-switch {
-            position: relative;
-            width: 40px;
-            height: 20px;
-            background: #f5f7fa;
-            border: 1px solid #e2e7ee;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-html[data-theme="modern"] .toggle-switch.active {
-            background: #0e8074;
-            border-color: #0e8074;
-        }
-html[data-theme="modern"] .toggle-switch::after {
-            content: '';
-            position: absolute;
-            width: 14px;
-            height: 14px;
-            background: #66738a;
-            border-radius: 3px;
-            top: 2px;
-            left: 2px;
-            transition: all 0.3s;
-        }
-html[data-theme="modern"] .toggle-switch.active::after {
-            background: #ffffff;
-            transform: translateX(18px);
-        }
-html[data-theme="modern"] .note-input {
-            width: 100%;
-            background: #edf0f5;
-            border: 1px solid #dbe2ec;
-            border-radius: 12px;
-            padding: 10px;
-            color: #1d2534;
-            font-size: 13px;
-            font-family: inherit;
-            resize: vertical;
-            min-height: 50px;
-            margin-top: 6px;
-        }
-html[data-theme="modern"] .note-input:focus {
-            outline: none;
-            border-color: #0e8074;
-        }
-html[data-theme="modern"] .date-presets {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-top: 10px;
-            justify-content: center;
-        }
-html[data-theme="modern"] .date-preset-btn {
-            padding: 4px 10px;
-            border-radius: 4px;
-            border: 1px solid #e2e7ee;
-            background: #edf0f5;
-            color: #66738a;
-            font-size: 11px;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
-        }
-html[data-theme="modern"] .date-preset-btn:hover {
-            background: #f5f7fa;
-            border-color: #0e8074;
-            color: #1d2534;
-        }
-html[data-theme="modern"] .button-group {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 16px;
-        }
-html[data-theme="modern"] .btn {
-            padding: 10px 16px;
-            border-radius: 4px;
-            border: 1px solid #e2e7ee;
-            font-size: 13px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-transform: none;
-            letter-spacing: 0.3px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
-        }
-html[data-theme="modern"] .btn-secondary {
-            background: #f5f7fa;
-            color: #1d2534;
-        }
-html[data-theme="modern"] .btn-secondary:hover {
-            background: #e2e7ee;
-            border-color: #0e8074;
-        }
-html[data-theme="modern"] .btn-secondary:active {
-            transform: scale(0.98);
-        }
-html[data-theme="modern"] .qr-modal, html[data-theme="modern"] .scrt-modal, html[data-theme="modern"] .phonetic-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(15, 23, 42, 0.45);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-html[data-theme="modern"] .qr-modal.active, html[data-theme="modern"] .scrt-modal.active, html[data-theme="modern"] .phonetic-modal.active {
-            display: flex;
-        }
-html[data-theme="modern"] .qr-content, html[data-theme="modern"] .scrt-content {
-            background: #ffffff;
-            border: 1px solid #e2e7ee;
-            border-radius: 12px;
-            padding: 30px;
-            text-align: center;
-            max-width: 400px;
-        }
-html[data-theme="modern"] .scrt-content h3, html[data-theme="modern"] .qr-content h3 {
-            margin-bottom: 20px;
-            color: #1d2534;
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
-            font-weight: 500;
-        }
-html[data-theme="modern"] #qrcode {
-            display: inline-block;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-html[data-theme="modern"] .scrt-link-display {
-            background: #edf0f5;
-            border: 1px solid #e2e7ee;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 20px;
-            word-break: break-all;
-            color: #0e8074;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
-        }
-html[data-theme="modern"] .scrt-link-display:hover {
-            background: #f5f7fa;
-            border-color: #0e8074;
-        }
-html[data-theme="modern"] .phonetic-content {
-            background: #ffffff;
-            border: 1px solid #e2e7ee;
-            border-radius: 12px;
-            padding: 30px;
-            max-width: 600px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-html[data-theme="modern"] .phonetic-content h3 {
-            margin-bottom: 20px;
-            color: #1d2534;
-            text-align: center;
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
-            font-weight: 500;
-        }
-html[data-theme="modern"] .phonetic-list {
-            background: #edf0f5;
-            border: 1px solid #e2e7ee;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
-        }
-html[data-theme="modern"] .phonetic-item {
-            display: flex;
-            gap: 15px;
-            padding: 8px 0;
-            border-bottom: 1px solid #e2e7ee;
-            justify-content: center;
-            align-items: center;
-        }
-html[data-theme="modern"] .phonetic-item:last-child {
-            border-bottom: none;
-        }
-html[data-theme="modern"] .phonetic-char {
-            color: #1d2534;
-            font-weight: 600;
-            min-width: 30px;
-            text-align: left;
-            padding-left: 5%;
-            flex: 1;
-        }
-html[data-theme="modern"] .phonetic-case {
-            color: #8b96a9;
-            font-size: 11px;
-            min-width: 70px;
-            text-align: center;
-            flex: 1;
-        }
-html[data-theme="modern"] .phonetic-case.uppercase {
-            color: #178a4c;
-        }
-html[data-theme="modern"] .phonetic-word {
-            color: #66738a;
-            flex: 1;
-            text-align: right;
-            padding-right: 5%;
-        }
-html[data-theme="modern"] .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #0e8074;
-            color: #ffffff;
-            padding: 12px 18px;
-            border-radius: 12px;
-            font-weight: 500;
-            font-size: 13px;
-            border: 1px solid #0b6b61;
-            box-shadow: 0 4px 12px rgba(16, 24, 40, 0.12);
-            opacity: 0;
-            transform: translateY(-20px);
-            transition: all 0.3s;
-            z-index: 2000;
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
-        }
-html[data-theme="modern"] .notification.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-html[data-theme="modern"] .notification.error {
-            background: #b32828;
-            border-color: #d23c3c;
-        }
-html[data-theme="modern"] .expiry-label {
-            font-size: 13px;
-            color: #66738a;
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
-        }
+/* Scanlines, CRT only. Pointer-events off so it never blocks input. */
+html[data-theme="crt"] body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 50;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 255, 65, 0.05) 0px,
+        rgba(0, 255, 65, 0.05) 1px,
+        transparent 1px,
+        transparent 3px
+    );
+}
+
+::selection { background: var(--accent); color: var(--accent-ink); }
+
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* ============================================================
+   Theme switcher
+   ============================================================ */
+.theme-switcher {
+    position: fixed;
+    top: 16px;
+    right: 18px;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-ui);
+    font-size: 12px;
+    color: var(--ui-fg);
+}
+
+.theme-switcher select {
+    font: inherit;
+    color: var(--ui-fg);
+    background: var(--ui-bg);
+    border: 1px solid var(--ui-border);
+    border-radius: var(--radius-sm);
+    padding: 5px 8px;
+    cursor: pointer;
+    outline: none;
+}
+
+/* ============================================================
+   Card
+   ============================================================ */
+.container {
+    width: 100%;
+    max-width: 720px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.terminal-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: var(--sunken);
+    border-bottom: 1px solid var(--line);
+}
+
+.terminal-dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--line);
+}
+/* Real window-control colours rather than a tint of the palette. */
+.terminal-dot:nth-child(1) { background: #ff5f56; }
+.terminal-dot:nth-child(2) { background: #ffbd2e; }
+.terminal-dot:nth-child(3) { background: #27c93f; }
+html[data-theme="crt"] .terminal-dot:nth-child(1) { background: var(--fg-faint); }
+html[data-theme="crt"] .terminal-dot:nth-child(2) { background: var(--fg-dim); }
+html[data-theme="crt"] .terminal-dot:nth-child(3) { background: var(--accent); }
+
+.terminal-title {
+    margin-left: 6px;
+    font-family: var(--font);
+    font-size: 12px;
+    color: var(--fg-dim);
+}
+
+/* Modern and Proton are application surfaces, not terminals. */
+html[data-theme="modern"] .terminal-header,
+html[data-theme="proton"] .terminal-header { display: none; }
+
+.terminal-body { padding: 22px; }
+
+/* ============================================================
+   Password display — the one loud element on the page
+   ============================================================ */
+.password-display {
+    background: var(--sunken);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    margin-bottom: 18px;
+}
+
+.password-label {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+    margin-bottom: 10px;
+}
+
+html[data-theme="term"] .password-label::before,
+html[data-theme="crt"] .password-label::before {
+    content: '> ';
+    color: var(--accent);
+}
+
+html[data-theme="proton"] .password-label { color: var(--accent); }
+
+.password-text {
+    display: block;
+    width: 100%;
+    min-height: 88px;
+    padding: 6px 0;
+    font-family: var(--font);
+    font-size: 21px;
+    line-height: 1.45;
+    letter-spacing: 0.02em;
+    color: var(--fg);
+    word-break: break-all;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--line);
+    border-radius: 0;
+    outline: none;
+    cursor: text;
+    user-select: text;
+    transition: border-color 0.15s;
+}
+.password-text:hover,
+.password-text:focus { border-bottom-color: var(--accent); }
+
+html[data-theme="crt"] .password-text { font-size: 26px; }
+
+/* Digits and symbols get a tint so a long random string can be
+   read back character by character. */
+.char-number { color: var(--char-number, var(--accent)); }
+.char-symbol { color: var(--char-symbol, var(--strength-medium)); }
+html[data-theme="crt"] .char-number,
+html[data-theme="crt"] .char-symbol { color: var(--fg-dim); }
+
+.strength-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 12px;
+}
+
+.strength-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--fg-dim);
+}
+
+.strength-icon {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--strength-strong);
+}
+
+.refresh-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+}
+.refresh-btn:hover { border-color: var(--accent); background: var(--accent-soft); }
+.refresh-btn img { width: 17px; height: 17px; display: block; }
+
+/* The icon ships as a fixed-colour SVG, so recolour it per theme. */
+html[data-theme="term"]   .refresh-btn img { filter: saturate(1.3) brightness(1.15); }
+html[data-theme="proton"] .refresh-btn img { filter: hue-rotate(215deg) saturate(1.5) brightness(1.1); }
+html[data-theme="modern"] .refresh-btn img { filter: hue-rotate(130deg) saturate(1.2) brightness(0.7); }
+html[data-theme="crt"]    .refresh-btn img { filter: grayscale(1) sepia(1) hue-rotate(65deg) saturate(9) brightness(1.1); }
+
+/* ============================================================
+   Section headers
+   ============================================================ */
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.section-header span {
+    font-size: 11px;
+    letter-spacing: 0.09em;
+    color: var(--fg-dim);
+}
+
+html[data-theme="term"] .section-header span::before,
+html[data-theme="crt"] .section-header span::before {
+    content: '// ';
+    color: var(--fg-faint);
+}
+
+/* ============================================================
+   Controls
+   ============================================================ */
+.options-container { margin-bottom: 16px; }
+.control-group { margin-bottom: 18px; }
+.slider-control { width: 100%; }
+
+.slider-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--fg-dim);
+    margin-bottom: 10px;
+}
+
+.slider-label-value {
+    color: var(--accent);
+    font-family: var(--font);
+    font-weight: 600;
+}
+
+.pool-info {
+    margin-left: 8px;
+    color: var(--fg-faint);
+    font-size: 0.92em;
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--line);
+    outline: none;
+    cursor: pointer;
+}
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: none;
+    cursor: pointer;
+}
+input[type="range"]::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border: none;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+}
+
+.date-presets {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.date-preset-btn {
+    padding: 6px 11px;
+    font: inherit;
+    font-size: 12px;
+    color: var(--fg-dim);
+    background: var(--raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.15s;
+}
+.date-preset-btn:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: var(--accent-soft);
+}
+
+/* ---------- Toggle rows ---------- */
+.toggle-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.toggle-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 30px;
+}
+
+.toggle-label {
+    font-size: 13px;
+    color: var(--fg);
+}
+html[data-theme="crt"] .toggle-label { font-size: 17px; }
+
+.expiry-label { color: var(--fg-dim); }
+
+.toggle-switch {
+    position: relative;
+    flex: 0 0 auto;
+    width: 40px;
+    height: 22px;
+    border-radius: 11px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    cursor: pointer;
+    transition: background 0.18s, border-color 0.18s;
+}
+.toggle-switch::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--fg-faint);
+    transition: transform 0.18s, background 0.18s;
+}
+.toggle-switch.active {
+    background: var(--toggle-on);
+    border-color: var(--toggle-on);
+}
+.toggle-switch.active::after {
+    transform: translateX(18px);
+    background: var(--toggle-ink);
+}
+
+/* Proton: keep the knob white in both states so it reads clearly against
+   the track instead of blending into it. */
+html[data-theme="proton"] .toggle-switch::after,
+html[data-theme="proton"] .toggle-switch.active::after {
+    background: #ffffff;
+}
+
+/* ---------- Inputs ---------- */
+.dropdown {
+    font-family: var(--font-ui);
+    font-size: 13px;
+    color: var(--fg);
+    background: var(--raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 7px 10px;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.15s;
+}
+.dropdown:hover  { border-color: var(--fg-faint); }
+.dropdown:focus  { border-color: var(--accent); }
+
+.charset-input {
+    width: 132px;
+    font-family: var(--font);
+    cursor: text;
+}
+
+input[type="number"].dropdown { cursor: text; }
+
+.note-input {
+    width: 100%;
+    min-height: 54px;
+    margin-top: 8px;
+    padding: 10px;
+    font-family: var(--font);
+    font-size: 13px;
+    color: var(--fg);
+    background: var(--sunken);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    outline: none;
+    resize: vertical;
+}
+.note-input:focus { border-color: var(--accent); }
+
+::placeholder { color: var(--fg-faint); opacity: 1; }
+
+/* ---------- Buttons ---------- */
+.button-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 14px;
+    font-family: var(--font-ui);
+    font-size: 13px;
+    color: var(--fg);
+    background: var(--raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s, color 0.15s;
+}
+.btn:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: var(--accent-soft);
+}
+.btn:active,
+.refresh-btn:active,
+.date-preset-btn:active { transform: scale(0.985); }
+
+.btn-secondary { /* alias: every button in this markup carries both classes */ }
+
+.btn:disabled { opacity: 0.55; cursor: default; }
+.btn:disabled:hover {
+    color: var(--fg);
+    border-color: var(--line);
+    background: var(--raised);
+}
+
+html[data-theme="crt"] .btn { text-transform: uppercase; letter-spacing: 0.06em; font-size: 16px; }
+html[data-theme="crt"] .btn span { display: none; }
+
+/* Proton: grey gradient buttons, matching the original Proton Pass look. */
+html[data-theme="proton"] .btn {
+    background: linear-gradient(135deg, #3a3a52 0%, #2d2d3f 100%);
+    border-color: #4a4a5f;
+    transition: background 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s, color 0.15s;
+}
+html[data-theme="proton"] .btn:hover {
+    background: linear-gradient(135deg, #4a4a62 0%, #3d3d4f 100%);
+    border-color: #5a5a6f;
+    color: var(--fg);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+html[data-theme="proton"] .btn:active { transform: translateY(0) scale(0.985); }
+
+/* ============================================================
+   Modals
+   ============================================================ */
+.scrt-modal,
+.phonetic-modal,
+.qr-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(3px);
+    padding: 24px;
+    overflow-y: auto;
+}
+.scrt-modal.active,
+.phonetic-modal.active,
+.qr-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scrt-content,
+.phonetic-content,
+.qr-content {
+    width: 100%;
+    max-width: 460px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 24px;
+    text-align: center;
+}
+
+.scrt-content h3,
+.phonetic-content h3,
+.qr-content h3 {
+    margin: 0 0 16px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--fg);
+}
+
+.qr-content #qrcode { display: flex; justify-content: center; margin-bottom: 18px; }
+.qr-content #qrcode img,
+.qr-content #qrcode canvas {
+    /* Quiet zone: scanners need light margin around the code. */
+    background: #fff;
+    padding: 12px;
+    border-radius: var(--radius-sm);
+}
+
+/* The settings form reads as a form; headings and the link stay centred. */
+#scrtFormPane { text-align: left; }
+#scrtFormPane h3 { text-align: center; }
+#scrtFormPane .control-group { margin-bottom: 0; }
+
+.scrt-meta {
+    margin: 0 0 18px;
+    font-size: 12px;
+    color: var(--fg-dim);
+}
+
+.scrt-link-display {
+    padding: 12px;
+    margin-bottom: 14px;
+    font-family: var(--font);
+    font-size: 12px;
+    color: var(--accent);
+    background: var(--sunken);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    word-break: break-all;
+    cursor: pointer;
+}
+.scrt-link-display:hover { border-color: var(--accent); }
+
+.phonetic-list {
+    max-height: 340px;
+    overflow-y: auto;
+    margin-bottom: 18px;
+    text-align: left;
+}
+
+.phonetic-item {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 6px 8px;
+    border-bottom: 1px solid var(--line-soft);
+}
+.phonetic-item:last-child { border-bottom: none; }
+
+.phonetic-char {
+    flex: 0 0 26px;
+    font-family: var(--font);
+    font-weight: 600;
+    color: var(--accent);
+}
+.phonetic-word { flex: 1; font-size: 13px; }
+.phonetic-case {
+    flex: 0 0 auto;
+    min-width: 68px;
+    font-size: 11px;
+    color: var(--fg-faint);
+    text-align: right;
+}
+/* Marks a capital letter so a dictated password can be transcribed exactly. */
+.phonetic-case.uppercase { color: var(--accent); }
+
+/* ============================================================
+   Notification
+   ============================================================ */
+.notification {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translate(-50%, 20px);
+    z-index: 300;
+    padding: 11px 18px;
+    font-size: 13px;
+    color: var(--accent-ink);
+    background: var(--accent);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.22s, transform 0.22s;
+}
+.notification.show { opacity: 1; transform: translate(-50%, 0); }
+.notification.error { color: #fff; background: var(--strength-weak); }
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 640px) {
+    body {
+        padding: 14px;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+    /* Out of fixed positioning so it can never sit on the card. */
+    .theme-switcher {
+        position: static;
+        top: auto;
+        right: auto;
+        align-self: flex-end;
+        flex: 0 0 auto;
+        margin-bottom: 10px;
+    }
+    .container { flex: 0 0 auto; }
+    .terminal-body { padding: 16px; }
+    .button-group { grid-template-columns: 1fr; }
+    .charset-input { width: 118px; }
+    .password-text { font-size: 18px; }
+}
+
+/* ============================================================
+   Motion
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+    }
+    html[data-theme="crt"] body::after { display: none; }
+}
+
+    
     </style>
 </head>
 <body>
@@ -2257,11 +864,13 @@ html[data-theme="modern"] .expiry-label {
                     </div>
                     <input type="range" id="lengthSlider" min="8" max="64" value="30">
                     <div id="datePresets" class="date-presets" style="display: none;">
+                        <button class="date-preset-btn" data-days="30">30 days</button>
                         <button class="date-preset-btn" data-days="60">60 days</button>
                         <button class="date-preset-btn" data-days="90">90 days</button>
                         <button class="date-preset-btn" data-days="120">120 days</button>
                         <button class="date-preset-btn" data-days="180">180 days</button>
                         <button class="date-preset-btn" data-days="274">9 months</button>
+                        <button class="date-preset-btn" data-days="365">1 year</button>
                     </div>
                 </div>
             </div>
@@ -2278,10 +887,6 @@ html[data-theme="modern"] .expiry-label {
                 <div class="toggle-item">
                     <span class="toggle-label">Include numbers (0-9)</span>
                     <div class="toggle-switch active" id="numbersToggle"></div>
-                </div>
-                <div class="toggle-item">
-                    <span class="toggle-label">Exclude ambiguous (Il1O0)</span>
-                    <div class="toggle-switch" id="ambiguousToggle"></div>
                 </div>
                 <div class="toggle-item">
                     <span class="toggle-label">Add characters</span>
@@ -2307,6 +912,10 @@ html[data-theme="modern"] .expiry-label {
                     <div class="toggle-switch" id="numbersMemorableToggle"></div>
                 </div>
                 <div class="toggle-item">
+                    <span class="toggle-label">Add characters</span>
+                    <input type="text" class="dropdown charset-input" id="charsAddMemorable" placeholder="e.g. £€" spellcheck="false" autocomplete="off">
+                </div>
+                <div class="toggle-item">
                     <span class="toggle-label">Word Separator</span>
                     <select class="dropdown" id="separatorDropdown">
                         <option value="-">Hyphens</option>
@@ -2318,14 +927,6 @@ html[data-theme="modern"] .expiry-label {
                         <option value="">None</option>
                         <option value="random">Random</option>
                     </select>
-                </div>
-                <div class="toggle-item">
-                    <span class="toggle-label">Add characters</span>
-                    <input type="text" class="dropdown charset-input" id="charsAddMemorable" placeholder="e.g. £€" spellcheck="false" autocomplete="off">
-                </div>
-                <div class="toggle-item">
-                    <span class="toggle-label">Exclude characters</span>
-                    <input type="text" class="dropdown charset-input" id="charsExcludeMemorable" placeholder="e.g. &lt;&gt;&amp;&quot;" spellcheck="false" autocomplete="off">
                 </div>
             </div>
 
@@ -2343,6 +944,10 @@ html[data-theme="modern"] .expiry-label {
                     <div class="toggle-switch" id="numbersShortToggle"></div>
                 </div>
                 <div class="toggle-item">
+                    <span class="toggle-label">Add characters</span>
+                    <input type="text" class="dropdown charset-input" id="charsAddShort" placeholder="e.g. £€" spellcheck="false" autocomplete="off">
+                </div>
+                <div class="toggle-item">
                     <span class="toggle-label">Word Separator</span>
                     <select class="dropdown" id="separatorShortDropdown">
                         <option value="-">Hyphens</option>
@@ -2355,47 +960,6 @@ html[data-theme="modern"] .expiry-label {
                         <option value="random">Random</option>
                     </select>
                 </div>
-                <div class="toggle-item">
-                    <span class="toggle-label">Add characters</span>
-                    <input type="text" class="dropdown charset-input" id="charsAddShort" placeholder="e.g. £€" spellcheck="false" autocomplete="off">
-                </div>
-                <div class="toggle-item">
-                    <span class="toggle-label">Exclude characters</span>
-                    <input type="text" class="dropdown charset-input" id="charsExcludeShort" placeholder="e.g. &lt;&gt;&amp;&quot;" spellcheck="false" autocomplete="off">
-                </div>
-            </div>
-        </div>
-
-        <!-- Scrt.link fields - shown/hidden based on ENABLE_SCRT_INTEGRATION -->
-        <div id="scrtFields" style="display: none;">
-            <div class="section-header">
-                <span>SCRT.LINK</span>
-            </div>
-            <div class="options-container">
-                <div class="toggle-group">
-                    <div class="toggle-item">
-                        <span class="toggle-label expiry-label">Scrt.link valid for</span>
-                        <select class="dropdown" id="expiryDropdown">
-                            <option value="3600000">1 hour</option>
-                            <option value="86400000">24 hours</option>
-                            <option value="604800000" selected>7 days</option>
-                            <option value="2592000000">30 days</option>
-                        </select>
-                    </div>
-                    <div class="toggle-item">
-                        <span class="toggle-label">View limit</span>
-                        <input type="number" value="1" min="1" max="1000" class="dropdown" id="viewLimitInput">
-                    </div>
-                    <div class="toggle-item">
-                        <span class="toggle-label">Password (optional)</span>
-                        <input type="text" class="dropdown" id="scrtPasswordInput" placeholder="Min 6 chars" style="width: 180px; font-family: 'Consolas', 'Monaco', 'Courier New', monospace;" minlength="0">
-                    </div>
-                </div>
-            </div>
-
-            <div class="control-group">
-                <div class="toggle-label">Scrt.link Note (optional)</div>
-                <textarea class="note-input" id="noteInput" placeholder="Add a note for this password..."></textarea>
             </div>
         </div>
 
@@ -2421,12 +985,47 @@ html[data-theme="modern"] .expiry-label {
 
     <div class="scrt-modal" id="scrtModal">
         <div class="scrt-content">
-            <h3>Secret Link Created</h3>
-            <div class="scrt-link-display" id="scrtLinkDisplay" onclick="copyScrtLink()">
-                Click to copy link
+            <!-- Pane 1: settings, shown when the button is pressed -->
+            <div id="scrtFormPane">
+                <h3>Send via scrt.link</h3>
+                <div class="toggle-group">
+                    <div class="toggle-item">
+                        <span class="toggle-label expiry-label">Valid for</span>
+                        <select class="dropdown" id="expiryDropdown">
+                            <option value="3600000">1 hour</option>
+                            <option value="86400000">24 hours</option>
+                            <option value="604800000" selected>7 days</option>
+                            <option value="2592000000">30 days</option>
+                        </select>
+                    </div>
+                    <div class="toggle-item">
+                        <span class="toggle-label">View limit</span>
+                        <input type="number" value="1" min="1" max="1000" class="dropdown" id="viewLimitInput" style="width: 90px;">
+                    </div>
+                    <div class="toggle-item">
+                        <span class="toggle-label">Password (optional)</span>
+                        <input type="text" class="dropdown" id="scrtPasswordInput" placeholder="Min 6 chars" style="width: 170px;" minlength="0">
+                    </div>
+                </div>
+                <div class="control-group" style="margin-top: 14px;">
+                    <div class="toggle-label">Note (optional)</div>
+                    <textarea class="note-input" id="noteInput" placeholder="Add a note for this password..."></textarea>
+                </div>
+                <div class="button-group" style="margin-top: 16px;">
+                    <button class="btn btn-secondary" id="scrtCreateBtn"><span>🔐</span> Create link</button>
+                    <button class="btn btn-secondary" onclick="closeScrtModal()">Cancel</button>
+                </div>
             </div>
-            <p style="color: #888; font-size: 12px; margin-bottom: 20px;" id="scrtExpiryText">Link expires in 7 days • Click link to copy</p>
-            <button class="btn btn-secondary" onclick="closeScrtModal()">Close</button>
+
+            <!-- Pane 2: replaces the form once the link exists -->
+            <div id="scrtResultPane" style="display: none;">
+                <h3>Secret Link Created</h3>
+                <div class="scrt-link-display" id="scrtLinkDisplay" onclick="copyScrtLink()">
+                    Click to copy link
+                </div>
+                <p class="scrt-meta" id="scrtExpiryText">Link expires in 7 days • Click link to copy</p>
+                <button class="btn btn-secondary" onclick="closeScrtModal()">Close</button>
+            </div>
         </div>
     </div>
 
@@ -2546,10 +1145,8 @@ html[data-theme="modern"] .expiry-label {
             }
         }
 
-        // Show/hide scrt.link fields based on configuration
-        if (scrtIntegrationActive && client) {
-            document.getElementById('scrtFields').style.display = 'block';
-        }
+        // The scrt.link settings now live inside the modal, so there is
+        // nothing to reveal up front - the button decides what happens.
                 
         // State
         let settings = {
@@ -2565,11 +1162,12 @@ html[data-theme="modern"] .expiry-label {
             capitalizeShort: true,
             symbolsShort: true,
             numbersShort: true,
-            excludeAmbiguous: false,
             specialInPassphrase: false,
             charsAdd: '',
             charsExclude: '',
-            batchCount: 10
+            batchCount: 10,
+            scrtExpiry: '604800000',
+            scrtViewLimit: 1
         };
 
         let currentPassword = '';
@@ -2595,7 +1193,6 @@ html[data-theme="modern"] .expiry-label {
         const specialToggle = document.getElementById('specialToggle');
         const capitalToggle = document.getElementById('capitalToggle');
         const numbersToggle = document.getElementById('numbersToggle');
-        const ambiguousToggle = document.getElementById('ambiguousToggle');
         const charsAddInput = document.getElementById('charsAddInput');
         const charsExcludeInput = document.getElementById('charsExcludeInput');
         const poolInfo = document.getElementById('poolInfo');
@@ -2604,9 +1201,7 @@ html[data-theme="modern"] .expiry-label {
         const separatorShortDropdown = document.getElementById('separatorShortDropdown');
         const specialMemorableToggle = document.getElementById('specialMemorableToggle');
         const charsAddMemorable = document.getElementById('charsAddMemorable');
-        const charsExcludeMemorable = document.getElementById('charsExcludeMemorable');
         const charsAddShort = document.getElementById('charsAddShort');
-        const charsExcludeShort = document.getElementById('charsExcludeShort');
         const numbersMemorableToggle = document.getElementById('numbersMemorableToggle');
         const capitalizeShortToggle = document.getElementById('capitalizeShortToggle');
         const symbolsShortToggle = document.getElementById('symbolsShortToggle');
@@ -2823,17 +1418,11 @@ html[data-theme="modern"] .expiry-label {
             generatePasswordAuto();
         });
 
-        ambiguousToggle.addEventListener('click', () => {
-            settings.excludeAmbiguous = !settings.excludeAmbiguous;
-            ambiguousToggle.classList.toggle('active');
-            generatePasswordAuto();
-        });
-
         // Add / Exclude characters are one setting shown in three places (Random,
         // Memorable, Short). Typing in any copy updates the setting and mirrors
         // the value into the others so switching type never loses what you typed.
         const charsAddFields = [charsAddInput, charsAddMemorable, charsAddShort].filter(Boolean);
-        const charsExcludeFields = [charsExcludeInput, charsExcludeMemorable, charsExcludeShort].filter(Boolean);
+        const charsExcludeFields = [charsExcludeInput].filter(Boolean);
 
         function bindSharedField(fields, key) {
             for (const field of fields) {
@@ -2897,7 +1486,6 @@ html[data-theme="modern"] .expiry-label {
         });
 
         // ── Charset construction ───────────────────────────────────
-        const AMBIGUOUS = 'Il1O0';
         const BASE_LOWER = 'abcdefghijklmnopqrstuvwxyz';
         const BASE_UPPER = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         const BASE_DIGITS = '0123456789';
@@ -2912,9 +1500,7 @@ html[data-theme="modern"] .expiry-label {
             if (settings.special) chars += BASE_SYMBOLS;
             chars += (settings.charsAdd || '');
 
-            const banned = new Set();
-            if (settings.excludeAmbiguous) for (const c of AMBIGUOUS) banned.add(c);
-            for (const c of (settings.charsExclude || '')) banned.add(c);
+            const banned = new Set(settings.charsExclude || '');
 
             // De-dupe (a user "add" may repeat a base character) and drop excluded.
             const pool = [...new Set([...chars])].filter(c => !banned.has(c));
@@ -2943,50 +1529,25 @@ html[data-theme="modern"] .expiry-label {
         // ── Word-mode character pools ───────────────────────────────
         const RANDOM_SEPARATORS = ['-', '_', '.', '', ',', '+'];
 
-        // Symbols available at word boundaries: the base set plus anything the
-        // user added, minus anything they excluded.
+        // "Exclude characters" is a Random-mode control only, so the word-mode
+        // pools below never consult it - the wordlist is used whole.
         function wordSymbolPool() {
-            const banned = new Set(settings.charsExclude || '');
-            const pool = [...new Set([...SHORT_SYMBOLS, ...(settings.charsAdd || '')])]
-                .filter(c => !banned.has(c));
-            return pool;
+            return [...new Set([...SHORT_SYMBOLS, ...(settings.charsAdd || '')])];
         }
 
         // Characters typed into "Add characters" are treated as a hard
         // requirement, not just an enlarged pool: each one must appear at least
         // once so a password can satisfy a policy that demands a specific symbol.
-        // An excluded character wins over an added one.
-        function requiredChars() {
+        // In Random mode an excluded character still wins over an added one.
+        function requiredChars(applyExclusions) {
+            const list = [...new Set(settings.charsAdd || '')];
+            if (!applyExclusions) return list;
             const banned = new Set(settings.charsExclude || '');
-            return [...new Set(settings.charsAdd || '')].filter(c => !banned.has(c));
+            return list.filter(c => !banned.has(c));
         }
 
         function wordDigitPool() {
-            const banned = new Set(settings.charsExclude || '');
-            return [...'0123456789'].filter(c => !banned.has(c));
-        }
-
-        // Excluded characters also remove whole words, so a password never
-        // contains a banned character anywhere. Matching is case-insensitive so
-        // excluding "A" also drops "apple" once Capital letters is on.
-        // Filtering 25k words is not free, so the result is cached per key.
-        let _listCache = { key: null, words: null, adjectives: null };
-
-        function filteredLists() {
-            const key = settings.charsExclude || '';
-            if (_listCache.key === key) return _listCache;
-            let words = wordList, adjs = adjectives;
-            if (key) {
-                const banned = new Set(key.toLowerCase());
-                const keep = w => ![...w.toLowerCase()].some(c => banned.has(c));
-                const fw = wordList.filter(keep);
-                const fa = adjectives.filter(keep);
-                // Never leave an empty list - fall back to unfiltered.
-                words = fw.length ? fw : wordList;
-                adjs = fa.length ? fa : adjectives;
-            }
-            _listCache = { key, words, adjectives: adjs };
-            return _listCache;
+            return [...'0123456789'];
         }
 
         // What fills the gap between two words. The separator is the default;
@@ -3044,7 +1605,7 @@ html[data-theme="modern"] .expiry-label {
 
             // Explicit requirements are placed first so they cannot be crowded
             // out, then the class guarantees fill whatever is left.
-            for (const ch of requiredChars()) ensure([ch]);
+            for (const ch of requiredChars(false)) ensure([ch]);
             if (useSymbols) ensure(wordSymbolPool());
             // Two digits rather than one. Each ensure() locks a separate gap, so
             // when there is no room left both get appended as a 2-digit tail.
@@ -3062,7 +1623,7 @@ html[data-theme="modern"] .expiry-label {
         // Characters already in the password count, so nothing is placed twice.
         // If more are required than there is room for, as many as fit are placed.
         function enforceRequiredChars(password) {
-            const required = requiredChars();
+            const required = requiredChars(true);
             if (!required.length) return password;
 
             const chars = [...password];
@@ -3093,7 +1654,7 @@ html[data-theme="modern"] .expiry-label {
         }
 
         function generatePassphrase() {
-            const { words: pool } = filteredLists();
+            const pool = wordList;
             const idx = randomIndices(settings.length, pool.length);
             const words = [];
             for (let i = 0; i < settings.length; i++) {
@@ -3110,7 +1671,7 @@ html[data-theme="modern"] .expiry-label {
         const SHORT_BOUNDARY_POOL = [...SHORT_SYMBOLS, '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
         function generateShortMemorable() {
-            const lists = filteredLists();
+            const lists = { words: wordList, adjectives };
             const cap = w => settings.capitalizeShort ? w.charAt(0).toUpperCase() + w.slice(1) : w;
 
             // First slot is an adjective, the rest come from the main word list.
@@ -3171,14 +1732,12 @@ html[data-theme="modern"] .expiry-label {
             const boundaries = Math.max(0, settings.length - 1);
             switch (settings.mode) {
                 case 'memorable': {
-                    const lists = filteredLists();
-                    return settings.length * log2(lists.words.length)
+                    return settings.length * log2(wordList.length)
                          + boundaries * gapEntropy(settings.specialInPassphrase, settings.numbersInPassphrase);
                 }
                 case 'short': {
-                    const lists = filteredLists();
-                    return log2(lists.adjectives.length)
-                         + boundaries * log2(lists.words.length)
+                    return log2(adjectives.length)
+                         + boundaries * log2(wordList.length)
                          + boundaries * gapEntropy(settings.symbolsShort, settings.numbersShort);
                 }
                 case 'pin':
@@ -3240,12 +1799,10 @@ html[data-theme="modern"] .expiry-label {
             if (!poolInfo) return;
             const mode = settings.mode;
             if (mode === 'memorable') {
-                const lists = filteredLists();
-                const perWord = Math.log2(lists.words.length).toFixed(1);
-                poolInfo.textContent = `· ${lists.words.length.toLocaleString()}-word list, ${perWord} bits/word`;
+                const perWord = Math.log2(wordList.length).toFixed(1);
+                poolInfo.textContent = `· ${wordList.length.toLocaleString()}-word list, ${perWord} bits/word`;
             } else if (mode === 'short') {
-                const lists = filteredLists();
-                poolInfo.textContent = `· ${lists.adjectives.length.toLocaleString()} adj × ${lists.words.length.toLocaleString()} nouns`;
+                poolInfo.textContent = `· ${adjectives.length.toLocaleString()} adj × ${wordList.length.toLocaleString()} nouns`;
             } else if (mode === 'random') {
                 poolInfo.textContent = `· ${buildCharset().length} char pool`;
             } else {
@@ -3331,76 +1888,100 @@ html[data-theme="modern"] .expiry-label {
         });
 
         // Send via scrt.link - behavior depends on scrtIntegrationActive
-        scrtBtn.addEventListener('click', async () => {
+        const scrtFormPane = document.getElementById('scrtFormPane');
+        const scrtResultPane = document.getElementById('scrtResultPane');
+        const scrtCreateBtn = document.getElementById('scrtCreateBtn');
+
+        // Pressing the button opens the settings form. Nothing is sent until
+        // "Create link" is confirmed. With the integration switched off this
+        // still just copies the password and opens the site, as before.
+        scrtBtn.addEventListener('click', () => {
             const password = getPlainText();
             if (!password || password === 'Password Generator') {
                 showNotification('Generate a password first!', true);
                 return;
             }
 
-            if (scrtIntegrationActive && client) {
-                // Full scrt.link API integration
-                try {
-                    showNotification('Creating secret link...', false);
-                    
-                    const note = noteInput.value.trim();
-                    const expiryMs = parseInt(expiryDropdown.value);
-                    const scrtPassword = document.getElementById('scrtPasswordInput').value.trim();
-                    const viewLimit = parseInt(document.getElementById('viewLimitInput').value);
-                    
-                    // Validate password length if provided
-                    if (scrtPassword && scrtPassword.length < 6) {
-                        showNotification('Password must be at least 6 characters or left blank!', true);
-                        return;
-                    }
-                    
-                    const options = {
-                        secretType: 'text',
-                        publicNote: note || '',
-                        expiresIn: expiryMs,
-                    };
-                    
-                    // Add view limit if not unlimited
-                    if (viewLimit > 0) {
-                        options.viewLimit = viewLimit;
-                    }
-                    
-                    // Add password to options if provided
-                    if (scrtPassword) {
-                        options.password = scrtPassword;
-                    }
-                    
-                    const result = await client.createSecret(password, options);
-
-                    const { secretLink, receiptId } = result;
-                    
-                    // Store the link
-                    window.currentSecretLink = secretLink;
-                    
-                    // Send ntfy notification
-                    ntfy(receiptId, secretLink, scrtPassword);
-                    
-                    // Get expiry text and view limit text
-                    const expiryText = expiryDropdown.options[expiryDropdown.selectedIndex].text;
-                    const viewLimitText = `${viewLimit} view${viewLimit > 1 ? 's' : ''}`;
-                    
-                    // Show modal with link
-                    scrtLinkDisplay.textContent = secretLink;
-                    document.getElementById('scrtExpiryText').textContent = `Expires in ${expiryText} • ${viewLimitText} • Click link to copy`;
-                    scrtModal.classList.add('active');
-                    
-                    showNotification('Secret link created!', false);
-                    
-                } catch (error) {
-                    showNotification('Error creating secret link: ' + error.message, true);
-                    console.error(error);
-                }
-            } else {
-                // Simple mode: copy password and open scrt.link website
+            if (!(scrtIntegrationActive && client)) {
                 navigator.clipboard.writeText(password);
                 showNotification('Password copied! Opening scrt.link...', false);
                 window.open('https://scrt.link', '_blank');
+                return;
             }
+
+            // The note is per-secret, so it never carries over. Expiry, view
+            // limit and the optional password keep whatever was set last.
+            noteInput.value = '';
+            scrtFormPane.style.display = 'block';
+            scrtResultPane.style.display = 'none';
+            scrtModal.classList.add('active');
+        });
+
+        scrtCreateBtn.addEventListener('click', async () => {
+            const password = getPlainText();
+            if (!password || password === 'Password Generator') {
+                showNotification('Generate a password first!', true);
+                return;
+            }
+
+            const note = noteInput.value.trim();
+            const expiryMs = parseInt(expiryDropdown.value);
+            const scrtPassword = document.getElementById('scrtPasswordInput').value.trim();
+            const viewLimit = parseInt(document.getElementById('viewLimitInput').value);
+
+            if (scrtPassword && scrtPassword.length < 6) {
+                showNotification('Password must be at least 6 characters or left blank!', true);
+                return;
+            }
+
+            const originalLabel = scrtCreateBtn.innerHTML;
+            scrtCreateBtn.disabled = true;
+            scrtCreateBtn.innerHTML = '<span>⏳</span> Creating…';
+
+            try {
+                const options = {
+                    secretType: 'text',
+                    publicNote: note || '',
+                    expiresIn: expiryMs,
+                };
+                if (viewLimit > 0) options.viewLimit = viewLimit;
+                if (scrtPassword) options.password = scrtPassword;
+
+                const result = await client.createSecret(password, options);
+                const { secretLink, receiptId } = result;
+                window.currentSecretLink = secretLink;
+
+                ntfy(receiptId, secretLink, scrtPassword);
+
+                const expiryText = expiryDropdown.options[expiryDropdown.selectedIndex].text;
+                const viewLimitText = `${viewLimit} view${viewLimit > 1 ? 's' : ''}`;
+
+                scrtLinkDisplay.textContent = secretLink;
+                document.getElementById('scrtExpiryText').textContent =
+                    `Expires in ${expiryText} • ${viewLimitText} • Click link to copy`;
+
+                // Swap the form out for the link.
+                scrtFormPane.style.display = 'none';
+                scrtResultPane.style.display = 'block';
+
+                showNotification('Secret link created!', false);
+            } catch (error) {
+                showNotification('Error creating secret link: ' + error.message, true);
+                console.error(error);
+            } finally {
+                scrtCreateBtn.disabled = false;
+                scrtCreateBtn.innerHTML = originalLabel;
+            }
+        });
+
+        // Remember the two settings that should persist between links.
+        expiryDropdown.addEventListener('change', () => {
+            settings.scrtExpiry = expiryDropdown.value;
+            saveSettings();
+        });
+        document.getElementById('viewLimitInput').addEventListener('change', (e) => {
+            settings.scrtViewLimit = parseInt(e.target.value) || 1;
+            saveSettings();
         });
 
         // Phonetic Alphabet button
@@ -3680,7 +2261,6 @@ html[data-theme="modern"] .expiry-label {
             setToggle(specialToggle,           settings.special);
             setToggle(capitalToggle,           settings.capital);
             setToggle(numbersToggle,           settings.numbers);
-            setToggle(ambiguousToggle,         settings.excludeAmbiguous);
             setToggle(capitalizeToggle,        settings.capitalize);
             setToggle(numbersMemorableToggle,  settings.numbersInPassphrase);
             setToggle(capitalizeShortToggle,   settings.capitalizeShort);
@@ -3691,8 +2271,11 @@ html[data-theme="modern"] .expiry-label {
             // every copy of each control gets the same restored value.
             for (const el of [separatorDropdown, separatorShortDropdown]) if (el) el.value = settings.separator;
             for (const el of [charsAddInput, charsAddMemorable, charsAddShort]) if (el) el.value = settings.charsAdd || '';
-            for (const el of [charsExcludeInput, charsExcludeMemorable, charsExcludeShort]) if (el) el.value = settings.charsExclude || '';
+            if (charsExcludeInput) charsExcludeInput.value = settings.charsExclude || '';
             if (batchCountInput)    batchCountInput.value    = settings.batchCount || 10;
+            if (expiryDropdown)     expiryDropdown.value     = settings.scrtExpiry || '604800000';
+            const vl = document.getElementById('viewLimitInput');
+            if (vl) vl.value = settings.scrtViewLimit || 1;
         }
 
 
