@@ -64,7 +64,7 @@ Word lists live in `wordlists.js` and are filtered to remove slurs and hard prof
 
 ## scrt.link Integration
 
-<img src="./docs/scrt-link.png" alt="scrt.link integration" style="zoom: 33%;" />
+<img src="./docs/scrt-link.png" alt="scrt.link integration"/>
 
 When enabled, the **Send via scrt.link** button creates a one-time secret link for the generated password rather than sending it in plaintext.
 
@@ -84,7 +84,7 @@ The key can either be hardcoded into the file if you're self-hosting, or entered
 
 ### ntfy notifications
 
-<img src="./docs/ntfy.jpg" alt="ntfy notification" style="zoom: 33%;" />
+<img src="./docs/ntfy.jpg" alt="ntfy notification"/>
 
 If a `NTFY_TOPIC` is set, created scrt.link secrets are pushed to that topic as notifications. Since ntfy is public and the only protection against other people reading your notifications is a complex topic address. What you can do from the notification depends on whether the secret was password-protected:
 
