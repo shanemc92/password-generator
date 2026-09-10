@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="term">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,19 +11,21 @@
     <style>
 
 /* ============================================================
-   passgen — alternative build
+   passgen
    One structural stylesheet driven by per-theme design tokens.
-   The original repeated every rule per theme (~2,100 lines for
-   four); everything below is written once for five and themed
-   by variables.
+   Four themes, same terminal styling, different palettes.
    ============================================================ */
 
-/* ---------- Tokens: Terminal (default) ----------
+:root {
+    --wrap: 720px;
+}
+
+/* ---------- Tokens: Dark (default) ----------
    Blue accent on cool slate with green toggles, and the classic
-   traffic-light buttons kept in the title bar. */
+   traffic-light buttons in the title bar. */
 :root,
-html[data-theme="term"] {
-    --bg:            #10141c;
+html[data-theme="dark"] {
+    --bg:            #0b0e14;
     --card:          #161b25;
     --sunken:        #11161f;
     --raised:        #1b212d;
@@ -46,19 +48,18 @@ html[data-theme="term"] {
     --strength-weak:   #f87171;
     --strength-medium: #d29922;
     --strength-strong: #3fb950;
-    --ui-fg: #7b8496; --ui-bg: rgba(22, 27, 37, 0.92); --ui-border: #262d3a;
 }
 
-/* ---------- Tokens: Modern ----------
-   Cool paper, ink text, one deep-teal accent. Hairline borders
-   instead of a stack of identical drop-shadowed cards. */
-html[data-theme="modern"] {
-    --bg:            #eef1f5;
+/* ---------- Tokens: Light ----------
+   Cool paper, ink text, one deep-teal accent. Same monospace and
+   same window chrome as dark, just the opposite palette. */
+html[data-theme="light"] {
+    --bg:            #e9edf2;
     --card:          #ffffff;
-    --sunken:        #f5f7f9;
-    --raised:        #ffffff;
-    --line:          #d9dfe7;
-    --line-soft:     #e8edf2;
+    --sunken:        #f3f5f8;
+    --raised:        #fbfcfd;
+    --line:          #d3dae3;
+    --line-soft:     #e5eaf0;
     --fg:            #0e1620;
     --fg-dim:        #5f6b7a;
     --fg-faint:      #8b96a5;
@@ -68,61 +69,56 @@ html[data-theme="modern"] {
     --toggle-on:     #0f766e;
     --toggle-ink:    #ffffff;
     --font:          'Fira Code', 'JetBrains Mono', 'Consolas', monospace;
-    --font-ui:       'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
-    --radius:        14px;
-    --radius-sm:     8px;
+    --font-ui:       'Fira Code', 'JetBrains Mono', 'Consolas', monospace;
+    --radius:        10px;
+    --radius-sm:     6px;
     --glow:          none;
-    --shadow:        0 1px 2px rgba(16, 24, 40, 0.04), 0 12px 32px -12px rgba(16, 24, 40, 0.18);
+    --shadow:        0 1px 2px rgba(16, 24, 40, 0.05), 0 14px 36px -16px rgba(16, 24, 40, 0.28);
     --strength-weak:   #dc2626;
     --strength-medium: #b45309;
     --strength-strong: #0f766e;
-    --ui-fg: #5f6b7a; --ui-bg: rgba(255, 255, 255, 0.94); --ui-border: #d9dfe7;
 }
 
 /* ---------- Tokens: Proton ----------
-   Matched to Proton Pass's own generator: violet accent and
-   toggles, green for symbols and the strength readout, violet
-   for digits, Segoe UI, over the diagonal slate gradient. */
+   Violet accent sampled from Proton Pass, on their flat slate
+   ground. Same monospace, same chrome, same radii as the two
+   above - it is a palette swap, not a different application. */
 html[data-theme="proton"] {
-    /* Sampled from Proton Pass: flat #201f31 ground (no gradient), a single
-       violet accent, and the two-tone toggle where the track is the darker
-       violet and the knob is the bright one. */
-    --bg:            #201f31;
+    --bg:            #1b1a29;
     --card:          #201f31;
     --sunken:        #1b1a29;
-    --raised:        #2f284a;
-    --line:          #343341;
+    --raised:        #2a2840;
+    --line:          #3a3850;
     --line-soft:     #2b2a3a;
     --fg:            #d1d1d3;
     --fg-dim:        #9a98a8;
     --fg-faint:      #6f6c82;
     --accent:        #a779ff;
     --accent-soft:   rgba(167, 121, 255, 0.16);
-    --accent-ink:    #201f31;
+    --accent-ink:    #171623;
     --toggle-on:     #684fa0;
-    --toggle-ink:    #a779ff;
+    --toggle-ink:    #ffffff;
     --char-number:   #b697f5;
     --char-symbol:   #6abdb3;
-    --font:          'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    --font-ui:       'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    --radius:        16px;
-    --radius-sm:     8px;
+    --font:          'Fira Code', 'JetBrains Mono', 'Consolas', monospace;
+    --font-ui:       'Fira Code', 'JetBrains Mono', 'Consolas', monospace;
+    --radius:        10px;
+    --radius-sm:     6px;
     --glow:          none;
-    --shadow:        0 8px 32px rgba(0, 0, 0, 0.4);
+    --shadow:        0 18px 50px -18px rgba(0, 0, 0, 0.6);
     --strength-weak:   #f87171;
     --strength-medium: #fbbf24;
     --strength-strong: #4ab89b;
-    --ui-fg: #9a98a8; --ui-bg: rgba(32, 31, 49, 0.92); --ui-border: #343341;
 }
 
 /* ---------- Tokens: CRT ----------
-   Phosphor green on black. Green only — no other hue appears
+   Phosphor green on black. Green only - no other hue appears
    anywhere in this theme, including the strength scale, which
    steps through brightness rather than changing colour. */
 html[data-theme="crt"] {
     --bg:            #000000;
     --card:          #000000;
-    --sunken:        #000000;
+    --sunken:        #010d04;
     --raised:        #011a06;
     --line:          #0b3d14;
     --line-soft:     #072a0e;
@@ -143,7 +139,6 @@ html[data-theme="crt"] {
     --strength-weak:   #00701d;
     --strength-medium: #00c934;
     --strength-strong: #00ff41;
-    --ui-fg: #00a52c; --ui-bg: rgba(0, 8, 2, 0.92); --ui-border: #0b3d14;
 }
 
 /* ============================================================
@@ -153,7 +148,7 @@ html[data-theme="crt"] {
 
 body {
     margin: 0;
-    padding: 24px;
+    padding: 24px 20px 40px;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -162,15 +157,15 @@ body {
     background: var(--bg);
     color: var(--fg);
     font-family: var(--font-ui);
-    font-size: 15px;
-    line-height: 1.5;
+    font-size: 13.5px;
+    line-height: 1.55;
     -webkit-font-smoothing: antialiased;
 }
 
 html[data-theme="crt"] body {
+    font-size: 16px;
     text-shadow: var(--glow);
-    background:
-        radial-gradient(ellipse at 50% 50%, #041106 0%, #000000 78%);
+    background: radial-gradient(ellipse at 50% 50%, #041106 0%, #000000 78%);
 }
 
 /* Scanlines, CRT only. Pointer-events off so it never blocks input. */
@@ -190,73 +185,15 @@ html[data-theme="crt"] body::after {
 }
 
 ::selection { background: var(--accent); color: var(--accent-ink); }
-
-:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-}
+::placeholder { color: var(--fg-faint); opacity: 1; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 /* ============================================================
-   Theme switcher
-   ============================================================ */
-/* Deliberately NOT fixed. Pinning it to the viewport corner means it collides
-   with the card at any width where the gutter is narrower than the switcher,
-   and chasing that with breakpoints never quite covers every case. Sitting in
-   normal flow above the card, in the same 720px column, it cannot overlap at
-   any size. */
-.theme-switcher {
-    width: 100%;
-    max-width: 720px;
-    flex: 0 0 auto;
-    margin-bottom: 12px;
-    z-index: 100;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 8px;
-    font-family: var(--font-ui);
-    font-size: 12px;
-    color: var(--ui-fg);
-}
-
-.switcher-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-/* The scrt toggle sits outside the card, so it takes the outside-surface
-   colours rather than the card ones or it disappears on the light theme. */
-.switcher-row .toggle-switch {
-    background: var(--ui-bg);
-    border-color: var(--ui-border);
-}
-.switcher-row .toggle-switch::after {
-    background: var(--ui-fg);
-    opacity: 0.5;
-}
-.switcher-row .toggle-switch.active::after { opacity: 1; }
-
-.scrt-toggle-label { cursor: pointer; }
-.scrt-toggle-label:hover { text-decoration: underline; }
-
-.theme-switcher select {
-    font: inherit;
-    color: var(--ui-fg);
-    background: var(--ui-bg);
-    border: 1px solid var(--ui-border);
-    border-radius: var(--radius-sm);
-    padding: 5px 8px;
-    cursor: pointer;
-    outline: none;
-}
-
-/* ============================================================
-   Card
+   Window
    ============================================================ */
 .container {
     width: 100%;
-    max-width: 720px;
+    max-width: var(--wrap);
     flex: 0 0 auto;
     background: var(--card);
     border: 1px solid var(--line);
@@ -265,44 +202,82 @@ html[data-theme="crt"] body::after {
     overflow: hidden;
 }
 
-.terminal-header {
+/* ---------- Title bar ---------- */
+.titlebar {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 12px 16px;
+    padding: 10px 10px 10px 16px;
     background: var(--sunken);
-    border-bottom: 1px solid var(--line);
+    border-bottom: 1px solid var(--line-soft);
 }
+.dot { width: 11px; height: 11px; border-radius: 50%; flex: 0 0 auto; }
+.dot:nth-child(1) { background: #ff5f56; }
+.dot:nth-child(2) { background: #ffbd2e; }
+.dot:nth-child(3) { background: #27c93f; }
+html[data-theme="crt"] .dot:nth-child(1) { background: var(--fg-faint); }
+html[data-theme="crt"] .dot:nth-child(2) { background: var(--fg-dim); }
+html[data-theme="crt"] .dot:nth-child(3) { background: var(--accent); }
 
-.terminal-dot {
-    width: 11px;
-    height: 11px;
-    border-radius: 50%;
-    background: var(--line);
-}
-/* Real window-control colours rather than a tint of the palette. */
-.terminal-dot:nth-child(1) { background: #ff5f56; }
-.terminal-dot:nth-child(2) { background: #ffbd2e; }
-.terminal-dot:nth-child(3) { background: #27c93f; }
-html[data-theme="crt"] .terminal-dot:nth-child(1) { background: var(--fg-faint); }
-html[data-theme="crt"] .terminal-dot:nth-child(2) { background: var(--fg-dim); }
-html[data-theme="crt"] .terminal-dot:nth-child(3) { background: var(--accent); }
-
-.terminal-title {
-    margin-left: 6px;
+.titlebar-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     font-family: var(--font);
-    font-size: 12px;
+    font-size: 12.5px;
+    color: var(--fg-dim);
+    pointer-events: none;
+    white-space: nowrap;
+}
+.titlebar .spacer { flex: 1; }
+
+/* scrt.link lives in the chrome, beside the theme button. */
+.chrome-tools {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
     color: var(--fg-dim);
 }
+.scrt-toggle-label { cursor: pointer; white-space: nowrap; }
+.scrt-toggle-label:hover { color: var(--accent); }
+.chrome-tools .toggle-switch { width: 34px; height: 19px; border-radius: 10px; }
+.chrome-tools .toggle-switch::after { width: 13px; height: 13px; }
+.chrome-tools .toggle-switch.active::after { transform: translateX(15px); }
 
-/* Modern and Proton are application surfaces, not terminals. */
-html[data-theme="modern"] .terminal-header,
-html[data-theme="proton"] .terminal-header { display: none; }
+/* ---------- Theme cycle button ---------- */
+.icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 27px;
+    height: 27px;
+    padding: 0;
+    color: var(--fg-dim);
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: color 0.15s, border-color 0.15s;
+}
+.icon-btn:hover { color: var(--accent); border-color: var(--line); }
+.icon-btn svg {
+    width: 15px; height: 15px;
+    fill: none; stroke: currentColor;
+    stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+}
+/* One icon per theme: the icon shows the theme you are in. */
+.icon-btn svg { display: none; }
+html[data-theme="dark"]   .ic-dark   { display: block; }
+html[data-theme="light"]  .ic-light  { display: block; }
+html[data-theme="proton"] .ic-proton { display: block; }
+html[data-theme="crt"]    .ic-crt    { display: block; }
 
-.terminal-body { padding: 22px; }
+.body { padding: 20px 22px 22px; }
 
 /* ============================================================
-   Password display — the one loud element on the page
+   Password display - the one loud element on the page
    ============================================================ */
 .password-display {
     background: var(--sunken);
@@ -314,19 +289,12 @@ html[data-theme="proton"] .terminal-header { display: none; }
 
 .password-label {
     font-size: 11px;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.09em;
     text-transform: uppercase;
     color: var(--fg-dim);
     margin-bottom: 10px;
 }
-
-html[data-theme="term"] .password-label::before,
-html[data-theme="crt"] .password-label::before {
-    content: '> ';
-    color: var(--accent);
-}
-
-html[data-theme="proton"] .password-label { color: var(--accent); }
+.password-label::before { content: '> '; color: var(--accent); }
 
 .password-text {
     display: block;
@@ -386,22 +354,22 @@ html[data-theme="crt"] .char-symbol { color: var(--fg-dim); }
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 34px;
-    height: 34px;
+    width: 32px;
+    height: 32px;
     padding: 0;
-    background: transparent;
+    background: var(--raised);
     border: 1px solid var(--line);
     border-radius: var(--radius-sm);
     cursor: pointer;
     transition: border-color 0.15s, background 0.15s;
 }
 .refresh-btn:hover { border-color: var(--accent); background: var(--accent-soft); }
-.refresh-btn img { width: 17px; height: 17px; display: block; }
+.refresh-btn img { width: 16px; height: 16px; display: block; }
 
 /* The icon ships as a fixed-colour SVG, so recolour it per theme. */
-html[data-theme="term"]   .refresh-btn img { filter: saturate(1.3) brightness(1.15); }
+html[data-theme="dark"]   .refresh-btn img { filter: saturate(1.3) brightness(1.15); }
+html[data-theme="light"]  .refresh-btn img { filter: hue-rotate(130deg) saturate(1.2) brightness(0.7); }
 html[data-theme="proton"] .refresh-btn img { filter: hue-rotate(215deg) saturate(1.5) brightness(1.1); }
-html[data-theme="modern"] .refresh-btn img { filter: hue-rotate(130deg) saturate(1.2) brightness(0.7); }
 html[data-theme="crt"]    .refresh-btn img { filter: grayscale(1) sepia(1) hue-rotate(65deg) saturate(9) brightness(1.1); }
 
 /* ============================================================
@@ -414,18 +382,13 @@ html[data-theme="crt"]    .refresh-btn img { filter: grayscale(1) sepia(1) hue-r
     gap: 12px;
     margin-bottom: 12px;
 }
-
 .section-header span {
     font-size: 11px;
     letter-spacing: 0.09em;
+    text-transform: uppercase;
     color: var(--fg-dim);
 }
-
-html[data-theme="term"] .section-header span::before,
-html[data-theme="crt"] .section-header span::before {
-    content: '// ';
-    color: var(--fg-faint);
-}
+.section-header span::before { content: '// '; color: var(--fg-faint); }
 
 /* ============================================================
    Controls
@@ -441,18 +404,12 @@ html[data-theme="crt"] .section-header span::before {
     color: var(--fg-dim);
     margin-bottom: 10px;
 }
-
 .slider-label-value {
     color: var(--accent);
     font-family: var(--font);
     font-weight: 600;
 }
-
-.pool-info {
-    margin-left: 8px;
-    color: var(--fg-faint);
-    font-size: 0.92em;
-}
+.pool-info { margin-left: 8px; color: var(--fg-faint); font-size: 0.92em; }
 
 input[type="range"] {
     -webkit-appearance: none;
@@ -490,7 +447,6 @@ input[type="range"]::-moz-range-thumb {
     gap: 8px;
     margin-top: 12px;
 }
-
 .date-preset-btn {
     padding: 6px 11px;
     font: inherit;
@@ -500,7 +456,7 @@ input[type="range"]::-moz-range-thumb {
     border: 1px solid var(--line);
     border-radius: var(--radius-sm);
     cursor: pointer;
-    transition: all 0.15s;
+    transition: border-color 0.15s, background 0.15s, color 0.15s;
 }
 .date-preset-btn:hover {
     color: var(--accent);
@@ -509,12 +465,7 @@ input[type="range"]::-moz-range-thumb {
 }
 
 /* ---------- Toggle rows ---------- */
-.toggle-group {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
+.toggle-group { display: flex; flex-direction: column; gap: 12px; }
 .toggle-item {
     display: flex;
     align-items: center;
@@ -522,13 +473,8 @@ input[type="range"]::-moz-range-thumb {
     gap: 12px;
     min-height: 30px;
 }
-
-.toggle-label {
-    font-size: 13px;
-    color: var(--fg);
-}
-html[data-theme="crt"] .toggle-label { font-size: 17px; }
-
+.toggle-label { font-size: 12.5px; color: var(--fg); }
+html[data-theme="crt"] .toggle-label { font-size: 16px; }
 .expiry-label { color: var(--fg-dim); }
 
 .toggle-switch {
@@ -553,26 +499,13 @@ html[data-theme="crt"] .toggle-label { font-size: 17px; }
     background: var(--fg-faint);
     transition: transform 0.18s, background 0.18s;
 }
-.toggle-switch.active {
-    background: var(--toggle-on);
-    border-color: var(--toggle-on);
-}
-.toggle-switch.active::after {
-    transform: translateX(18px);
-    background: var(--toggle-ink);
-}
-
-/* Proton: keep the knob white in both states so it reads clearly against
-   the track instead of blending into it. */
-html[data-theme="proton"] .toggle-switch::after,
-html[data-theme="proton"] .toggle-switch.active::after {
-    background: #ffffff;
-}
+.toggle-switch.active { background: var(--toggle-on); border-color: var(--toggle-on); }
+.toggle-switch.active::after { transform: translateX(18px); background: var(--toggle-ink); }
 
 /* ---------- Inputs ---------- */
 .dropdown {
     font-family: var(--font-ui);
-    font-size: 13px;
+    font-size: 12.5px;
     color: var(--fg);
     background: var(--raised);
     border: 1px solid var(--line);
@@ -582,15 +515,10 @@ html[data-theme="proton"] .toggle-switch.active::after {
     outline: none;
     transition: border-color 0.15s;
 }
-.dropdown:hover  { border-color: var(--fg-faint); }
-.dropdown:focus  { border-color: var(--accent); }
+.dropdown:hover { border-color: var(--fg-faint); }
+.dropdown:focus { border-color: var(--accent); }
 
-.charset-input {
-    width: 132px;
-    font-family: var(--font);
-    cursor: text;
-}
-
+.charset-input { width: 132px; font-family: var(--font); cursor: text; }
 input[type="number"].dropdown { cursor: text; }
 
 .note-input {
@@ -599,17 +527,15 @@ input[type="number"].dropdown { cursor: text; }
     margin-top: 8px;
     padding: 10px;
     font-family: var(--font);
-    font-size: 13px;
+    font-size: 12.5px;
     color: var(--fg);
-    background: var(--sunken);
+    background: var(--raised);
     border: 1px solid var(--line);
     border-radius: var(--radius-sm);
     outline: none;
     resize: vertical;
 }
 .note-input:focus { border-color: var(--accent); }
-
-::placeholder { color: var(--fg-faint); opacity: 1; }
 
 /* ---------- Buttons ---------- */
 .button-group {
@@ -624,9 +550,9 @@ input[type="number"].dropdown { cursor: text; }
     align-items: center;
     justify-content: center;
     gap: 8px;
-    padding: 11px 14px;
+    padding: 10px 14px;
     font-family: var(--font-ui);
-    font-size: 13px;
+    font-size: 12.5px;
     color: var(--fg);
     background: var(--raised);
     border: 1px solid var(--line);
@@ -643,32 +569,11 @@ input[type="number"].dropdown { cursor: text; }
 .refresh-btn:active,
 .date-preset-btn:active { transform: scale(0.985); }
 
-.btn-secondary { /* alias: every button in this markup carries both classes */ }
-
 .btn:disabled { opacity: 0.55; cursor: default; }
-.btn:disabled:hover {
-    color: var(--fg);
-    border-color: var(--line);
-    background: var(--raised);
-}
+.btn:disabled:hover { color: var(--fg); border-color: var(--line); background: var(--raised); }
 
-html[data-theme="crt"] .btn { text-transform: uppercase; letter-spacing: 0.06em; font-size: 16px; }
+html[data-theme="crt"] .btn { text-transform: uppercase; letter-spacing: 0.06em; font-size: 15px; }
 html[data-theme="crt"] .btn span { display: none; }
-
-/* Proton: grey gradient buttons, matching the original Proton Pass look. */
-html[data-theme="proton"] .btn {
-    background: linear-gradient(135deg, #3a3a52 0%, #2d2d3f 100%);
-    border-color: #4a4a5f;
-    transition: background 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s, color 0.15s;
-}
-html[data-theme="proton"] .btn:hover {
-    background: linear-gradient(135deg, #4a4a62 0%, #3d3d4f 100%);
-    border-color: #5a5a6f;
-    color: var(--fg);
-    transform: translateY(-1px);
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-}
-html[data-theme="proton"] .btn:active { transform: translateY(0) scale(0.985); }
 
 /* ============================================================
    Modals
@@ -710,10 +615,15 @@ html[data-theme="proton"] .btn:active { transform: translateY(0) scale(0.985); }
 .phonetic-content h3,
 .qr-content h3 {
     margin: 0 0 16px;
-    font-size: 15px;
+    font-size: 13px;
     font-weight: 600;
-    color: var(--fg);
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
 }
+.scrt-content h3::before,
+.phonetic-content h3::before,
+.qr-content h3::before { content: '// '; color: var(--fg-faint); }
 
 .qr-content #qrcode { display: flex; justify-content: center; margin-bottom: 18px; }
 .qr-content #qrcode img,
@@ -729,11 +639,7 @@ html[data-theme="proton"] .btn:active { transform: translateY(0) scale(0.985); }
 #scrtFormPane h3 { text-align: center; }
 #scrtFormPane .control-group { margin-bottom: 0; }
 
-.scrt-meta {
-    margin: 0 0 18px;
-    font-size: 12px;
-    color: var(--fg-dim);
-}
+.scrt-meta { margin: 0 0 18px; font-size: 11.5px; line-height: 1.65; color: var(--fg-dim); }
 
 .scrt-link-display {
     padding: 12px;
@@ -755,7 +661,6 @@ html[data-theme="proton"] .btn:active { transform: translateY(0) scale(0.985); }
     margin-bottom: 18px;
     text-align: left;
 }
-
 .phonetic-item {
     display: flex;
     align-items: baseline;
@@ -764,22 +669,9 @@ html[data-theme="proton"] .btn:active { transform: translateY(0) scale(0.985); }
     border-bottom: 1px solid var(--line-soft);
 }
 .phonetic-item:last-child { border-bottom: none; }
-
-.phonetic-char {
-    flex: 0 0 26px;
-    font-family: var(--font);
-    font-weight: 600;
-    color: var(--accent);
-}
-.phonetic-word { flex: 1; font-size: 13px; }
-.phonetic-case {
-    flex: 0 0 auto;
-    min-width: 68px;
-    font-size: 11px;
-    color: var(--fg-faint);
-    text-align: right;
-}
-/* Marks a capital letter so a dictated password can be transcribed exactly. */
+.phonetic-char { flex: 0 0 26px; font-family: var(--font); font-weight: 600; color: var(--accent); }
+.phonetic-word { flex: 1; font-size: 12.5px; }
+.phonetic-case { flex: 0 0 auto; min-width: 68px; font-size: 11px; color: var(--fg-faint); text-align: right; }
 .phonetic-case.uppercase { color: var(--accent); }
 
 /* ============================================================
@@ -791,8 +683,8 @@ html[data-theme="proton"] .btn:active { transform: translateY(0) scale(0.985); }
     left: 50%;
     transform: translate(-50%, 20px);
     z-index: 300;
-    padding: 11px 18px;
-    font-size: 13px;
+    padding: 10px 18px;
+    font-size: 12.5px;
     color: var(--accent-ink);
     background: var(--accent);
     border-radius: var(--radius-sm);
@@ -814,14 +706,13 @@ html[data-theme="proton"] .btn:active { transform: translateY(0) scale(0.985); }
 }
 
 @media (max-width: 640px) {
-    body {
-        padding: 14px;
-        justify-content: flex-start;
-    }
-    .terminal-body { padding: 16px; }
+    body { padding: 14px 10px 32px; justify-content: flex-start; }
+    .body { padding: 16px; }
+    .titlebar-title { display: none; }
     .button-group { grid-template-columns: 1fr; }
     .charset-input { width: 118px; }
     .password-text { font-size: 18px; }
+    .scrt-toggle-label { display: none; }
 }
 
 /* ============================================================
@@ -836,34 +727,42 @@ html[data-theme="proton"] .btn:active { transform: translateY(0) scale(0.985); }
     html[data-theme="crt"] body::after { display: none; }
 }
 
-    
     </style>
 </head>
 <body>
-    <div class="theme-switcher">
-        <div class="switcher-row">
-            <label for="themeSelect">Theme</label>
-            <select id="themeSelect" title="Switch theme">
-                <option value="term">Terminal</option>
-                <option value="modern">Modern</option>
-                <option value="proton">Proton</option>
-                <option value="crt">CRT</option>
-            </select>
-        </div>
-        <div class="switcher-row">
-            <span class="scrt-toggle-label" id="scrtConfigLink" title="scrt.link settings">scrt.link</span>
-            <div class="toggle-switch" id="scrtToggle" title="Enable scrt.link integration"></div>
-        </div>
-    </div>
-
     <div class="container">
-        <div class="terminal-header">
-            <div class="terminal-dot"></div>
-            <div class="terminal-dot"></div>
-            <div class="terminal-dot"></div>
-            <span class="terminal-title">password-generator.sh</span>
+        <div class="titlebar">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <span class="titlebar-title">password-generator.sh</span>
+            <div class="spacer"></div>
+            <div class="chrome-tools">
+                <span class="scrt-toggle-label" id="scrtConfigLink" title="scrt.link settings">scrt.link</span>
+                <div class="toggle-switch" id="scrtToggle" title="Enable scrt.link integration"></div>
+            </div>
+            <button class="icon-btn" id="themeBtn" type="button" title="Switch theme">
+                <svg class="ic-dark" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20 14.2A8.2 8.2 0 0 1 9.8 4a8.2 8.2 0 1 0 10.2 10.2z"></path>
+                </svg>
+                <svg class="ic-light" viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="12" r="4.2"></circle>
+                    <path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"></path>
+                </svg>
+                <svg class="ic-proton" viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="12" r="2.1"></circle>
+                    <ellipse cx="12" cy="12" rx="9.5" ry="4.2"></ellipse>
+                    <ellipse cx="12" cy="12" rx="9.5" ry="4.2" transform="rotate(60 12 12)"></ellipse>
+                    <ellipse cx="12" cy="12" rx="9.5" ry="4.2" transform="rotate(120 12 12)"></ellipse>
+                </svg>
+                <svg class="ic-crt" viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="2.6" y="4" width="18.8" height="13" rx="2"></rect>
+                    <path d="M8.5 20.5h7M12 17v3.5"></path>
+                    <path d="M6.2 8.2h4.4M6.2 11.4h7.6"></path>
+                </svg>
+            </button>
         </div>
-        <div class="terminal-body">
+        <div class="body">
             <div class="password-display">
                 <div class="password-label">Generated Password</div>
                 <div class="password-text" id="passwordText" contenteditable="true" spellcheck="false">Password Generator</div>
@@ -1125,14 +1024,23 @@ html[data-theme="proton"] .btn:active { transform: translateY(0) scale(0.985); }
     <script type="module">
 
         // ── Theme switching ────────────────────────────────────────────
-        const THEMES = ['modern', 'term', 'proton', 'crt'];
-        const themeSelect = document.getElementById('themeSelect');
+        // One button cycles the four palettes; the icon shown is the theme
+        // you are currently in, and the tooltip names the next one.
+        const THEMES = ['dark', 'light', 'proton', 'crt'];
+        const THEME_NAMES = { dark: 'Dark', light: 'Light', proton: 'Proton', crt: 'CRT' };
+        const themeBtn = document.getElementById('themeBtn');
+
+        // Older saved settings used the previous names for the same two palettes.
+        const THEME_ALIASES = { term: 'dark', modern: 'light' };
 
         function applyTheme(theme) {
-            if (!THEMES.includes(theme)) theme = 'term';
+            theme = THEME_ALIASES[theme] || theme;
+            if (!THEMES.includes(theme)) theme = 'dark';
             document.documentElement.dataset.theme = theme;
-            themeSelect.value = theme;
             settings.theme = theme;
+            const next = THEMES[(THEMES.indexOf(theme) + 1) % THEMES.length];
+            themeBtn.title = THEME_NAMES[theme] + ' theme - switch to ' + THEME_NAMES[next];
+            themeBtn.setAttribute('aria-label', themeBtn.title);
             // Re-render strength colours (var() picks up the new theme automatically,
             // but inline styles set before a theme switch need a refresh)
             if (typeof updatePasswordDisplay === "function" && currentPassword) updatePasswordDisplay();
@@ -1140,8 +1048,9 @@ html[data-theme="proton"] .btn:active { transform: translateY(0) scale(0.985); }
             if (typeof lockOptionsHeight === "function") requestAnimationFrame(lockOptionsHeight);
         }
 
-        themeSelect.addEventListener('change', () => {
-            applyTheme(themeSelect.value);
+        themeBtn.addEventListener('click', () => {
+            const current = THEME_ALIASES[document.documentElement.dataset.theme] || document.documentElement.dataset.theme;
+            applyTheme(THEMES[(THEMES.indexOf(current) + 1) % THEMES.length]);
             saveSettings();
         });
 
@@ -1324,7 +1233,7 @@ html[data-theme="proton"] .btn:active { transform: translateY(0) scale(0.985); }
                 
         // State
         let settings = {
-            theme: 'term',
+            theme: 'dark',
             length: 30,
             special: true,
             capital: true,
