@@ -142,10 +142,12 @@ Or host it anywhere that serves static files — GitHub Pages, Netlify, Cloudfla
 ├── index.html           # Main app — all four themes, switchable from the UI
 ├── wordlists.js           # Word lists for Memorable / Short Memorable modes
 ├── passgen-old.html       # Legacy standalone "Original" theme
-└── scrt-client-module.js  # Local copy of the scrt.link module for fallback
+└── vendor                # Local fallback copies of CDN-loaded third-party modules
+    ├── zxcvbn.js              # Password strength scoring (falls back if the CDN is blocked)
+    └── scrt-client-module.js  # scrt.link API client (falls back if the CDN is blocked)
 ```
 
-`index.html` is self-contained beyond `wordlists.js` — no build step, no external dependencies aside from a CDN-loaded QR code library and the scrt.link API module.
+`index.html` is self-contained beyond `wordlists.js` — no build step. The QR code library is inlined directly in `index.html`. zxcvbn and the scrt.link API module are CDN-loaded, each with a local fallback in `vendor/` if the CDN is unreachable.
 
 ---
 
